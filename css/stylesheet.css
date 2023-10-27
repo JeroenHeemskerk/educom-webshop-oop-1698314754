@@ -1,0 +1,120 @@
+h1 {
+    color: black;
+    font-size: 80px;
+    text-align: center;
+}
+
+h2 {
+    color: black;
+}
+
+body {
+    max-width: 800px;
+    margin: auto;
+    text-align: left;
+}
+
+footer {
+    background-color: black;
+    color: white;
+    font-size: 10px;
+    max-width: 800px;
+    margin: auto;
+    text-align: right;
+}
+
+/*aanpassen van de breedte van de inputvelden bij het contactformulier*/
+input, textarea {
+    width: 400px;
+}
+
+/*uitzonderingen op de breedte van inputvelden*/
+input[type=submit], input[type=radio] {
+    width: auto;
+}
+
+.buyActionButton {
+    display: block;
+    margin-right: 0;
+    margin-left: auto;
+}
+
+img {
+    width: 100px;
+    height: 100px;
+}
+
+span {
+    color: red;
+}
+
+table, th, td {
+    border: 1px solid;
+    border-collapse: collapse;
+    text-align: center;
+}
+
+table {
+    width: 80%;
+}
+
+td a {
+    display: block;
+}
+
+table.center {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+ul {
+    list-style-type:circle;
+}
+
+.error {
+    color: red;
+}
+
+/*Verwijdert de list-style voor het navigatiemenu*/
+.nav {
+    list-style-type: none;
+}
+    
+/*Creëren van een horizontaal navigatiemenu*/
+.nav li {
+    display: inline;
+}
+
+/*Kleur en border aanpassingen van het navigatiemenu*/
+.nav a {
+    background-color: blue;
+    border-color: black;
+    border-style: solid;
+    color: white;
+    text-decoration: none;
+}
+
+/*Grijze tekst met een witte achtergrond voor de hoofdtekst */
+.pagetext {
+    background-color: white;
+    color: rgb(80,80,80);
+    font-size: 12px;
+}
+
+/*Zorgt voor normale tekstopmaak in het assortiment in plaats van ge-underlinede en paarse tekst*/
+.productlink {
+    color:black;
+    text-decoration:none;
+}
+
+/*Maakt het plaatje op de detailpagina groter*/
+.detailPicture {
+    width: 300px;
+    height: 300px;
+}
+
+/*Maakt het plaatje in de tabel van de webshop kleiner*/
+.tablePicture {
+    width: 50px;
+    height: 50px;
+}
