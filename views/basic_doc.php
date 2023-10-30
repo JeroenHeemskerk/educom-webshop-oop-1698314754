@@ -51,7 +51,7 @@ class BasicDoc extends HtmlDoc {
         foreach($data['menu'] as $page => $label) {
             
             //Dit geeft uiteraard nog geen correcte links
-            echo '<li><a href="index.php?page=' . $page . '">' . $label . '</a></li>';
+            echo '<li><a href="test_' . $page . '_doc.php">' . $label . '</a></li>';
         }
         echo '</ul><br>';
     }
