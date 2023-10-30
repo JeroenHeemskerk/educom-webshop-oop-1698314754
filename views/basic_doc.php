@@ -6,8 +6,8 @@ class BasicDoc extends HtmlDoc {
 
     public $data;
 
-    function __construct() {
-
+    function __construct($data) {
+        $this->data = $data;
     }
 
     //Overridden method of HtmlDoc
@@ -17,7 +17,7 @@ class BasicDoc extends HtmlDoc {
     }
 
     private function showTitle() {
-        echo '<title>Basic</title>';
+        echo '<title>' . $this->data['page'] . '</title>';
     }
 
     private function showCssLinks() {

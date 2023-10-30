@@ -4,6 +4,6 @@
 
     $data = array ('page' => 'about');
 
-    $view = new AboutDoc();
-    $view -> show();
+    $view = new AboutDoc($data);
+    $view->show();
 ?>

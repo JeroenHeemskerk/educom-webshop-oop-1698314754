@@ -4,6 +4,6 @@
 
     $data = array ('page' => 'basic');
     
-    $view = new BasicDoc();
-    $view -> show();
+    $view = new BasicDoc($data);
+    $view->show();
 ?>

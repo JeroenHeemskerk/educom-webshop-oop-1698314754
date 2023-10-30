@@ -4,6 +4,6 @@
 
     $data = array ('page' => 'home');
     
-    $view = new HomeDoc();
-    $view -> show();
+    $view = new HomeDoc($data);
+    $view->show();
 ?>
