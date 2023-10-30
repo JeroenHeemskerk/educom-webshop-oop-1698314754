@@ -19,7 +19,7 @@ classDiagram
 
     ProductDoc <|-- CartDoc
     ProductDoc <|-- OrdersDoc
-    ProductDoc <|-- ProductDoc
+    ProductDoc <|-- DetailsDoc
     ProductDoc <|-- WebshopDoc
     
     class HtmlDoc{
@@ -91,7 +91,7 @@ classDiagram
         #showHeader()
         #showContent()
     }
-    class ProductDoc(){
+    class DetailsDoc(){
         #showHeader()
         #showContent()
     }
