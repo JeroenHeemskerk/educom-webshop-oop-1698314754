@@ -3,6 +3,7 @@
 class HtmlDoc {
 
     private function showHtmlStart() {
+        echo '<!DOCTYPE html>';
         echo '<html>';
     }
 
