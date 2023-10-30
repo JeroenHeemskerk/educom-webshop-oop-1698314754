@@ -16,12 +16,14 @@ classDiagram
     FormDoc <|-- ContactDoc
     FormDoc <|-- LoginDoc
     FormDoc <|-- RegisterDoc
-    FormDoc <|-- TablesDoc
 
     ProductDoc <|-- CartDoc
     ProductDoc <|-- OrdersDoc
     ProductDoc <|-- ProductDetailsDoc
     ProductDoc <|-- WebshopDoc
+
+    TablesDoc <|-- CartDoc
+    TablesDoc <|-- OrdersDoc
     
     class HtmlDoc{
        +show()
@@ -60,8 +62,6 @@ classDiagram
         #showFormEnd()
         #showFormField()
         #showErrorSpan()
-        #showBuyAction()
-        #showAddToCartAction()
     }
     class ProductDoc{
         <<abstract>>
@@ -70,57 +70,86 @@ classDiagram
         #getCartLines()
         #getRowsByOrderId()
         #getOrdersAndSum()
-        #writeOrder
+        #writeOrder()
+        #showBuyAction()
+        #showAddToCartAction()
     }
     class ContactDoc{
+        #data
         #showHeader()
         #showContent()
         #showFormStart()
         #showFormEnd()
         #showFormField()
         #showErrorSpan()
-        #showBuyAction()
-        #showAddToCartAction()
     }
     class LoginDoc{
+        #data
         #showHeader()
         #showContent()
         #showFormStart()
         #showFormEnd()
         #showFormField()
-        #showErrorSpan()
-        #showBuyAction()
-        #showAddToCartAction()
     }
     class RegisterDoc{
+        #data
         #showHeader()
         #showContent()
         #showFormStart()
         #showFormEnd()
         #showFormField()
-        #showErrorSpan()
-        #showBuyAction()
-        #showAddToCartAction()
     }
     class CartDoc{
+        #data
         #showHeader()
         #showContent()
+        -showtable()
+        #tableStart()
+        #tableEnd()
+        #rowStart()
+        #rowEnd()
+        #dataCell()
+        #headerCell()
+        #getCartLines()
     }
     class OrdersDoc{
+        #data
         #showHeader()
         #showContent()
+        -showOrderAndRows()
+        -showOrdersAndTotals()
+        #tableStart()
+        #tableEnd()
+        #rowStart()
+        #rowEnd()
+        #dataCell()
+        #headerCell()
+        #getRowsByOrderId()
+        #getOrdersAndSum()
     }
     class ProductDetailsDoc{
+        #data
         #showHeader()
         #showContent()
-    }
-    class TablesDoc{
-        #showHeader()
-        #showContent()
+        #showAddToCartAction()
+        #getWebshopProductDetails()
     }
     class WebshopDoc{
+        #data
         #showHeader()
         #showContent()
+        -showWebshopProducts()
+        #showAddToCartAction()
+        #getWebshopProducts()
+    }
+class TablesDoc{
+        <<interface>>
+        #tableStart()
+        #tableEnd()
+        #rowStart()
+        #rowEnd()
+        #dataCell()
+        #headerCell()
     }
 
 ```
