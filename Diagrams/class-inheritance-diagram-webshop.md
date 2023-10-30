@@ -103,23 +103,5 @@ classDiagram
         #showHeader()
         #showContent()
     }
-    class ProductsService(){
-
-    }
-    class FileRepository(){
-
-    }
-    class UserService(){
-
-    }
-    class SessionManager(){
-
-    }
-    class Validations(){
-
-    }
-    interface Tables(){
-
-    }
 
 ```
