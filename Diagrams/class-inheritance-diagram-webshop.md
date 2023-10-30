@@ -10,20 +10,20 @@ classDiagram
 
     BasicDoc <|-- HomeDoc
     BasicDoc <|-- AboutDoc
+    BasicDoc <|-- CartDoc
     BasicDoc <|-- FormDoc
+    BasicDoc <|-- OrdersDoc
     BasicDoc <|-- ProductDoc
 
     FormDoc <|-- ContactDoc
     FormDoc <|-- LoginDoc
     FormDoc <|-- RegisterDoc
 
-    ProductDoc <|-- CartDoc
-    ProductDoc <|-- OrdersDoc
     ProductDoc <|-- ProductDetailsDoc
     ProductDoc <|-- WebshopDoc
 
-    TablesDoc <|-- CartDoc
-    TablesDoc <|-- OrdersDoc
+    TableDoc <|-- CartDoc
+    TableDoc <|-- OrdersDoc
     
     class HtmlDoc{
        +show()
@@ -65,52 +65,31 @@ classDiagram
     }
     class ProductDoc{
         <<abstract>>
-        #getWebshopProductDetails()
-        #getWebshopProducts()
-        #getCartLines()
-        #getRowsByOrderId()
-        #getOrdersAndSum()
-        #writeOrder()
-        #showBuyAction()
         #showAddToCartAction()
     }
     class ContactDoc{
         #data
         #showHeader()
         #showContent()
-        #showFormStart()
-        #showFormEnd()
-        #showFormField()
-        #showErrorSpan()
     }
     class LoginDoc{
         #data
         #showHeader()
         #showContent()
-        #showFormStart()
-        #showFormEnd()
-        #showFormField()
     }
     class RegisterDoc{
         #data
         #showHeader()
         #showContent()
-        #showFormStart()
-        #showFormEnd()
-        #showFormField()
     }
     class CartDoc{
         #data
         #showHeader()
         #showContent()
+        -showBuyAction()
         -showtable()
-        #tableStart()
-        #tableEnd()
-        #rowStart()
-        #rowEnd()
-        #dataCell()
-        #headerCell()
-        #getCartLines()
+        -getCartLines()
+        -showBuyAction()
     }
     class OrdersDoc{
         #data
@@ -118,31 +97,23 @@ classDiagram
         #showContent()
         -showOrderAndRows()
         -showOrdersAndTotals()
-        #tableStart()
-        #tableEnd()
-        #rowStart()
-        #rowEnd()
-        #dataCell()
-        #headerCell()
-        #getRowsByOrderId()
-        #getOrdersAndSum()
+        -getRowsByOrderId()
+        -getOrdersAndSum()
     }
     class ProductDetailsDoc{
         #data
         #showHeader()
         #showContent()
-        #showAddToCartAction()
-        #getWebshopProductDetails()
+        -getWebshopProductDetails()
     }
     class WebshopDoc{
         #data
         #showHeader()
         #showContent()
         -showWebshopProducts()
-        #showAddToCartAction()
-        #getWebshopProducts()
+        -getWebshopProducts()
     }
-class TablesDoc{
+    class TableDoc{
         <<interface>>
         #tableStart()
         #tableEnd()
