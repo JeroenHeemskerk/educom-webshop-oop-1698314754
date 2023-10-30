@@ -102,23 +102,23 @@ classDiagram
         #showBuyAction()
         #showAddToCartAction()
     }
-    class CartDoc(){
+    class CartDoc{
         #showHeader()
         #showContent()
     }
-    class OrdersDoc(){
+    class OrdersDoc{
         #showHeader()
         #showContent()
     }
-    class ProductDetailsDoc(){
+    class ProductDetailsDoc{
         #showHeader()
         #showContent()
     }
-    class TablesDoc(){
+    class TablesDoc{
         #showHeader()
         #showContent()
     }
-    class WebshopDoc(){
+    class WebshopDoc{
         #showHeader()
         #showContent()
     }
