@@ -16,10 +16,11 @@ classDiagram
     FormDoc <|-- ContactDoc
     FormDoc <|-- LoginDoc
     FormDoc <|-- RegisterDoc
+    FormDoc <|-- TablesDoc
 
     ProductDoc <|-- CartDoc
     ProductDoc <|-- OrdersDoc
-    ProductDoc <|-- DetailsDoc
+    ProductDoc <|-- ProductDetailsDoc
     ProductDoc <|-- WebshopDoc
     
     class HtmlDoc{
@@ -74,14 +75,32 @@ classDiagram
     class ContactDoc{
         #showHeader()
         #showContent()
+        #showFormStart()
+        #showFormEnd()
+        #showFormField()
+        #showErrorSpan()
+        #showBuyAction()
+        #showAddToCartAction()
     }
     class LoginDoc{
         #showHeader()
         #showContent()
+        #showFormStart()
+        #showFormEnd()
+        #showFormField()
+        #showErrorSpan()
+        #showBuyAction()
+        #showAddToCartAction()
     }
     class RegisterDoc{
         #showHeader()
         #showContent()
+        #showFormStart()
+        #showFormEnd()
+        #showFormField()
+        #showErrorSpan()
+        #showBuyAction()
+        #showAddToCartAction()
     }
     class CartDoc(){
         #showHeader()
@@ -91,7 +110,7 @@ classDiagram
         #showHeader()
         #showContent()
     }
-    class DetailsDoc(){
+    class ProductDetailsDoc(){
         #showHeader()
         #showContent()
     }
