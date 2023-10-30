@@ -10,10 +10,9 @@ classDiagram
 
     BasicDoc <|-- HomeDoc
     BasicDoc <|-- AboutDoc
-    BasicDoc <|-- CartDoc
     BasicDoc <|-- FormDoc
-    BasicDoc <|-- OrdersDoc
     BasicDoc <|-- ProductDoc
+    BasicDoc <|-- TableDoc
 
     FormDoc <|-- ContactDoc
     FormDoc <|-- LoginDoc
@@ -67,6 +66,15 @@ classDiagram
         <<abstract>>
         #showAddToCartAction()
     }
+    class TableDoc{
+        <<abstract>>
+        #tableStart()
+        #tableEnd()
+        #rowStart()
+        #rowEnd()
+        #dataCell()
+        #headerCell()
+    }
     class ContactDoc{
         #data
         #showHeader()
@@ -112,15 +120,6 @@ classDiagram
         #showContent()
         -showWebshopProducts()
         -getWebshopProducts()
-    }
-    class TableDoc{
-        <<interface>>
-        #tableStart()
-        #tableEnd()
-        #rowStart()
-        #rowEnd()
-        #dataCell()
-        #headerCell()
     }
 
 ```
