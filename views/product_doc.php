@@ -3,7 +3,7 @@
 require_once "basic_doc.php";
 
 abstract class ProductDoc extends BasicDoc {
-    if (isUserLoggedIn()) {
+    /*if (isUserLoggedIn()) {
         showFormStart();
         echo '<input type="hidden" name="page" value="' . $page . '">' .
         '<input type="hidden" name="productId" value="' . $productId . '">' .
@@ -12,6 +12,6 @@ abstract class ProductDoc extends BasicDoc {
         echo '<br>';
         echo '<input type="submit" value="' . $buttonText . '">';
         echo '</form>';     
-    }
+    }*/
 }
 ?>

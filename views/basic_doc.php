@@ -38,14 +38,14 @@ class BasicDoc extends HtmlDoc {
 
     private function showMenu() {
         $data['menu'] = array('home' => 'Home', 'about' => 'About', 'contact' => 'Contact', 'webshop' => 'Webshop');
-        if (false /*isUserLoggedIn()*/) {
+        //if (false /*isUserLoggedIn()*/) {
             $data['menu']['cart'] = "Winkelwagen";
             $data['menu']['orders'] = "Bestellingen";
             $data['menu']['logout'] = "Logout "; // . getLoggedInUserName();
-        } else {
+        //} else {
             $data['menu']['register'] = "Register";
             $data['menu']['login'] = "Login";
-        }
+        //}
 
         echo '<ul class="nav">';        
         foreach($data['menu'] as $page => $label) {
