@@ -108,13 +108,11 @@ classDiagram
         #data
         #showHeader()
         #showContent()
-        #showAddToCartAction()
     }
     class WebshopDoc{
         #data
         #showHeader()
         #showContent()
-        #showAddToCartAction()
         -showWebshopProducts()
     }
 
