@@ -1,8 +1,8 @@
 <?php
 
-require_once "tables_doc.php";
+require_once "product_doc.php";
 
-class DetailsDoc extends TablesDoc {
+class DetailsDoc extends ProductDoc {
 
     //Overridden method of BasicDoc
     protected function showHeader() {
