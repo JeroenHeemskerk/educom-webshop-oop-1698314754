@@ -37,18 +37,18 @@ class BasicDoc extends HtmlDoc {
     }
 
     private function showMenu() {
-        $data['menu'] = array('home' => 'Home', 'about' => 'About', 'contact' => 'Contact', 'webshop' => 'Webshop');
+        //$data['menu'] = array('home' => 'Home', 'about' => 'About', 'contact' => 'Contact', 'webshop' => 'Webshop');
         //if (false /*isUserLoggedIn()*/) {
-            $data['menu']['cart'] = "Winkelwagen";
-            $data['menu']['orders'] = "Bestellingen";
-            $data['menu']['logout'] = "Logout "; // . getLoggedInUserName();
+            //$data['menu']['cart'] = "Winkelwagen";
+            //$data['menu']['orders'] = "Bestellingen";
+            //$data['menu']['logout'] = "Logout "; // . getLoggedInUserName();
         //} else {
-            $data['menu']['register'] = "Register";
-            $data['menu']['login'] = "Login";
+            //$data['menu']['register'] = "Register";
+            //$data['menu']['login'] = "Login";
         //}
 
         echo '<ul class="nav">';        
-        foreach($data['menu'] as $page => $label) {
+        foreach($this->data['menu'] as $page => $label) {
             
             //Dit geeft uiteraard nog geen correcte links
             echo '<li><a href="index.php?page=' . $page . '">' . $label . '</a></li>';
