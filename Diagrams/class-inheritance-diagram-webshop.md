@@ -11,18 +11,18 @@ classDiagram
     BasicDoc <|-- HomeDoc
     BasicDoc <|-- AboutDoc
     BasicDoc <|-- FormDoc
-    BasicDoc <|-- ProductDoc
 
     FormDoc <|-- ContactDoc
     FormDoc <|-- LoginDoc
+    FormDoc <|-- ProductDoc
     FormDoc <|-- RegisterDoc
 
-    ProductDoc <|-- TableDoc
+    ProductDoc <|-- TablesDoc
 
-    TableDoc <|-- ProductDetailsDoc
-    TableDoc <|-- WebshopDoc
-    TableDoc <|-- CartDoc
-    TableDoc <|-- OrdersDoc
+    TablesDoc <|-- CartDoc
+    TablesDoc <|-- DetailsDoc
+    TablesDoc <|-- OrdersDoc
+    TablesDoc <|-- WebshopDoc
     
     class HtmlDoc{
        +show()
@@ -66,7 +66,7 @@ classDiagram
         <<abstract>>
         #showAddToCartAction()
     }
-    class TableDoc{
+    class TablesDoc{
         <<abstract>>
         #tableStart()
         #tableEnd()
@@ -94,9 +94,7 @@ classDiagram
         #data
         #showHeader()
         #showContent()
-        -showBuyAction()
-        -showtable()
-        -getCartLines()
+        -showTable()
         -showBuyAction()
     }
     class OrdersDoc{
@@ -105,21 +103,19 @@ classDiagram
         #showContent()
         -showOrderAndRows()
         -showOrdersAndTotals()
-        -getRowsByOrderId()
-        -getOrdersAndSum()
     }
-    class ProductDetailsDoc{
+    class DetailsDoc{
         #data
         #showHeader()
         #showContent()
-        -getWebshopProductDetails()
+        #showAddToCartAction()
     }
     class WebshopDoc{
         #data
         #showHeader()
         #showContent()
+        #showAddToCartAction()
         -showWebshopProducts()
-        -getWebshopProducts()
     }
 
 ```
