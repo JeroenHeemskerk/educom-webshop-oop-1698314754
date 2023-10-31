@@ -12,15 +12,15 @@ classDiagram
     BasicDoc <|-- AboutDoc
     BasicDoc <|-- FormDoc
     BasicDoc <|-- ProductDoc
-    BasicDoc <|-- TableDoc
 
     FormDoc <|-- ContactDoc
     FormDoc <|-- LoginDoc
     FormDoc <|-- RegisterDoc
 
-    ProductDoc <|-- ProductDetailsDoc
-    ProductDoc <|-- WebshopDoc
+    ProductDoc <|-- TableDoc
 
+    TableDoc <|-- ProductDetailsDoc
+    TableDoc <|-- WebshopDoc
     TableDoc <|-- CartDoc
     TableDoc <|-- OrdersDoc
     
