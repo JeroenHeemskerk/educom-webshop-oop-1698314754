@@ -21,7 +21,7 @@ class BasicDoc extends HtmlDoc {
     }
 
     private function showCssLinks() {
-        echo '<link rel="stylesheet" href="../CSS/stylesheet.css">';
+        echo '<link rel="stylesheet" href="./CSS/stylesheet.css">';
     }
 
     //Overridden method of HtmlDoc
@@ -51,7 +51,8 @@ class BasicDoc extends HtmlDoc {
         foreach($data['menu'] as $page => $label) {
             
             //Dit geeft uiteraard nog geen correcte links
-            echo '<li><a href="test_' . $page . '_doc.php">' . $label . '</a></li>';
+            echo '<li><a href="index.php?page=' . $page . '">' . $label . '</a></li>';
+            //<a href="test_' . $page . '_doc.php">' . $label . '</a>
         }
         echo '</ul><br>';
     }

@@ -141,11 +141,64 @@
 
     function showResponsePage($data){
     
-        showHTMLStart();
-        showHeadSection($data);
-        showBodySection($data);    
-        showFooter();
-        showHTMLEnd();
+        //showHTMLStart();
+        //showHeadSection($data);
+        //showBodySection($data);    
+        //showFooter();
+        //showHTMLEnd();
+
+        switch($data['page']) {
+            case "about":
+                require_once "./views/about_doc.php";
+                $view = new AboutDoc($data);
+                $view->show();
+                break;
+            case "cart":
+                require_once "./views/cart_doc.php";
+                $view = new CartDoc($data);
+                $view->show();
+                break;
+            case "contact":
+                require_once "./views/contact_doc.php";
+                $view = new ContactDoc($data);
+                $view->show();
+                break;
+            case "details":
+                require_once "../views/details_doc.php";
+                $view = new DetailsDoc($data);
+                $view->show();
+                break;
+            case "home":
+                require_once "./views/home_doc.php";
+                $view = new HomeDoc($data);
+                $view->show();
+                break;
+            case "login":
+                require_once "./views/login_doc.php";
+                $view = new LoginDoc($data);
+                $view->show();
+                break;
+            case "orders":
+                require_once "./views/orders_doc.php";
+                $view = new OrdersDoc($data);
+                $view->show();
+                break;
+            case "register":
+                require_once "./views/register_doc.php";
+                $view = new RegisterDoc($data);
+                $view->show();
+                break;
+            case "webshop":
+                require_once "./views/webshop_doc.php";
+                $view = new WebshopDoc($data);
+                $view->show();
+                break;
+            default:
+                require_once "./views/home_doc.php";
+                $view = new HomeDoc($data);
+                $view->show();
+                break;
+        }
     }
 
     function showHeadSection ($data) {
