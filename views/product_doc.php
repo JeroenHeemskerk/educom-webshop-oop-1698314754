@@ -1,8 +1,8 @@
 <?php
 
-require_once "form_doc.php";
+require_once "forms_doc.php";
 
-abstract class ProductDoc extends FormDoc {
+abstract class ProductDoc extends FormsDoc {
     /*
     protected function showAddToCartAction($productId, $page, $buttonText) {
         if (isUserLoggedIn()) {
