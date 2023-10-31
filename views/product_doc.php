@@ -1,10 +1,10 @@
 <?php
 
-require_once "basic_doc.php";
+require_once "form_doc.php";
 
-abstract class ProductDoc extends BasicDoc {
+abstract class ProductDoc extends FormDoc {
     /*
-    function showAddToCartAction($productId, $page, $buttonText) {
+    protected function showAddToCartAction($productId, $page, $buttonText) {
         if (isUserLoggedIn()) {
             showFormStart();
             echo '<input type="hidden" name="page" value="' . $page . '">' .

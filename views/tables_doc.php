@@ -1,8 +1,8 @@
 <?php
 
-require_once "basic_doc.php";
+require_once "product_doc.php";
 
-abstract Class TablesDoc extends BasicDoc {
+abstract Class TablesDoc extends ProductDoc {
 
     public function dataCell($value = "", $page = "", $id = "", $colspan = 1) {
 

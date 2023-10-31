@@ -15,5 +15,14 @@ class CartDoc extends TablesDoc {
         <p class="pagetext">Hier komt uw winkelwagentje.</p>
         <br>';
     }
+
+    /*
+    private function showBuyAction($buttonText) {
+        showFormStart();
+            echo '<input type="hidden" name="page" value="cart">'; 
+            echo '<input type="hidden" name="userAction" value="completeOrder">';
+            echo '<input class="buyActionButton" type="submit" value="' . $buttonText . '">';
+    }
+    */
 }
 ?>

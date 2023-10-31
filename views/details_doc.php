@@ -1,8 +1,8 @@
 <?php
 
-require_once "product_doc.php";
+require_once "tables_doc.php";
 
-class DetailsDoc extends ProductDoc {
+class DetailsDoc extends TablesDoc {
 
     //Overridden method of BasicDoc
     protected function showHeader() {
@@ -14,6 +14,8 @@ class DetailsDoc extends ProductDoc {
         echo '<h2>Welkom!</h2>
         <p class="pagetext">Hier komt de weergave van een product.</p>
         <br>';
+
+        //showAddToCartAction($productId, $page, $buttonText);
     }
 }
 ?>
