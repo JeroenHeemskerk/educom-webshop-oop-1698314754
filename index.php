@@ -8,10 +8,14 @@
     include 'tables.php';
 
     session_start();
+    require_once "./controllers/page_controller.php";
 
-    $page = getRequestedPage();
-    $data = processRequest($page);
-    showResponsePage($data);
+    $controller = new PageController();
+    $controller->handleRequest();
+
+    //$page = getRequestedPage();
+    //$data = processRequest($page);
+    //showResponsePage($data);
 
     function getRequestedPage() {
     

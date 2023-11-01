@@ -1,6 +1,6 @@
 <?php
 
-require_once "../models/page_model.php";
+require_once "./models/page_model.php";
 
 class PageController {
 
@@ -17,15 +17,16 @@ class PageController {
     }
 
     //from client
-    private getRequest() {
+    private function getRequest() {
         $this->model->getRequestedPage();
     }
 
     //business flow code
-    private processRequest() {
-        /*switch($this->model->page) {
+    private function processRequest() {
+        /*
+        switch($this->model->page) {
 
-            case "about":
+            case "":
                 $this->model = new PageModel();
                 break;
             default:
@@ -39,11 +40,11 @@ class PageController {
 
         switch($this->model->page) {
             case "home":
-                require_once "../views/home_doc.php";
+                require_once "./views/home_doc.php";
                 $view = new HomeDoc($this->model);
                 break;
             case "about":
-                require_once "../views/about_doc.php";
+                require_once "./views/about_doc.php";
                 $view = new AboutDoc($this->model);
                 break;
         }

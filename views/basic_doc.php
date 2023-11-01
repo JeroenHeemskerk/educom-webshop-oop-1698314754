@@ -4,10 +4,10 @@ require_once "html_doc.php";
 
 class BasicDoc extends HtmlDoc {
 
-    public $data;
+    public $model;
 
-    function __construct($data) {
-        $this->data = $data;
+    function __construct($model) {
+        $this->model = $model;
     }
 
     //Overridden method of HtmlDoc
@@ -17,7 +17,7 @@ class BasicDoc extends HtmlDoc {
     }
 
     private function showTitle() {
-        echo '<title>' . $this->data['page'] . '</title>';
+        echo '<title>' . $this->model->page . '</title>';
     }
 
     private function showCssLinks() {
@@ -37,22 +37,9 @@ class BasicDoc extends HtmlDoc {
     }
 
     private function showMenu() {
-        //$data['menu'] = array('home' => 'Home', 'about' => 'About', 'contact' => 'Contact', 'webshop' => 'Webshop');
-        //if (false /*isUserLoggedIn()*/) {
-            //$data['menu']['cart'] = "Winkelwagen";
-            //$data['menu']['orders'] = "Bestellingen";
-            //$data['menu']['logout'] = "Logout "; // . getLoggedInUserName();
-        //} else {
-            //$data['menu']['register'] = "Register";
-            //$data['menu']['login'] = "Login";
-        //}
-
         echo '<ul class="nav">';        
-        foreach($this->data['menu'] as $page => $label) {
-            
-            //Dit geeft uiteraard nog geen correcte links
+        foreach($this->model->menu as $page => $label) {
             echo '<li><a href="index.php?page=' . $page . '">' . $label . '</a></li>';
-            //<a href="test_' . $page . '_doc.php">' . $label . '</a>
         }
         echo '</ul><br>';
     }

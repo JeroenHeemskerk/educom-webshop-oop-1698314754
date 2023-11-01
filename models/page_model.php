@@ -11,9 +11,10 @@ class PageModel {
     public function __construct($copy) {
         if (empty($copy)) {
             //first instance of PageModel
-            $this->sessionManager = new SessionManager();
+            //Er is nog geen SessionManager class dus kan deze nog niet aanroepen
+            //$this->sessionManager = new SessionManager();
         } else {
-            //called from the constructor of an extended class
+            //Deze wordt gebruikt wanneer een extended class de constructor in deze class aanroept
             $this->page = $copy->page;
             $this->isPost = $copy->isPost;
             $this->menu = $copy->menu;
@@ -24,14 +25,15 @@ class PageModel {
 
     public function getRequestedPage() {
 
-        require_once "../util.php"
+        require_once "./util.php";
 
-        $this->isPost = ($_SERVER['REQUEST_METHOD']) == 'POST');
-
+        $this->isPost = (($_SERVER['REQUEST_METHOD']) == 'POST');
+        
+        //Hier worden static functies uit de Util class gebruikt
         if ($this->isPost) {
             $this->setPage(Util::getPostVar("page", "home"));
         } else {
-            $this->setPage($this->getUrlVar("page", "home"));
+            $this->setPage(Util::getUrlVar("page", "home"));
         }
     }
 
@@ -40,23 +42,21 @@ class PageModel {
     }
 
     public function createMenu() {
-        $this->menu['home'] = new MenuItem('home', 'Home');
-        $this->menu['about'] = new MenuItem('about', 'About');
-        $this->menu['contact'] = new MenuItem('contact', 'Contact');
-        $this->menu['orders'] = new MenuItem('webshop', 'Webshop');
+        //Werkte eerst door middel van een nieuwe instantie van MenuItem, maar deze class heb ik nog niet aangemaakt
+        $this->menu = array('home' => 'Home');
+        $this->menu += array('about' => 'About');
+        $this->menu += array('contact' => 'Contact');
+        $this->menu += array('webshop' => 'Webshop');
         
-        if ($this->sessionManager->isUserLoggedIn()) {        
-            $this->menu['register'] = new MenuItem('cart', 'Winkelwagen');
-            $this->menu['home'] = new MenuItem('orders', 'Bestellingen');
-            $this->menu['home'] = new MenuItem('logout', 'Logout',
-                $this->sessionManager->getLoggedInUser());
-        } else {
-            $this->menu['home'] = new MenuItem('register', 'Register');
-            $this->menu['home'] = new MenuItem('login', 'Login');
+        //if ($this->sessionManager->isUserLoggedIn()) {        
+            //$this->menu += array('cart' => 'Winkelwagen');
+            //$this->menu += array('orders' => 'Bestellingen');
+            //$this->menu += array('logout' => 'Logout',
+                //$this->sessionManager->getLoggedInUser());
+        //} else {
+            $this->menu += array('register' => 'Register');
+            $this->menu += array('login' => 'Login');
         }
-    }
-
-
 }
 
 ?>
