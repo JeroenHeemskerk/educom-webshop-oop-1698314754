@@ -12,8 +12,8 @@ class BasicDoc extends HtmlDoc {
 
     //Overridden method of HtmlDoc
     protected function showHeadContent() {
-        $this -> showTitle();
-        $this -> showCssLinks();
+        $this->showTitle();
+        $this->showCssLinks();
     }
 
     private function showTitle() {
@@ -26,10 +26,10 @@ class BasicDoc extends HtmlDoc {
 
     //Overridden method of HtmlDoc
     protected function showBodyContent() {
-        $this -> showHeader();
-        $this -> showMenu();
-        $this -> showContent();
-        $this -> showFooter();
+        $this->showHeader();
+        $this->showMenu();
+        $this->showContent();
+        $this->showFooter();
     }
 
     protected function showHeader() {

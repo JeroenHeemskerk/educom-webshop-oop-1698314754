@@ -36,14 +36,14 @@ class HtmlDoc {
     }
 
     public function show() {
-        $this -> showHtmlStart();
-        $this -> showHeadStart();
-        $this -> showHeadContent();
-        $this -> showHeadEnd();
-        $this -> showBodyStart();
-        $this -> showBodyContent();
-        $this -> showBodyEnd();
-        $this -> showHtmlEnd();
+        $this->showHtmlStart();
+        $this->showHeadStart();
+        $this->showHeadContent();
+        $this->showHeadEnd();
+        $this->showBodyStart();
+        $this->showBodyContent();
+        $this->showBodyEnd();
+        $this->showHtmlEnd();
     }
 }
 ?>
