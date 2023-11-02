@@ -14,8 +14,8 @@ class LoginDoc extends FormsDoc {
         echo '<h2>Login pagina</h2>';
         showFormStart();
 
-        showFormField("email", "Vul uw emailadres in:", "text", $data['email'], $data['errMail'], "johndoe@hotmail.com");
-        showFormField("password", "Vul uw wachtwoord in:", "password", "", $data['errPassword']);
+        showFormField("email", "Vul uw emailadres in:", "text", $this->model->email, $this->model->errMail, "johndoe@hotmail.com");
+        showFormField("password", "Vul uw wachtwoord in:", "password", "", $this->model->errPassword);
 
         showFormEnd("login", "Login");
     }

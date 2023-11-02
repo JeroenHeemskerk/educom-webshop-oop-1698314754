@@ -30,6 +30,19 @@ class PageController {
                 $this->model = new UserModel($this->model);
                 $this->model->validateContact();
                 break;
+            case "login":
+                $this->model = new UserModel($this->model);
+                $this->model->validateLogin();
+                if ($this->model->valid) {
+                    $this->model->doLoginUser($this->model->name, $this->model->email);
+                    $this->model->setPage("home");
+                }
+                break;
+            case "logout":
+                $this->model = new UserModel($this->model);
+                $this->model->doLogoutUser();
+                $this->model->setPage("home");
+                break;
         }
     }
 
@@ -49,6 +62,10 @@ class PageController {
             case "contact":
                 require_once "./views/contact_doc.php";
                 $view = new ContactDoc($this->model);
+                break;
+            case "login":
+                require_once "./views/login_doc.php";
+                $view = new LoginDoc($this->model);
                 break;
         }
         $view->show();

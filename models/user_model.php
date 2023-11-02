@@ -1,7 +1,7 @@
 <?php
 
-require_once "./session_manager.php";
 require_once "./validate.php";
+require_once "./session_manager.php";
 
 class UserModel extends PageModel {
     public $contactmode = "", $email = "", $message= "", $name= "", $password= "", $passwordTwo= "",
@@ -10,19 +10,23 @@ class UserModel extends PageModel {
     public $errContactmode = "", $errMail = "", $errMessage = "", $errName = "", $errPassword = ""
     , $errPhonenumber = "", $errProductId = "", $errQuantity = "", $errSalutation = "";
 
-    private $userId = "";
+    private $user = array();
     public $valid = False;
 
     public function __construct($pageModel) {
         parent::__construct($pageModel);
     }
 
-    public function doLoginUser() {
- 
+    public function doLoginUser($name, $email) {
+        $this->sessionManager->loginUser($name, $email);
     }
 
     public function doLogoutUser() {
+        $this->sessionManager->logoutUser();
+    }
 
+    public function doGetLoggedInUsername() {
+        $this->sessionManager->getLoggedInUsername();
     }
 
     private function authenticateUser() {
@@ -85,6 +89,42 @@ class UserModel extends PageModel {
                 $this->valid = False;
             }        
         }    
+    }
+
+    public function validateLogin() {
+
+        require_once "./user_service.php";
+        require_once "./file_repository.php";
+    
+        if ($this->isPost){
+        
+            //Eerst worden ongewenste karakters verwijderd
+            $this->email = testInput($_POST["email"]);
+            $this->password = testInput($_POST["password"]);
+        
+            //Vervolgens wordt gekeken of correcte input gegeven is
+            $this->errMail = checkEmail($this->email);
+            $this->errPassword = checkPassword($this->password);
+        
+            //Indien geen foutmeldingen gegeven zijn bij het checken van het emailadres en password is sprake van valide input
+            if ($this->errMail == "" && $this->errPassword == "") {
+                
+                try {
+                    $this->user = authenticateUser($this->email, $this->password);
+                    
+                    if (!empty($this->user)) {
+                        $this->name = $this->user['name'];
+                        $this->valid = True;
+                    } else {
+                        $this->errMail = "Opgegeven emailadres is niet gekoppeld aan een gebruiker of incorrect wachtwoord";
+                    }                
+                }
+                catch (Exception $e) {
+                    $this->genericError = "Door een technisch probleem is inloggen helaas niet mogelijk op dit moment. Probeer het op een later moment nogmaals<br>";
+                    logError($e->getMessage()); //Schrijf $e naar log functie
+                }
+            }
+        }
     }
 
 }
