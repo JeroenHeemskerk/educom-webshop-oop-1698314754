@@ -29,7 +29,7 @@ class PageModel {
 
         $this->isPost = (($_SERVER['REQUEST_METHOD']) == 'POST');
         
-        //Hier worden static functies uit de Util class gebruikt
+        //Hier worden static functies uit de Util class gebruikt om page te setten
         if ($this->isPost) {
             $this->setPage(Util::getPostVar("page", "home"));
         } else {

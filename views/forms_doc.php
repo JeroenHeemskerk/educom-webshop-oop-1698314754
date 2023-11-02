@@ -18,7 +18,7 @@ abstract class FormsDoc extends BasicDoc {
     protected function showFormField($fieldName, $label, $inputType, $data, $error, $options = "") {
         switch ($inputType){
             case("select"):
-                if ($data['salutation'] == $options){
+                if ($data->salutation == $options){
                     echo '<option value="' . $options . '" selected>' . $label . '</option>';
                 } else {
                     echo '<option value="' . $options. '">' . $label . '</option>';
@@ -37,7 +37,7 @@ abstract class FormsDoc extends BasicDoc {
                 showErrorSpan($error);
                 break;
             case ("radio"):
-                if ($data['contactmode'] == $options){
+                if ($data->contactmode == $options){
                     echo '<input type="radio" checked = "checked" id="' . $fieldName . '" name="' . $fieldName . '" value="' . $options . '">';
                     echo '<label for="' . $fieldName . '">' . $label . '</label><br>';
                 } else {
@@ -47,8 +47,8 @@ abstract class FormsDoc extends BasicDoc {
                 break;
             case ("textarea"):
                 echo '<label for="' . $fieldName . '">' . $label . '</label>';
-                showErrorSpan($data['errMessage']);
-                echo '<textarea id="' . $fieldName . '" name="' . $fieldName . '"' . $options . '">'; echo $data['message'] . '</textarea>';
+                showErrorSpan($data->errMessage);
+                echo '<textarea id="' . $fieldName . '" name="' . $fieldName . '"' . $options . '">'; echo $data->message . '</textarea>';
             }
     }
 

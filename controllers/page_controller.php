@@ -1,6 +1,7 @@
 <?php
 
 require_once "./models/page_model.php";
+require_once "./models/user_model.php";
 
 class PageController {
 
@@ -23,15 +24,13 @@ class PageController {
 
     //business flow code
     private function processRequest() {
-        /*
+        
         switch($this->model->page) {
-
-            case "":
-                $this->model = new PageModel();
+            case "contact":
+                $this->model = new UserModel($this->model);
+                $this->model->validateContact();
                 break;
-            default:
-                $this->model = new PageModel();
-        }*/
+        }
     }
 
     //to client
@@ -46,6 +45,10 @@ class PageController {
             case "about":
                 require_once "./views/about_doc.php";
                 $view = new AboutDoc($this->model);
+                break;
+            case "contact":
+                require_once "./views/contact_doc.php";
+                $view = new ContactDoc($this->model);
                 break;
         }
         $view->show();

@@ -20,7 +20,7 @@ class HtmlDoc {
     }
 
     private function showBodyStart() {
-        echo '<body>';
+        echo '<body class="pagetext">';
     }
 
     protected function showBodyContent() {
