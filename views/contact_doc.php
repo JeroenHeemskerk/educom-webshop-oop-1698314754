@@ -22,7 +22,6 @@ class ContactDoc extends FormsDoc {
             //Aanhefkeuze
             $this->showFormField("salutation", "Aanhef:", "select", SALUTATIONS);
             $this->showErrorSpan($this->model->errSalutation);
-            echo '<br><br>';
             
         
             //Formulier met naam, emailadres en telefoonnummer
