@@ -61,6 +61,11 @@ class PageController {
                 $this->model->getWebshopProductDetails();
                 $this->model->handleActions();
                 break;
+            case "cart":
+                $this->model = new ShopModel($this->model);
+                $this->model->getCartLines();
+                $this->model->handleActions();
+                break;
         }
     }
 
@@ -96,6 +101,10 @@ class PageController {
             case "details":
                 require_once "./views/details_doc.php";
                 $view = new DetailsDoc($this->model);
+                break;
+            case "cart":
+                require_once "./views/cart_doc.php";
+                $view = new CartDoc($this->model);
                 break;
         }
         $view->show();

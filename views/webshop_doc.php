@@ -15,11 +15,6 @@ class WebshopDoc extends ProductDoc {
         echo '<br>';
         $this->showWebshopProducts();
     }
-
-    
-    /*protected function showAddToCartAction($productId, $page, $buttonText) {
-
-    }*/
     
     private function showWebshopProducts() {
 

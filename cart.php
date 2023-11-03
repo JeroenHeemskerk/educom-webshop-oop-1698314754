@@ -5,7 +5,7 @@
     }
 
     function showCartBody($data) {
-
+        
         if (!empty($data['cartLines'])){
             showTable($data);
             showBuyAction('Koop nu!');

@@ -15,6 +15,13 @@ abstract class FormsDoc extends BasicDoc {
         echo '</form>';
     }
 
+    protected function showBuyAction($buttonText) {
+        $this->showFormStart();
+            echo '<input type="hidden" name="page" value="cart">'; 
+            echo '<input type="hidden" name="userAction" value="completeOrder">';
+            echo '<input class="buyActionButton" type="submit" value="' . $buttonText . '">';
+    }
+
     protected function showFormField($fieldName, $label, $inputType, $data, $error, $options = "") {
         switch ($inputType){
             case("select"):

@@ -11,18 +11,46 @@ class CartDoc extends TablesDoc {
 
     //Overridden method of BasicDoc
     protected function showContent() {
-        echo '<h2>Welkom!</h2>
-        <p class="pagetext">Hier komt uw winkelwagentje.</p>
-        <br>';
+        if (!empty($this->model->cartLines)){
+            $this->showTable();
+            $this->showBuyAction('Koop nu!');
+        } else {
+            echo '<h2>Er is nog niets te tonen nu de winkelmand nog leeg is. U kunt in de webshop ' . 
+            'iets toevoegen om aan te schaffen en dit op deze pagina afrekenen.</h2>';
+        } 
     }
 
-    /*
-    private function showBuyAction($buttonText) {
-        showFormStart();
-            echo '<input type="hidden" name="page" value="cart">'; 
-            echo '<input type="hidden" name="userAction" value="completeOrder">';
-            echo '<input class="buyActionButton" type="submit" value="' . $buttonText . '">';
+    function showTable() {
+
+        $this->tableStart();
+
+        $this->rowStart();
+            $this->headerCell('Foto:'); 
+            $this->headerCell('Product:');
+            $this->headerCell('Beschrijving:');
+            $this->headerCell('Prijs per stuk:');
+            $this->headerCell('Hoeveelheid:');
+            $this->headerCell('Subtotaal:');
+        $this->rowEnd();
+        
+        foreach ($this->model->cartLines as $productId => $value){
+            $this->rowStart();
+                $this->dataCell('<img class="tablePicture" src="Images/' . $this->model->cartLines[$productId]['product_picture_location'] . '" alt="' . $this->model->cartLines[$productId]['product_picture_location'] . '">', "cart", $productId);
+                $this->dataCell($this->model->cartLines[$productId]['name'], "cart", $productId);
+                $this->dataCell($this->model->cartLines[$productId]['description'], "cart", $productId);
+                $this->dataCell('€' . $this->model->cartLines[$productId]['price']);
+                $this->dataCell($this->model->cartLines[$productId]['amount']);
+                $this->dataCell('€'. $this->model->cartLines[$productId]['subTotal']);
+            $this->rowEnd();
+        }
+    
+        $this->rowStart(); 
+            $this->dataCell('', '', '', 4);
+            $this->dataCell('Totaal:');  
+            $this->dataCell('€' . $this->model->cartTotal);
+        $this->rowEnd();
+        
+        $this->tableEnd();
     }
-    */
 }
 ?>
