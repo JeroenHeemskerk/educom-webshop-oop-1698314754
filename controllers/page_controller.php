@@ -2,6 +2,7 @@
 
 require_once "./models/page_model.php";
 require_once "./models/user_model.php";
+require_once "./models/shop_model.php";
 
 class PageController {
 
@@ -50,6 +51,11 @@ class PageController {
                     $this->model->setPage("login");
                 }
                 break;
+            case "webshop":
+                $this->model = new ShopModel($this->model);
+                $this->model->getWebshopProducts();
+                $this->model->handleActions();
+                break;
         }
     }
 
@@ -77,6 +83,10 @@ class PageController {
             case "register":
                 require_once "./views/register_doc.php";
                 $view = new RegisterDoc($this->model);
+                break;
+            case "webshop":
+                require_once "./views/webshop_doc.php";
+                $view = new WebshopDoc($this->model);
                 break;
         }
         $view->show();

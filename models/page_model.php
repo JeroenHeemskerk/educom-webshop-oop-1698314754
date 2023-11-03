@@ -6,7 +6,7 @@ class PageModel {
     public $menu;
     public $errors = array();
     public $genericError = "";
-    protected $sessionManager;
+    public $sessionManager;
 
     public function __construct($copy) {
         if (empty($copy)) {

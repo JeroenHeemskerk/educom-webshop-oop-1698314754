@@ -3,7 +3,7 @@
 require_once "./validate.php";
 require_once "./session_manager.php";
 
-class UserModel extends PageModel {
+class UserModel extends Validate {
     public $contactmode = "", $email = "", $message= "", $name= "", $password= "", $passwordTwo= "",
      $phonenumber = "", $productId= "", $quantity= "", $salutation = "";
 
@@ -29,7 +29,7 @@ class UserModel extends PageModel {
         $this->sessionManager->getLoggedInUsername();
     }
 
-    private function authenticateUser() {
+    public function authenticateUser() {
         $this->user = findUserByEmail($this->email);
         if (empty($this->user)) {
             $this->user = NULL;
@@ -44,12 +44,12 @@ class UserModel extends PageModel {
         if ($this->isPost) {
             
             //de input vanuit het formulier wordt hier in variabelen gezet en vervolgens opgeschoond door middel van de testInput functie
-            $this->salutation = testInput(getPostVar("salutation"));
-            $this->name = testInput(getPostVar("name"));
-            $this->email = testInput(getPostVar("email"));
-            $this->phonenumber = testInput(getPostVar("phonenumber"));
-            $this->message = testInput(getPostVar("message"));
-			$this->contactmode = testInput(getPostVar("contactmode"));
+            $this->salutation = $this->testInput(getPostVar("salutation"));
+            $this->name = $this->testInput(getPostVar("name"));
+            $this->email = $this->testInput(getPostVar("email"));
+            $this->phonenumber = $this->testInput(getPostVar("phonenumber"));
+            $this->message = $this->testInput(getPostVar("message"));
+			$this->contactmode = $this->testInput(getPostVar("contactmode"));
 			
 			if (empty($this->salutation)) {				
                 $this->errSalutation = "Aanhef moet ingevuld zijn";                
@@ -99,18 +99,17 @@ class UserModel extends PageModel {
 
     public function validateLogin() {
 
-        require_once "./user_service.php";
         require_once "./file_repository.php";
     
         if ($this->isPost){
         
             //Eerst worden ongewenste karakters verwijderd
-            $this->email = testInput(getPostVar("email"));
-            $this->password = testInput(getPostVar("password"));
+            $this->email = $this->testInput(getPostVar("email"));
+            $this->password = $this->testInput(getPostVar("password"));
         
             //Vervolgens wordt gekeken of correcte input gegeven is
-            $this->errMail = checkEmail($this->email);
-            $this->errPassword = checkPassword($this->password);
+            $this->errMail = $this->checkEmail($this->email);
+            $this->errPassword = $this->checkPassword($this->password);
         
             //Indien geen foutmeldingen gegeven zijn bij het checken van het emailadres en password is sprake van valide input
             if ($this->errMail == "" && $this->errPassword == "") {
@@ -135,27 +134,26 @@ class UserModel extends PageModel {
 
     function validateRegister() {
 
-        require_once "./user_service.php";
         require_once "./file_repository.php";
 
         if ($this->isPost){
         
             //Eerst worden ongewenste karakters verwijderd
-            $this->name = testInput(getPostVar("name"));
-            $this->email = testInput(getPostVar("email"));
-            $this->password = testInput(getPostVar("password"));
-            $this->passwordTwo = testInput(getPostVar("passwordTwo"));
+            $this->name = $this->testInput(getPostVar("name"));
+            $this->email = $this->testInput(getPostVar("email"));
+            $this->password = $this->testInput(getPostVar("password"));
+            $this->passwordTwo = $this->testInput(getPostVar("passwordTwo"));
         
             //Vervolgens wordt gekeken of correcte input gegeven is
-            $this->errName = checkName($this->name);
-            $this->errMail = checkEmail($this->email);
-			$this->errPassword = checkPassword($this->password);
+            $this->errName = $this->checkName($this->name);
+            $this->errMail = $this->checkEmail($this->email);
+			$this->errPassword = $this->checkPassword($this->password);
         
             //Nadat een correct emailadres is opgegeven wordt ook gekeken of er sprake is van een nieuw uniek emailadres
             if ($this->errMail == "") {
                     
                 try {
-                    $this->errMail = checkNewEmail($this->email);
+                    $this->errMail = $this->checkNewEmail($this->email);
                 } catch (Exception $e) {
                     $this->genericError = "Door een technisch probleem is registreren helaas niet mogelijk op dit moment. Probeer het op een later moment nogmaals.<br>";
                     logError($e->getMessage()); //Schrijf $e naar log functie (deze doet niks op dit moment want is conform opdracht niet geïmplementeerd)
@@ -164,7 +162,7 @@ class UserModel extends PageModel {
         
                 //Vervolgens wordt bekeken of er wachtwoorden opgegeven zijn, waarna de wachtwoorden met elkaar vergeleken worden
 			if ($this->errPassword == ""){
-                $this->errPassword = checkRegisterPassword($this->password, $this->passwordTwo);
+                $this->errPassword = $this->checkRegisterPassword($this->password, $this->passwordTwo);
 			}
         
                 //Indien sprake is van correcte input wordt een nieuw account aangemaakt en de gebruiker geredirect naar de loginpagina

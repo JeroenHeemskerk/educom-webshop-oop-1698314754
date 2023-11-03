@@ -11,13 +11,13 @@ class LoginDoc extends FormsDoc {
 
     //Overridden method of BasicDoc
     protected function showContent() {
-        echo '<h2>Login pagina</h2>';
-        showFormStart();
 
-        showFormField("email", "Vul uw emailadres in:", "text", $this->model->email, $this->model->errMail, "johndoe@hotmail.com");
-        showFormField("password", "Vul uw wachtwoord in:", "password", "", $this->model->errPassword);
+        $this->showFormStart();
 
-        showFormEnd("login", "Login");
+        $this->showFormField("email", "Vul uw emailadres in:", "text", $this->model->email, $this->model->errMail, "johndoe@hotmail.com");
+        $this->showFormField("password", "Vul uw wachtwoord in:", "password", "", $this->model->errPassword);
+
+        $this->showFormEnd("login", "Login");
     }
 }
 ?>

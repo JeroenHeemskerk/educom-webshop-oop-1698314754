@@ -33,7 +33,7 @@
                 break;
             case ("textarea"):
                 echo '<label for="' . $fieldName . '">' . $label . '</label>';
-                showErrorSpan($data['errMessage']);
+                $this->showErrorSpan($data['errMessage']);
                 echo '<textarea id="' . $fieldName . '" name="' . $fieldName . '"' . $options . '">'; echo $data['message'] . '</textarea>';
             }
     }

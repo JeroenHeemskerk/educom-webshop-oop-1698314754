@@ -1,6 +1,6 @@
 <?php
-class Validate {
-    public function checkEmail($email) {
+class Validate extends PageModel{
+    protected function checkEmail($email) {
 		
         if (empty($email)) {			
             return "Emailadres moet ingevuld zijn";  
@@ -13,7 +13,7 @@ class Validate {
 		return "";
     }
     
-    public function checkNewEmail($email) {
+    protected function checkNewEmail($email) {
 		
         //doesEmailExist staat in user_service.php
         if (doesEmailExist($email)) {
@@ -22,7 +22,7 @@ class Validate {
         return "";
     }
 
-    public function checkName($name) {    
+    protected function checkName($name) {    
 		
 		if (empty($name)) {
 			return "Naam moet ingevuld zijn";
@@ -35,21 +35,21 @@ class Validate {
 		}
     }
     
-    public function checkPassword($password) {   
+    protected function checkPassword($password) {   
 	
         if ($password == ""){
             return "Er is geen wachtwoord opgegeven";
         }
     }
 
-    public function checkProductId($productId){
+    protected function checkProductId($productId){
 
         if ($productId <= 0 || $productId >= 9999999999 || !is_numeric($productId)) {
             return "Het toe te voegen product bestaat niet";
         }
     }
 
-    public function checkQuantity($quantity) {
+    protected function checkQuantity($quantity) {
 
         if (!is_numeric($quantity)) {
             return "Er moet bij 'Aantal' een getal opgegeven worden";
@@ -60,7 +60,7 @@ class Validate {
         }
     }
     
-    public function checkRegisterPassword($password, $passwordTwo) {
+    protected function checkRegisterPassword($password, $passwordTwo) {
 		
 		if (empty($passwordTwo)) {
 			return "Het wachtwoord moet ter controle nog een keer ingevuld worden";
@@ -74,7 +74,7 @@ class Validate {
 			
     }
     
-    public function testInput($input) {
+    protected function testInput($input) {
         
         $input = trim($input);
         $input = stripslashes($input);

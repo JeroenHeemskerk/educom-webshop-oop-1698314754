@@ -28,13 +28,13 @@ abstract class FormsDoc extends BasicDoc {
                 echo '<label for="' . $fieldName . '">' . $label . '</label> ';
                 echo '<input type="text" id="' . $fieldName .  '" name="' . $fieldName . '"';
                 echo 'value="' . $data . '" placeholder="' . $options . '">';
-                showErrorSpan($error);
+                $this->showErrorSpan($error);
                 break;
             case ("password"):
                 echo '<label for="' . $fieldName . '">' . $label . '</label> ';
                 echo '<input type="password" id="' . $fieldName .  '" name="' . $fieldName . '"';
                 echo 'value="' . $data . '">';
-                showErrorSpan($error);
+                $this->showErrorSpan($error);
                 break;
             case ("radio"):
                 if ($data->contactmode == $options){
@@ -47,7 +47,7 @@ abstract class FormsDoc extends BasicDoc {
                 break;
             case ("textarea"):
                 echo '<label for="' . $fieldName . '">' . $label . '</label>';
-                showErrorSpan($data->errMessage);
+                $this->showErrorSpan($data->errMessage);
                 echo '<textarea id="' . $fieldName . '" name="' . $fieldName . '"' . $options . '">'; echo $data->message . '</textarea>';
             }
     }
