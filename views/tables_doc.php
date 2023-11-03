@@ -6,18 +6,22 @@ abstract Class TablesDoc extends ProductDoc {
 
     public function dataCell($value = "", $page = "", $id = "", $colspan = 1) {
 
-        switch ($page) {
-            case "cart":
-                echo '<td colspan="' . $colspan . '"><a class="productLink" href="index.php?page=details&productId=' . $id . '"><div class="pagetext">' . $value . '</div></a></td>';
-                break;
-            case "orders":
-                echo '<td colspan="' . $colspan . '"><a class="productLink" href="index.php?page=orders&orderId=' . $id . '"><div class="pagetext">' . $value . '</div></a></td>';
-                break;
-            default:
-                echo '<td colspan="' . $colspan . '">' . $value . '</td>';
-                break;
-    
-        } 
+        echo '<td colspan="' . $colspan . '">';
+
+        if (!empty($page)) {
+            echo '<a class="productLink" href="index.php?page=' . $page;
+            if (!empty($id)) {
+                echo '&id=' . $id;
+            }
+        echo '"><div class="pagetext">';
+        }
+
+        echo $value;
+
+        if (!empty($page)) {
+            echo '</div></a>'; 
+        }
+        echo '</td>';
     }
     
     public function headerCell($value) {
