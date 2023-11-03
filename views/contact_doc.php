@@ -20,38 +20,25 @@ class ContactDoc extends FormsDoc {
         $this->showFormStart();    
         
             //Aanhefkeuze
-            echo '<label for="salutation"> Aanhef:</label><br>';
-            echo '<select name="salutation" id="salutation">';
-
-            foreach (SALUTATIONS as $value => $label) {
-                $this->showFormField("", $label, "select", $this->model, "", $value);
-            }
-
-            echo '</select>';
+            $this->showFormField("salutation", "Aanhef:", "select", SALUTATIONS);
             $this->showErrorSpan($this->model->errSalutation);
             echo '<br><br>';
             
         
             //Formulier met naam, emailadres en telefoonnummer
-            $this->showFormField("name", "Naam:", "text", $this->model->name, $this->model->errName, "John Doe");
-            $this->showFormField("email", "Emailadres:", "text", $this->model->email, $this->model->errMail, "johndoe@hotmail.com");       
-            $this->showFormField("phonenumber", "Telefoonnummer:", "text", $this->model->phonenumber, $this->model->errPhonenumber, "06-12345678");
+            $this->showFormField("name", "Naam:", "text", "John Doe");
+            $this->showFormField("email", "Emailadres:", "text", "johndoe@hotmail.com");       
+            $this->showFormField("phonenumber", "Telefoonnummer:", "text", "06-12345678");
             
             echo '<br>';
         
             //Radio button met contactwijze
-            echo '<label for="contactmode">Contactwijze: </label>';
-            $this->showErrorSpan($this->model->errContactmode);
-            echo '<br>';
-
-            foreach (COMM_PREFS as $value => $label){
-                $this->showFormField("contactmode", $label, "radio", $this->model, "", $value);
-            }
+            $this->showFormField("contactmode", "ContactWijze:", "radio", COMM_PREFS);
 
             echo '<br>';
 
             //Tekstbericht
-            $this->showFormField("message", "Uw Bericht:", "textarea", $this->model, 'rows="3" cols="50"');
+            $this->showFormField("message", "Uw Bericht:", "textarea", 'rows="3" cols="50"');
             
             echo '<br><br>';
         

@@ -7,8 +7,8 @@ class UserModel extends Validate {
     public $contactmode = "", $email = "", $message= "", $name= "", $password= "", $passwordTwo= "",
      $phonenumber = "", $productId= "", $quantity= "", $salutation = "";
 
-    public $errContactmode = "", $errMail = "", $errMessage = "", $errName = "", $errPassword = ""
-    , $errPhonenumber = "", $errProductId = "", $errQuantity = "", $errSalutation = "";
+    public $errContactmode = "", $errEmail = "", $errMessage = "", $errName = "", $errPassword = ""
+    , $errPasswordTwo = "", $errPhonenumber = "", $errProductId = "", $errQuantity = "", $errSalutation = "";
 
     private $user = array();
     public $valid = False;
@@ -17,8 +17,8 @@ class UserModel extends Validate {
         parent::__construct($pageModel);
     }
 
-    public function doLoginUser($name, $email) {
-        $this->sessionManager->loginUser($name, $email);
+    public function doLoginUser() {
+        $this->sessionManager->loginUser($this->name, $this->email);
     }
 
     public function doLogoutUser() {
@@ -27,6 +27,10 @@ class UserModel extends Validate {
 
     public function doGetLoggedInUsername() {
         $this->sessionManager->getLoggedInUsername();
+    }
+
+    public function doRegisterNewAccount() {
+        registerNewAccount($this->name, $this->email, $this->password);
     }
 
     public function authenticateUser() {
@@ -66,10 +70,10 @@ class UserModel extends Validate {
             }       
             
             if (empty($this->email)) {				
-                $this->errMail = "Emailadres moet ingevuld zijn";
+                $this->errEmail = "Emailadres moet ingevuld zijn";
             //Als email niet leeg is wordt gekeken of er sprake is van een valide emailadres
             } else if (!filter_var($this->email, FILTER_VALIDATE_EMAIL)) {
-                $this->errMail = "Vul een valide emailadres in";
+                $this->errEmail = "Vul een valide emailadres in";
             }             
             
             if (empty($this->phonenumber)) {                
@@ -89,7 +93,7 @@ class UserModel extends Validate {
             }
         
             //Als er geen errors voorkomen wordt validInput op true gezet zodat de bedankpagina getoond kan worden
-            if (($this->errSalutation == "") && ($this->errName == "") && ($this->errMail == "") && ($this->errPhonenumber == "") && ($this->errContactmode == "") && ($this->errMessage == "")){            
+            if (($this->errSalutation == "") && ($this->errName == "") && ($this->errEmail == "") && ($this->errPhonenumber == "") && ($this->errContactmode == "") && ($this->errMessage == "")){            
                 $this->valid = True;
             } else {
                 $this->valid = False;
@@ -108,11 +112,11 @@ class UserModel extends Validate {
             $this->password = $this->testInput(getPostVar("password"));
         
             //Vervolgens wordt gekeken of correcte input gegeven is
-            $this->errMail = $this->checkEmail($this->email);
+            $this->errEmail = $this->checkEmail($this->email);
             $this->errPassword = $this->checkPassword($this->password);
         
             //Indien geen foutmeldingen gegeven zijn bij het checken van het emailadres en password is sprake van valide input
-            if ($this->errMail == "" && $this->errPassword == "") {
+            if ($this->errEmail == "" && $this->errPassword == "") {
                 
                 try {
                     $this->authenticateUser();
@@ -121,7 +125,7 @@ class UserModel extends Validate {
                         $this->name = $this->user['name'];
                         $this->valid = True;
                     } else {
-                        $this->errMail = "Opgegeven emailadres is niet gekoppeld aan een gebruiker of incorrect wachtwoord";
+                        $this->errEmail = "Opgegeven emailadres is niet gekoppeld aan een gebruiker of incorrect wachtwoord";
                     }                
                 }
                 catch (Exception $e) {
@@ -146,14 +150,14 @@ class UserModel extends Validate {
         
             //Vervolgens wordt gekeken of correcte input gegeven is
             $this->errName = $this->checkName($this->name);
-            $this->errMail = $this->checkEmail($this->email);
+            $this->errEmail = $this->checkEmail($this->email);
 			$this->errPassword = $this->checkPassword($this->password);
         
             //Nadat een correct emailadres is opgegeven wordt ook gekeken of er sprake is van een nieuw uniek emailadres
-            if ($this->errMail == "") {
+            if ($this->errEmail == "") {
                     
                 try {
-                    $this->errMail = $this->checkNewEmail($this->email);
+                    $this->errEmail = $this->checkNewEmail($this->email);
                 } catch (Exception $e) {
                     $this->genericError = "Door een technisch probleem is registreren helaas niet mogelijk op dit moment. Probeer het op een later moment nogmaals.<br>";
                     logError($e->getMessage()); //Schrijf $e naar log functie (deze doet niks op dit moment want is conform opdracht niet geïmplementeerd)
@@ -166,7 +170,7 @@ class UserModel extends Validate {
 			}
         
                 //Indien sprake is van correcte input wordt een nieuw account aangemaakt en de gebruiker geredirect naar de loginpagina
-            if ($this->errName == "" && $this->errMail == "" && $this->errPassword == "") {
+            if ($this->errName == "" && $this->errEmail == "" && $this->errPassword == "") {
                 $this->valid = True;        
             }            
         }

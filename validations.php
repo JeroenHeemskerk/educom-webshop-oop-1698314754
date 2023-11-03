@@ -84,7 +84,7 @@
     function validateContact() {
     
         $salutation = $name = $email = $phonenumber = $contactmode = $message = "";
-        $errSalutation = $errName = $errMail = $errPhonenumber = $errContactmode = $errMessage = "";
+        $errSalutation = $errName = $errEmail = $errPhonenumber = $errContactmode = $errMessage = "";
         $valid = False;        
         
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -115,10 +115,10 @@
             
             if (empty($email)) {
 				
-                $errMail = "Emailadres moet ingevuld zijn";
+                $errEmail = "Emailadres moet ingevuld zijn";
             //Als email niet leeg is wordt gekeken of er sprake is van een valide emailadres
             } else if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-                    $errMail = "Vul een valide emailadres in";
+                    $errEmail = "Vul een valide emailadres in";
             }             
             
             if (empty($phonenumber)) {
@@ -141,7 +141,7 @@
             }
         
             //Als er geen errors voorkomen wordt validInput op true gezet zodat de bedankpagina getoond kan worden
-            if (($errSalutation == "") && ($errName == "") && ($errMail == "") && ($errPhonenumber == "") && ($errContactmode == "") && ($errMessage == "")){
+            if (($errSalutation == "") && ($errName == "") && ($errEmail == "") && ($errPhonenumber == "") && ($errContactmode == "") && ($errMessage == "")){
             
                 $valid = True;
             } else {
@@ -150,13 +150,13 @@
         }
         
         
-        return array('salutation' => $salutation, 'errSalutation' => $errSalutation, 'name' => $name, 'errName' => $errName, 'email' => $email, 'errMail' => $errMail, 'phonenumber' => $phonenumber,
+        return array('salutation' => $salutation, 'errSalutation' => $errSalutation, 'name' => $name, 'errName' => $errName, 'email' => $email, 'errMail' => $errEmail, 'phonenumber' => $phonenumber,
         'errPhonenumber' => $errPhonenumber, 'contactmode' => $contactmode, 'errContactmode' => $errContactmode, 'message' => $message, 'errMessage' => $errMessage, 'valid' => $valid, 'page' => "");    
     }
     
     function validateLogin() {
     
-        $email = $password = $name = $errMail = $errPassword = $genericError = "";
+        $email = $password = $name = $errEmail = $errPassword = $genericError = "";
         $valid = False;
     
         if ($_SERVER["REQUEST_METHOD"] == "POST"){
@@ -166,11 +166,11 @@
             $password = testInput($_POST["password"]);
         
             //Vervolgens wordt gekeken of correcte input gegeven is
-            $errMail = checkEmail($email);
+            $errEmail = checkEmail($email);
             $errPassword = checkPassword($password);
         
             //Indien geen foutmeldingen gegeven zijn bij het checken van het emailadres en password is sprake van valide input
-            if ($errMail == "" && $errPassword == "") {
+            if ($errEmail == "" && $errPassword == "") {
                 
                 try {
                     $user = authenticateUser($email, $password);
@@ -179,7 +179,7 @@
                         $name = $user['name'];
                     $valid = True;
                     } else {
-                        $errMail = "Opgegeven emailadres is niet gekoppeld aan een gebruiker of incorrect wachtwoord";
+                        $errEmail = "Opgegeven emailadres is niet gekoppeld aan een gebruiker of incorrect wachtwoord";
                     }                
                 }
                 catch (Exception $e) {
@@ -189,12 +189,12 @@
             }
         }
     
-        return array('email'=> $email, 'errMail' => $errMail, 'name' => $name, 'password' => $password, 'errPassword' => $errPassword, 'genericError' => $genericError, 'valid' => $valid, 'page' => "");
+        return array('email'=> $email, 'errMail' => $errEmail, 'name' => $name, 'password' => $password, 'errPassword' => $errPassword, 'genericError' => $genericError, 'valid' => $valid, 'page' => "");
     }
     
     function validateRegister() {
     
-        $name = $email = $password = $passwordTwo = $errName = $errMail = $errPassword = $genericError = "";
+        $name = $email = $password = $passwordTwo = $errName = $errEmail = $errPassword = $genericError = "";
         $valid = False;
 
         if ($_SERVER["REQUEST_METHOD"] == "POST"){
@@ -207,14 +207,14 @@
         
             //Vervolgens wordt gekeken of correcte input gegeven is
             $errName = checkName($name);
-            $errMail = checkEmail($email);
+            $errEmail = checkEmail($email);
 			$errPassword = checkPassword($password);
         
             //Nadat een correct emailadres is opgegeven wordt ook gekeken of er sprake is van een nieuw uniek emailadres
-            if ($errMail == "") {
+            if ($errEmail == "") {
                     
                 try {
-                    $errMail = checkNewEmail($email);
+                    $errEmail = checkNewEmail($email);
                 } catch (Exception $e) {
                     $genericError = "Door een technisch probleem is registreren helaas niet mogelijk op dit moment. Probeer het op een later moment nogmaals.<br>";
                     logError($e->getMessage()); //Schrijf $e naar log functie (deze doet niks op dit moment want is conform opdracht niet geïmplementeerd)
@@ -227,12 +227,12 @@
 			}
         
                 //Indien sprake is van correcte input wordt een nieuw account aangemaakt en de gebruiker geredirect naar de loginpagina
-            if ($errName == "" && $errMail == "" && $errPassword == "") {
+            if ($errName == "" && $errEmail == "" && $errPassword == "") {
                 $valid = True;        
             }            
         }
     
-        return array('name' => $name, 'errName' => $errName, 'email' => $email, 'errMail' => $errMail, 'password' => $password, 'passwordTwo' => $passwordTwo, 'errPassword' => $errPassword, 'genericError' => $genericError, 'valid' => $valid, 'page' => "");
+        return array('name' => $name, 'errName' => $errName, 'email' => $email, 'errMail' => $errEmail, 'password' => $password, 'passwordTwo' => $passwordTwo, 'errPassword' => $errPassword, 'genericError' => $genericError, 'valid' => $valid, 'page' => "");
     }
 
     function validateAddingProductToShoppingCart() {

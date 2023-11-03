@@ -22,40 +22,49 @@ abstract class FormsDoc extends BasicDoc {
             echo '<input class="buyActionButton" type="submit" value="' . $buttonText . '">';
     }
 
-    protected function showFormField($fieldName, $label, $inputType, $data, $error, $options = "") {
+    protected function showFormField($fieldName, $label, $inputType, $options = []) {
+        $value = $this->model->{$fieldName};
+        $error = $this->model->{"err". ucfirst($fieldName)};
+
+        echo '<label for="' . $fieldName . '">' . $label . '</label> ';
         switch ($inputType){
             case("select"):
-                if ($data->salutation == $options){
-                    echo '<option value="' . $options . '" selected>' . $label . '</option>';
-                } else {
-                    echo '<option value="' . $options. '">' . $label . '</option>';
-                }
-                break;
+            echo '<select name="' . $fieldName . '">'; 
+            foreach($options as $key => $text) {
+                if ($value == $key){ 
+                    echo '<option value="' . $key . '" selected>' . $text . '</option>'; 
+                } else { 
+                    echo '<option value="' . $key. '">' . $text . '</option>'; 
+                } 
+            }
+            echo '</select>';
+            $this->showErrorSpan($error); 
+            break;
             case ("text"):
-                echo '<label for="' . $fieldName . '">' . $label . '</label> ';
-                echo '<input type="text" id="' . $fieldName .  '" name="' . $fieldName . '"';
-                echo 'value="' . $data . '" placeholder="' . $options . '">';
-                $this->showErrorSpan($error);
-                break;
+                echo '<input type="'.$inputType.'" id="' . $fieldName .  '" name="' . $fieldName . '"'; 
+                echo 'value="' . $value . '" placeholder="' . $options . '">'; 
+                $this->showErrorSpan($error); 
+                break;            
             case ("password"):
-                echo '<label for="' . $fieldName . '">' . $label . '</label> ';
                 echo '<input type="password" id="' . $fieldName .  '" name="' . $fieldName . '"';
-                echo 'value="' . $data . '">';
+                echo 'value="' . $value . '">';
                 $this->showErrorSpan($error);
-                break;
+                break;            
             case ("radio"):
-                if ($data->contactmode == $options){
-                    echo '<input type="radio" checked = "checked" id="' . $fieldName . '" name="' . $fieldName . '" value="' . $options . '">';
-                    echo '<label for="' . $fieldName . '">' . $label . '</label><br>';
-                } else {
-                    echo '<input type="radio" id="' . $fieldName . '" name="' . $fieldName . '" value="' . $options . '">';
-                    echo '<label for="' . $fieldName . '">' . $label . '</label><br>';
-                }
+                $this->showErrorSpan($error); 
+                foreach($options as $key => $text) {
+                    if ($value == $key){ 
+                        echo '<input type="radio" checked = "checked" id="' . $fieldName . '" name="' . $fieldName . '" value="' . $key . '">'; 
+                        echo '<label for="' . $fieldName . '">' . $text . '</label><br>'; 
+                    } else { 
+                        echo '<input type="radio" id="' . $fieldName . '" name="' . $fieldName . '" value="' . $key . '">'; 
+                        echo '<label for="' . $fieldName . '">' . $text . '</label><br>'; 
+                    }
+                } 
                 break;
             case ("textarea"):
-                echo '<label for="' . $fieldName . '">' . $label . '</label>';
-                $this->showErrorSpan($data->errMessage);
-                echo '<textarea id="' . $fieldName . '" name="' . $fieldName . '"' . $options . '">'; echo $data->message . '</textarea>';
+                $this->showErrorSpan($error);
+                echo '<textarea id="' . $fieldName . '" name="' . $fieldName . '"' . $options . '">' . $this->model->message . '</textarea>';
             }
     }
 

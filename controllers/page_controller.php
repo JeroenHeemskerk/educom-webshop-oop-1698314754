@@ -35,7 +35,7 @@ class PageController {
                 $this->model = new UserModel($this->model);
                 $this->model->validateLogin();
                 if ($this->model->valid) {
-                    $this->model->doLoginUser($this->model->name, $this->model->email);
+                    $this->model->doLoginUser();
                     $this->model->setPage("home");
                 }
                 break;
@@ -48,6 +48,7 @@ class PageController {
                 $this->model = new UserModel($this->model);
                 $this->model->validateRegister();
                 if ($this->model->valid) {
+                    $this->model->doRegisterNewAccount();
                     $this->model->setPage("login");
                 }
                 break;

@@ -47,13 +47,13 @@
         }
     }
     
-    function registerNewAccount($data) {
+    function registerNewAccount($name, $email, $password) {
         
         $conn = connectToDatabase();
         
-        $name = mysqli_real_escape_string($conn, $data['name']);
-        $email = mysqli_real_escape_string($conn, $data['email']);
-        $password = mysqli_real_escape_string($conn, $data['password']);
+        $name = mysqli_real_escape_string($conn, $name);
+        $email = mysqli_real_escape_string($conn, $email);
+        $password = mysqli_real_escape_string($conn, $password);
         
         try{
             $sql = "INSERT INTO users (name, email_address, password)

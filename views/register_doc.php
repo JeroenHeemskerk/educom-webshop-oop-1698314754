@@ -13,10 +13,10 @@ class RegisterDoc extends FormsDoc {
     protected function showContent() {
         //Formulier met naam, emailadres en emailadrescheck
         $this->showFormStart();
-        $this->showFormField("name", "Naam:", "text", $this->model->name, $this->model->errName, "John Doe");
-        $this->showFormField("email", "Emailadres:", "text", $this->model->email, $this->model->errMail, "johndoe@hotmail.com");
-        $this->showFormField("password", "Wachtwoord:", "password", $this->model->password, $this->model->errPassword, "");
-        $this->showFormField("passwordTwo", "Herhaal uw wachtwoord:", "password", $this->model->passwordTwo, "", "");
+        $this->showFormField("name", "Naam:", "text", "John Doe");
+        $this->showFormField("email", "Emailadres:", "text", "johndoe@hotmail.com");
+        $this->showFormField("password", "Wachtwoord:", "password", "");
+        $this->showFormField("passwordTwo", "Herhaal uw wachtwoord:", "password", "");
         
         //Verzendknop
         $this->showFormEnd("register", "Registreer!");
