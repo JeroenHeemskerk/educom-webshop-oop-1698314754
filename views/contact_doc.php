@@ -51,7 +51,7 @@ class ContactDoc extends FormsDoc {
             echo '<h3>Ingevulde gegevens:</h3>';
 
             echo '<p>Aanhef: ';
-            echo $this->model->salutation;
+            echo SALUTATIONS[$this->model->salutation];
 
             echo '<br>Naam: ';
             echo $this->model->name; 
