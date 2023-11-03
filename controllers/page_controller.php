@@ -56,6 +56,11 @@ class PageController {
                 $this->model->getWebshopProducts();
                 $this->model->handleActions();
                 break;
+            case "details":
+                $this->model = new ShopModel($this->model);
+                $this->model->getWebshopProductDetails();
+                $this->model->handleActions();
+                break;
         }
     }
 
@@ -87,6 +92,10 @@ class PageController {
             case "webshop":
                 require_once "./views/webshop_doc.php";
                 $view = new WebshopDoc($this->model);
+                break;
+            case "details":
+                require_once "./views/details_doc.php";
+                $view = new DetailsDoc($this->model);
                 break;
         }
         $view->show();

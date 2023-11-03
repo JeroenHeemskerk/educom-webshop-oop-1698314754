@@ -12,6 +12,19 @@ class ShopModel extends Validate {
 
     public $valid = False;
 
+    function getWebshopProductDetails() {
+        $this->genericError = "";
+        $this->productId = getVar('productId');
+        $this->sessionManager->createShoppingCart(); 
+        try {
+            $this->product = getWebshopProduct($this->productId);
+        }
+        catch(Exception $e) {
+            $this->genericError = "Helaas kunnen wij dit product op dit moment niet laten zien. Probeer het later opnieuw.";
+            logError($e->getMessage()); //Schrijf $e naar log functie
+        }
+    }
+
     public function getWebshopProducts() {    
         $this->genericError = "";
         $this->sessionManager->createShoppingCart();
