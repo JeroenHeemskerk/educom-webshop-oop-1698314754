@@ -43,6 +43,13 @@ class PageController {
                 $this->model->doLogoutUser();
                 $this->model->setPage("home");
                 break;
+            case "register":
+                $this->model = new UserModel($this->model);
+                $this->model->validateRegister();
+                if ($this->model->valid) {
+                    $this->model->setPage("login");
+                }
+                break;
         }
     }
 
@@ -66,6 +73,10 @@ class PageController {
             case "login":
                 require_once "./views/login_doc.php";
                 $view = new LoginDoc($this->model);
+                break;
+            case "register":
+                require_once "./views/register_doc.php";
+                $view = new RegisterDoc($this->model);
                 break;
         }
         $view->show();

@@ -30,7 +30,13 @@ class UserModel extends PageModel {
     }
 
     private function authenticateUser() {
-
+        $this->user = findUserByEmail($this->email);
+        if (empty($this->user)) {
+            $this->user = NULL;
+        }
+        if ($this->password != $this->user['password']) {
+            $this->user = NULL;
+        }
     }
 
     public function validateContact() {       
@@ -99,8 +105,8 @@ class UserModel extends PageModel {
         if ($this->isPost){
         
             //Eerst worden ongewenste karakters verwijderd
-            $this->email = testInput($_POST["email"]);
-            $this->password = testInput($_POST["password"]);
+            $this->email = testInput(getPostVar("email"));
+            $this->password = testInput(getPostVar("password"));
         
             //Vervolgens wordt gekeken of correcte input gegeven is
             $this->errMail = checkEmail($this->email);
@@ -110,7 +116,7 @@ class UserModel extends PageModel {
             if ($this->errMail == "" && $this->errPassword == "") {
                 
                 try {
-                    $this->user = authenticateUser($this->email, $this->password);
+                    $this->authenticateUser();
                     
                     if (!empty($this->user)) {
                         $this->name = $this->user['name'];
@@ -124,6 +130,47 @@ class UserModel extends PageModel {
                     logError($e->getMessage()); //Schrijf $e naar log functie
                 }
             }
+        }
+    }
+
+    function validateRegister() {
+
+        require_once "./user_service.php";
+        require_once "./file_repository.php";
+
+        if ($this->isPost){
+        
+            //Eerst worden ongewenste karakters verwijderd
+            $this->name = testInput(getPostVar("name"));
+            $this->email = testInput(getPostVar("email"));
+            $this->password = testInput(getPostVar("password"));
+            $this->passwordTwo = testInput(getPostVar("passwordTwo"));
+        
+            //Vervolgens wordt gekeken of correcte input gegeven is
+            $this->errName = checkName($this->name);
+            $this->errMail = checkEmail($this->email);
+			$this->errPassword = checkPassword($this->password);
+        
+            //Nadat een correct emailadres is opgegeven wordt ook gekeken of er sprake is van een nieuw uniek emailadres
+            if ($this->errMail == "") {
+                    
+                try {
+                    $this->errMail = checkNewEmail($this->email);
+                } catch (Exception $e) {
+                    $this->genericError = "Door een technisch probleem is registreren helaas niet mogelijk op dit moment. Probeer het op een later moment nogmaals.<br>";
+                    logError($e->getMessage()); //Schrijf $e naar log functie (deze doet niks op dit moment want is conform opdracht niet geïmplementeerd)
+                }
+			}				
+        
+                //Vervolgens wordt bekeken of er wachtwoorden opgegeven zijn, waarna de wachtwoorden met elkaar vergeleken worden
+			if ($this->errPassword == ""){
+                $this->errPassword = checkRegisterPassword($this->password, $this->passwordTwo);
+			}
+        
+                //Indien sprake is van correcte input wordt een nieuw account aangemaakt en de gebruiker geredirect naar de loginpagina
+            if ($this->errName == "" && $this->errMail == "" && $this->errPassword == "") {
+                $this->valid = True;        
+            }            
         }
     }
 
