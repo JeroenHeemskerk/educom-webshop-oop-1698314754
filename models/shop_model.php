@@ -37,6 +37,7 @@ class ShopModel extends Validate {
     }
 
     public function getOrdersAndSum() {
+
         try {
             $this->orders = getOrdersAndSumFromDatabase();
         }
@@ -51,8 +52,9 @@ class ShopModel extends Validate {
     public function getRowsByOrderId() {
         $this->genericError = "";
 
-        if (is_numeric(getVar('orderId'))) {
-        $this->orderId = $this->testInput(getVar('orderId'));
+        if (is_numeric(getVar('id'))) {
+        $this->orderId = $this->testInput(getVar('id'));
+
         try {
             $this->rows = getRowsByOrderIdFromDatabase($this->orderId);
         }
@@ -61,6 +63,7 @@ class ShopModel extends Validate {
             logError($e->getMessage()); //Schrijf $e naar log functie
         }
         $this->getOrdersAndSum();
+
         } else {
             $this->getOrdersAndSum();
         }
@@ -70,6 +73,7 @@ class ShopModel extends Validate {
         $this->genericError = "";
         $this->productId = getVar('productId');
         $this->sessionManager->createShoppingCart(); 
+
         try {
             $this->product = getWebshopProduct($this->productId);
         }
@@ -82,6 +86,7 @@ class ShopModel extends Validate {
     public function getWebshopProducts() {    
         $this->genericError = "";
         $this->sessionManager->createShoppingCart();
+
         try {
             $this->products = getAllProducts();
         }
@@ -92,9 +97,9 @@ class ShopModel extends Validate {
     }
 
     public function handleActions() {
-
         //handleActions zorgt voor de afhandeling van bijvoorbeeld het toevoegen van een product aan de cart
         $this->action = getVar('userAction');
+
         switch ($this->action) {
             case "addToCart":
                 $this->validateAddingProductToShoppingCart();
@@ -142,6 +147,7 @@ class ShopModel extends Validate {
     function writeOrder() {
         $this->genericError = "";
         $this->valid = False;
+
         try {
             writeOrderToDatabase($this->cartLines);
         } catch (Exception $e) {
