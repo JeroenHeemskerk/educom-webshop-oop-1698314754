@@ -66,6 +66,10 @@ class PageController {
                 $this->model->getCartLines();
                 $this->model->handleActions();
                 break;
+            case "orders":
+                $this->model = new ShopModel($this->model);
+                $this->model->getRowsByOrderId();
+                break;
         }
     }
 
@@ -105,6 +109,10 @@ class PageController {
             case "cart":
                 require_once "./views/cart_doc.php";
                 $view = new CartDoc($this->model);
+                break;
+            case "orders":
+                require_once "./views/orders_doc.php";
+                $view = new OrdersDoc($this->model);
                 break;
         }
         $view->show();

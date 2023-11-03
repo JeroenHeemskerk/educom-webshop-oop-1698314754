@@ -6,74 +6,75 @@ class OrdersDoc extends TablesDoc {
 
     //Overridden method of BasicDoc
     protected function showHeader() {
-        echo '<h1>Orders</h1>';
+        echo '<h1>Bestellingen</h1>';
     }
 
     //Overridden method of BasicDoc
     protected function showContent() {
-        echo '<h2>Welkom!</h2>
-        <p class="pagetext">Hier zullen uw orders in te zien zijn.</p>
-        <br>';
+        if (!is_numeric($this->model->orderId)){
+            $this->showOrdersAndTotals();
+        } else {
+            $this->showOrderAndRows();
+        }
     }
 
-    /*
-    private function showOrderAndRows($data) {
+    
+    private function showOrderAndRows() {
 
-        echo '<h2>Bestelling: #' . $data['orderId'] . '</h2>';
+        echo '<h2>Bestelling: #' . $this->model->orderId . '</h2>';
 
-        tableStart();
+        $this->tableStart();
 
-        rowStart();
-            headerCell('');
-            headerCell('Plaatje');
-            headerCell('Product id');
-            headerCell('Naam');
-            headerCell('Hoeveelheid');
-            headerCell('Prijs');
-            headerCell('Totaal');
-        rowEnd();
+        $this->rowStart();
+            $this->headerCell('');
+            $this->headerCell('Plaatje');
+            $this->headerCell('Product id');
+            $this->headerCell('Naam');
+            $this->headerCell('Hoeveelheid');
+            $this->headerCell('Prijs');
+            $this->headerCell('Totaal');
+        $this->rowEnd();
 
         $i = 1;
-        foreach($data['rows'] as $value){
-            rowStart();
-                dataCell($i);
-                dataCell('<img class="tablePicture" src="Images/' . $value['product_picture_location'] . '" alt="' . $value['product_picture_location'] . '">');
-                dataCell($value['product_id']);
-                dataCell($value['name']);
-                dataCell($value['amount']);
-                dataCell('€' . $value['price']);
-                dataCell('€' . $value['total']);
-            rowEnd();
+        foreach($this->model->rows as $value){
+            $this->rowStart();
+                $this->dataCell($i);
+                $this->dataCell('<img class="tablePicture" src="Images/' . $value['product_picture_location'] . '" alt="' . $value['product_picture_location'] . '">');
+                $this->dataCell($value['product_id']);
+                $this->dataCell($value['name']);
+                $this->dataCell($value['amount']);
+                $this->dataCell('€' . $value['price']);
+                $this->dataCell('€' . $value['total']);
+            $this->rowEnd();
 
             $i++;
         }
 
-        rowStart();
-            dataCell("", "", "", 6);
-            dataCell('€' . $data['orders'][$data['orderId']]['total']);
-        tableEnd();
+        $this->rowStart();
+            $this->dataCell("", "", "", 6);
+            $this->dataCell('€' . $this->model->orders[$this->model->orderId]['total']);
+        $this->tableEnd();
     }
 
-    private function showOrdersAndTotals($data) {
+    private function showOrdersAndTotals() {
 
         echo '<h2>Uw bestellingen:</h2>';
 
-        tableStart();
+        $this->tableStart();
 
-        rowStart();
-            headerCell('Bestelling ID');
-            headerCell('Totaal');
-        rowEnd();
+        $this->rowStart();
+            $this->headerCell('Bestelling ID');
+            $this->headerCell('Totaal');
+        $this->rowEnd();
         
-        foreach($data['orders'] as $value){
-            rowStart();
-                dataCell($value['order_id'], "orders", $value['order_id']);
-                dataCell('€' . $value['total'], "orders", $value['order_id']);
-            rowEnd();
+        foreach($this->model->orders as $value){
+            $this->rowStart();
+                $this->dataCell($value['order_id'], "orders", $value['order_id']);
+                $this->dataCell('€' . $value['total'], "orders", $value['order_id']);
+            $this->rowEnd();
         }
 
-        tableEnd();
+        $this->tableEnd();
     }
-    */
 }
 ?>

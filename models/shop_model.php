@@ -4,18 +4,20 @@ require_once "./util.php";
 require_once "./session_manager.php";
 
 class ShopModel extends Validate {
-    public $product = "", $cartTotal = "", $action = "", $productId = "", $quantity = "";
+    public $product = "", $total = "", $action = "", $productId = "", $quantity = "", $orderId = "";
     public $errProductId = "", $errQuantity = ""; 
     public $cart = array();
     public $cartLines = array();
+    public $orders = array();
     public $products = array();
+    public $rows = array();
 
     public $valid = False;
 
     function getCartLines() {    
         $this->genericError = "";
         $this->cart = $this->sessionManager->getShoppingCart();
-        $this->cartTotal = 0;
+        $this->total = 0;
         try {
             $this->products = getAllProducts(); // getSpecificProducts(array_keys($cart))
             foreach ($this->cart as $productId => $amount) {
@@ -24,7 +26,7 @@ class ShopModel extends Validate {
                 }
                 $this->product = $this->products[$productId];
                 $subTotal = $this->product['price'] * $amount;
-                $this->cartTotal += $subTotal;
+                $this->total += $subTotal;
                 $this->cartLines[$productId] = array('name' => $this->product['name'], 'description' => $this->product['description'], 'price' => $this->product['price'], 'product_picture_location' => $this->product['product_picture_location'], 'amount' => $amount, 'subTotal' => $subTotal);
             }
         }
@@ -34,7 +36,37 @@ class ShopModel extends Validate {
         }        
     }
 
-    function getWebshopProductDetails() {
+    public function getOrdersAndSum() {
+        try {
+            $this->orders = getOrdersAndSumFromDatabase();
+        }
+        catch(Exception $e) {
+            $this->genericError = "Helaas zijn uw orders op dit moment niet beschikbaar. Probeer het later opnieuw.";
+            logError($e->getMessage()); //Schrijf $e naar log functie
+        }
+
+        //return array('orders' => $orders, 'genericError' => $genericError);
+    }
+
+    public function getRowsByOrderId() {
+        $this->genericError = "";
+
+        if (is_numeric(getVar('orderId'))) {
+        $this->orderId = $this->testInput(getVar('orderId'));
+        try {
+            $this->rows = getRowsByOrderIdFromDatabase($this->orderId);
+        }
+        catch(Exception $e) {
+            $this->genericError = "Helaas zijn uw orders op dit moment niet beschikbaar. Probeer het later opnieuw.";
+            logError($e->getMessage()); //Schrijf $e naar log functie
+        }
+        $this->getOrdersAndSum();
+        } else {
+            $this->getOrdersAndSum();
+        }
+    }
+
+    public function getWebshopProductDetails() {
         $this->genericError = "";
         $this->productId = getVar('productId');
         $this->sessionManager->createShoppingCart(); 
@@ -69,12 +101,14 @@ class ShopModel extends Validate {
                 if ($this->valid){
                     $this->sessionManager->addProductToShoppingCart($this->productId, $this->quantity);
                 }
+                break;
             case "completeOrder":
                 $this->writeOrder($this->cartLines);
                 if ($this->valid) {
                     $this->sessionManager->emptyShoppingCart();
                     unset($this->cartLines);
                 }
+                break;
         }
     }
 

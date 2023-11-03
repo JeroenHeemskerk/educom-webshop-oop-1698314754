@@ -104,7 +104,7 @@ ul {
 /*Zorgt voor normale tekstopmaak in het assortiment in plaats van ge-underlinede en paarse tekst*/
 .productlink {
     color:black;
-    text-decoration:none;
+    text-decoration: none;
 }
 
 /*Maakt het plaatje op de detailpagina groter*/

@@ -47,7 +47,7 @@ class CartDoc extends TablesDoc {
         $this->rowStart(); 
             $this->dataCell('', '', '', 4);
             $this->dataCell('Totaal:');  
-            $this->dataCell('€' . $this->model->cartTotal);
+            $this->dataCell('€' . $this->model->total);
         $this->rowEnd();
         
         $this->tableEnd();
