@@ -4,13 +4,14 @@ class PageModel {
     public $page;
     protected $isPost = False;
     public $menu;
-    public $errors = array();
     public $genericError = "";
     public $sessionManager;
 
+    public $valid = False;
+
     public function __construct($copy) {
         if (empty($copy)) {
-            //first instance of PageModel
+            //Eerste insantie van PageModel
             $this->sessionManager = new SessionManager();
         } else {
             //Deze wordt gebruikt wanneer een extended class de constructor in deze class aanroept

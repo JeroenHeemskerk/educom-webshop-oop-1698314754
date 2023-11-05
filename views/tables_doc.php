@@ -4,14 +4,14 @@ require_once "product_doc.php";
 
 abstract Class TablesDoc extends ProductDoc {
 
-    public function dataCell($value = "", $page = "", $id = "", $colspan = 1) {
+    public function dataCell($value = "", $page = "", $productId = "", $colspan = 1) {
 
         echo '<td colspan="' . $colspan . '">';
 
         if (!empty($page)) {
             echo '<a class="productLink" href="index.php?page=' . $page;
-            if (!empty($id)) {
-                echo '&id=' . $id;
+            if (!empty($productId)) {
+                echo '&productId=' . $productId;
             }
         echo '"><div class="pagetext">';
         }

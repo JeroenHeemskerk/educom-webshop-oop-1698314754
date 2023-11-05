@@ -34,9 +34,7 @@ class WebshopDoc extends ProductDoc {
             '</div></a>';
             
             $this->showAddToCartAction($this->model->products[$i]['product_id'], 'webshop', 'Voeg toe aan winkelwagen');
-        }
-            
+        }            
     }
-    
 }
 ?>

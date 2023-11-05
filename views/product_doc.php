@@ -16,5 +16,19 @@ abstract class ProductDoc extends FormsDoc {
             echo '<br>';     
         }
     }
+
+    protected function showBuyAction($buttonText) {
+        $this->showFormStart();
+            echo '<input type="hidden" name="page" value="cart">'; 
+            echo '<input type="hidden" name="userAction" value="completeOrder">';
+            echo '<input class="buyActionButton" type="submit" value="' . $buttonText . '">';
+    }
+
+    //Overridden showFormField voor DetaislDoc en WebshopDoc
+    protected function showFormField($fieldName, $label, $inputType, $options = []) {
+        echo '<label for="' . $fieldName . '">' . $label . '</label> ';
+        echo '<input type="' . $inputType.'" id="' . $fieldName .  '" name="' . $fieldName . '"'; 
+        echo 'value="" placeholder="' . $options . '">'; 
+    }    
 }
 ?>

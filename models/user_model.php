@@ -11,7 +11,6 @@ class UserModel extends Validate {
     , $errPasswordTwo = "", $errPhonenumber = "", $errProductId = "", $errQuantity = "", $errSalutation = "";
 
     private $user = array();
-    public $valid = False;
 
     public function __construct($pageModel) {
         parent::__construct($pageModel);
@@ -35,9 +34,13 @@ class UserModel extends Validate {
 
     public function authenticateUser() {
         $this->user = findUserByEmail($this->email);
+
+        //Indien user niet gevonden is geeft de functie null terug
         if (empty($this->user)) {
             $this->user = NULL;
         }
+
+        //Indien een user is gevonden op basis van het opgegeven emailadres wordt het wachtwoord nagekeken
         if ($this->password != $this->user['password']) {
             $this->user = NULL;
         }
@@ -47,7 +50,7 @@ class UserModel extends Validate {
         
         if ($this->isPost) {
             
-            //de input vanuit het formulier wordt hier in variabelen gezet en vervolgens opgeschoond door middel van de testInput functie
+            //De input vanuit het formulier wordt hier in variabelen gezet en vervolgens opgeschoond door middel van de testInput functie
             $this->salutation = $this->testInput(getPostVar("salutation"));
             $this->name = $this->testInput(getPostVar("name"));
             $this->email = $this->testInput(getPostVar("email"));
@@ -59,7 +62,7 @@ class UserModel extends Validate {
                 $this->errSalutation = "Aanhef moet ingevuld zijn";                
 			//Als name niet leeg is wordt gekeken of er enkel letters en whitespaces ingevuld zijn                
             } else if (!($this->salutation == "mr." || $this->salutation == "mrs." || $this->salutation == "neither")) {                
-                $errSalutation = "Enkel 'Dhr.', 'Mvr.' of 'Geen van beide' zijn valide input";
+                $this->errSalutation = "Enkel 'Dhr.', 'Mvr.' of 'Geen van beide' zijn valide input";
             }
             
             if (empty($this->name)) {				
@@ -136,7 +139,7 @@ class UserModel extends Validate {
         }
     }
 
-    function validateRegister() {
+    public function validateRegister() {
 
         require_once "./file_repository.php";
 

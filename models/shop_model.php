@@ -12,15 +12,15 @@ class ShopModel extends Validate {
     public $products = array();
     public $rows = array();
 
-    public $valid = False;
-
-    function getCartLines() {    
+    public function getCartLines() {    
         $this->genericError = "";
         $this->cart = $this->sessionManager->getShoppingCart();
         $this->total = 0;
         try {
             $this->products = getAllProducts(); // getSpecificProducts(array_keys($cart))
             foreach ($this->cart as $productId => $amount) {
+
+                //Als productId niet gematcht wordt met een product wordt dit productId overgeslagen
                 if (!array_key_exists($productId, $this->products)){
                     continue;
                 }
@@ -144,7 +144,7 @@ class ShopModel extends Validate {
         }
     }
     
-    function writeOrder() {
+    public function writeOrder() {
         $this->genericError = "";
         $this->valid = False;
 

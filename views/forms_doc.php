@@ -15,13 +15,6 @@ abstract class FormsDoc extends BasicDoc {
         echo '</form>';
     }
 
-    protected function showBuyAction($buttonText) {
-        $this->showFormStart();
-            echo '<input type="hidden" name="page" value="cart">'; 
-            echo '<input type="hidden" name="userAction" value="completeOrder">';
-            echo '<input class="buyActionButton" type="submit" value="' . $buttonText . '">';
-    }
-
     protected function showFormField($fieldName, $label, $inputType, $options = []) {
         $value = $this->model->{$fieldName};
         $error = $this->model->{"err". ucfirst($fieldName)};
@@ -41,7 +34,7 @@ abstract class FormsDoc extends BasicDoc {
             $this->showErrorSpan($error); 
             break;
             case ("text"):
-                echo '<input type="'.$inputType.'" id="' . $fieldName .  '" name="' . $fieldName . '"'; 
+                echo '<input type="' . $inputType.'" id="' . $fieldName .  '" name="' . $fieldName . '"'; 
                 echo 'value="' . $value . '" placeholder="' . $options . '">'; 
                 $this->showErrorSpan($error); 
                 break;            

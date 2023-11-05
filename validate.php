@@ -56,7 +56,7 @@ class Validate extends PageModel{
         } else if ($quantity <= 0) {
             return "De hoeveelheid aan te schaffen producten moet hoger dan 0 zijn";
         } else if ($quantity > 100) {
-            return "Er kunnen niet meer dan 100 van hetzelfde product tegelijkertijd aangeschaft worden";
+            return "Er kan niet meer dan 100 van hetzelfde product tegelijkertijd aangeschaft worden";
         }
     }
     
