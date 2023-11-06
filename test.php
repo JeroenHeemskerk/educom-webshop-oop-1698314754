@@ -1,7 +1,48 @@
-<?php
+<?php   
+    include "db_repository.php";
 
-    getOrdersFromDatabase();
+    //getOrdersFromDatabase();
+    $CRUD = new CRUD();
 
+    /*
+    $sql = "INSERT INTO users (name, email_address, password)
+    VALUES (:name, :email, :password)";
+    $values = array("name" => "pietje", "email" => "pietje@t.t", "password" =>"s");
+    $result = $CRUD->createRow($sql, $values);
+    print_r($result);
+    */
+    /*
+    $sql = "SELECT * FROM order_row WHERE (order_id = :orderId)";
+    $value = array("orderId" => 40);
+    $result = $CRUD->readOneRow($sql, $value);
+    print_r($result);
+    */
+    /*
+    $sql = "DELETE FROM users WHERE (user_id = :userId)";
+    $value = array("userId" => 25);
+    $CRUD->deleteRow($sql, $value);
+    */
+
+    
+    $sql = "SELECT order_row.order_id, order_row.row_id, order_row.product_id,
+            order_row.amount, products.price, price * amount AS total
+            FROM order_row
+            INNER JOIN products
+                ON order_row.product_id=products.product_id
+            INNER JOIN orders 
+                ON order_row.order_id=orders.order_id
+            WHERE (orders.user_id = :userId) AND (order_row.order_id = :orderId)
+            ORDER BY row_id";
+    $value = array("userId" => 1,"orderId" => 46);
+    $result = $CRUD->readMultipleRows($sql, $value);
+    print_r($result);
+    
+    /*
+    $sql = "UPDATE users SET email_address = :email WHERE user_id = :userId";
+    $value = array("email" => "sjakie@sjakie.sjakie", "userId" => "22");
+    $CRUD->updateRow($sql, $value);
+    */
+    
     function connectToDatabase() {        
         $servername = "localhost";
         $username = "WebShopUser";
