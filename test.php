@@ -4,13 +4,13 @@
     //getOrdersFromDatabase();
     $CRUD = new CRUD();
 
-    /*
+    
     $sql = "INSERT INTO users (name, email_address, password)
     VALUES (:name, :email, :password)";
-    $values = array("name" => "pietje", "email" => "pietje@t.t", "password" =>"s");
+    $values = array("name" => "Joost", "email" => "Joost@t.t", "password" =>"s");
     $result = $CRUD->createRow($sql, $values);
     print_r($result);
-    */
+    
     /*
     $sql = "SELECT * FROM order_row WHERE (order_id = :orderId)";
     $value = array("orderId" => 40);
@@ -23,7 +23,7 @@
     $CRUD->deleteRow($sql, $value);
     */
 
-    
+    /*
     $sql = "SELECT order_row.order_id, order_row.row_id, order_row.product_id,
             order_row.amount, products.price, price * amount AS total
             FROM order_row
@@ -36,6 +36,7 @@
     $value = array("userId" => 1,"orderId" => 46);
     $result = $CRUD->readMultipleRows($sql, $value);
     print_r($result);
+    */
     
     /*
     $sql = "UPDATE users SET email_address = :email WHERE user_id = :userId";

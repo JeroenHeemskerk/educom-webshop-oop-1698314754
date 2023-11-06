@@ -10,6 +10,7 @@
         }
 
         private function bind($stmt, $values) {
+            //Bind zet de waarde correct neer op basis van de key
             foreach($values as $key => $value) {                           
                 $stmt->bindValue($key, $value);
             }
@@ -22,20 +23,18 @@
                 $stmt = $this->bind($stmt, $values);                
                 $stmt->execute();
 
-                return $stmt;
+                $result = $this->pdo->lastInsertId();
+                return $result;
             } catch (PDOException $e) {
                 echo 'Error' . $e->getMessage();
             }
         }
 
         public function deleteRow($sql, $values) {
-
             try {
                 $stmt = $this->pdo->prepare($sql);
                 $stmt = $this->bind($stmt, $values);
                 $stmt->execute();
-
-                return $stmt;
             } catch (PDOException $e) {
                 echo 'Error' . $e->getMessage();
             }
@@ -82,7 +81,6 @@
                 $stmt = $this->pdo->prepare($sql);
                 $stmt = $this->bind($stmt, $values);
                 $stmt->execute();
-
             } catch (PDOException $e) {
                 echo 'Error' . $e->getMessage();
             }
