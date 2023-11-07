@@ -24,7 +24,7 @@ class ShopModel extends Validate {
         $this->cart = $this->sessionManager->getShoppingCart();
         $this->total = 0;
         try {
-            $this->products = getAllProducts(); // getSpecificProducts(array_keys($cart))
+            $this->products = $this->shopCrud->readAllProducts(); // getSpecificProducts(array_keys($cart))
             foreach ($this->cart as $productId => $amount) {
 
                 //Als productId niet gematcht wordt met een product wordt dit productId overgeslagen
@@ -32,9 +32,9 @@ class ShopModel extends Validate {
                     continue;
                 }
                 $this->product = $this->products[$productId];
-                $subTotal = $this->product['price'] * $amount;
+                $subTotal = $this->product->price * $amount;
                 $this->total += $subTotal;
-                $this->cartLines[$productId] = array('name' => $this->product['name'], 'description' => $this->product['description'], 'price' => $this->product['price'], 'product_picture_location' => $this->product['product_picture_location'], 'amount' => $amount, 'subTotal' => $subTotal);
+                $this->cartLines[$productId] = array('name' => $this->product->name, 'description' => $this->product->description, 'price' => $this->product->price, 'product_picture_location' => $this->product->product_picture_location, 'amount' => $amount, 'subTotal' => $subTotal);
             }
         }
         catch(Exception $e) {
@@ -140,7 +140,7 @@ class ShopModel extends Validate {
             if ($this->errProductId == "" && $this->errQuantity == "") {
 
                 try {
-                    if (doesProductExist($this->productId)) {
+                    if ($this->shopCrud->doesProductExist($this->productId)) {
                         $this->valid = True;
                     }
                 } catch(Exception $e) {

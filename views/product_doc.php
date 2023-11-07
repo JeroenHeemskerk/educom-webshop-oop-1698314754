@@ -27,7 +27,7 @@ abstract class ProductDoc extends FormsDoc {
     //Overridden showFormField voor DetaislDoc en WebshopDoc
     protected function showFormField($fieldName, $label, $inputType, $options = []) {
         echo '<label for="' . $fieldName . '">' . $label . '</label> ';
-        echo '<input type="' . $inputType.'" id="' . $fieldName .  '" name="' . $fieldName . '"'; 
+        echo '<input type="' . $inputType.'" id="' . $fieldName .  '" name="' . $fieldName . '" '; 
         echo 'value="" placeholder="' . $options . '">'; 
     }    
 }

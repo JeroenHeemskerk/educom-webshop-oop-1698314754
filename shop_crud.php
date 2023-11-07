@@ -16,6 +16,10 @@ class ShopCrud {
         $this->crud->createRow($sql, $userId);
     }
 
+    public function doesProductExist($productId) {
+        return !empty($this->readProduct($productId));
+    }
+
     public function readAllProducts() {
         $sql = "SELECT * FROM products";
 
