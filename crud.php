@@ -1,5 +1,5 @@
 <?php
-    class CRUD {
+    class Crud {
         private $username = "WebShopUser";
         private $password = "Testtest!";
         private $connectionString = "mysql:host=localhost;dbname=nicks_webshop";

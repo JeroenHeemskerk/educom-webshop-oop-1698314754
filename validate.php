@@ -12,15 +12,6 @@ class Validate extends PageModel{
 		
 		return "";
     }
-    
-    protected function checkNewEmail($email) {
-		
-        //doesEmailExist staat in user_service.php
-        if (doesEmailExist($email)) {
-            return "Dit emailadres is al in gebruik";
-        }
-        return "";
-    }
 
     protected function checkName($name) {    
 		

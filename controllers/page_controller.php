@@ -7,9 +7,11 @@ require_once "./models/shop_model.php";
 class PageController {
 
     private $model;
+    private ModelFactory $modelFactory;
 
-    public function __construct() {
-        $this->model = new PageModel(NULL);
+    public function __construct($modelFactory) {
+        $this->modelFactory = $modelFactory;
+        $this->model = $this->modelFactory->createModel("page");
     }
 
     public function handleRequest() {
@@ -28,11 +30,11 @@ class PageController {
         
         switch($this->model->page) {
             case "contact":
-                $this->model = new UserModel($this->model);
+                $this->model = $this->modelFactory->createModel("user");
                 $this->model->validateContact();
                 break;
             case "login":
-                $this->model = new UserModel($this->model);
+                $this->model = $this->modelFactory->createModel("user");
                 $this->model->validateLogin();
                 if ($this->model->valid) {
                     $this->model->doLoginUser();
@@ -40,12 +42,12 @@ class PageController {
                 }
                 break;
             case "logout":
-                $this->model = new UserModel($this->model);
+                $this->model = $this->modelFactory->createModel("user");
                 $this->model->doLogoutUser();
                 $this->model->setPage("home");
                 break;
             case "register":
-                $this->model = new UserModel($this->model);
+                $this->model = $this->modelFactory->createModel("user");
                 $this->model->validateRegister();
                 if ($this->model->valid) {
                     $this->model->doRegisterNewAccount();

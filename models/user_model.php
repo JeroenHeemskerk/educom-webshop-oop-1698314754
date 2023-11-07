@@ -10,10 +10,13 @@ class UserModel extends Validate {
     public $errContactmode = "", $errEmail = "", $errMessage = "", $errName = "", $errPassword = ""
     , $errPasswordTwo = "", $errPhonenumber = "", $errProductId = "", $errQuantity = "", $errSalutation = "";
 
-    private $user = array();
+    private $user;
 
-    public function __construct($pageModel) {
+    private UserCrud $userCrud;
+
+    public function __construct($pageModel, $userCrud) {
         parent::__construct($pageModel);
+        $this->userCrud = $userCrud;
     }
 
     public function doLoginUser() {
@@ -29,11 +32,11 @@ class UserModel extends Validate {
     }
 
     public function doRegisterNewAccount() {
-        registerNewAccount($this->name, $this->email, $this->password);
+        $this->userCrud->createUser($this->name, $this->email, $this->password);
     }
 
     public function authenticateUser() {
-        $this->user = findUserByEmail($this->email);
+        $this->user = $this->userCrud->readUserByEmail($this->email);
 
         //Indien user niet gevonden is geeft de functie null terug
         if (empty($this->user)) {
@@ -41,9 +44,16 @@ class UserModel extends Validate {
         }
 
         //Indien een user is gevonden op basis van het opgegeven emailadres wordt het wachtwoord nagekeken
-        if ($this->password != $this->user['password']) {
+        if ($this->password != $this->user->password) {
             $this->user = NULL;
         }
+    }
+
+    private function checkNewEmail($email) {
+        if (!empty($this->userCrud->readUserByEmail($email))) {
+            return "Dit emailadres is al in gebruik";
+        }
+        return "";
     }
 
     public function validateContact() {       
@@ -125,7 +135,7 @@ class UserModel extends Validate {
                     $this->authenticateUser();
                     
                     if (!empty($this->user)) {
-                        $this->name = $this->user['name'];
+                        $this->name = $this->user->name;
                         $this->valid = True;
                     } else {
                         $this->errEmail = "Opgegeven emailadres is niet gekoppeld aan een gebruiker of incorrect wachtwoord";

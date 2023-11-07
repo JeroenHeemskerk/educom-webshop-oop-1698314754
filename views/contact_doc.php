@@ -32,7 +32,7 @@ class ContactDoc extends FormsDoc {
             echo '<br>';
         
             //Radio button met contactwijze
-            $this->showFormField("contactmode", "ContactWijze:", "radio", COMM_PREFS);
+            $this->showFormField("contactmode", "Contactwijze:", "radio", COMM_PREFS);
 
             echo '<br>';
 

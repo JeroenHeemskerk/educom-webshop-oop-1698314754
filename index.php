@@ -1,17 +1,30 @@
 <?php
-    include 'user_service.php';
-    include 'file_repository.php';
+    //include 'user_service.php';
+    //include 'file_repository.php';
     //include 'validations.php';
-    include 'session_manager.php';
-    include 'products_service.php';
+    //include 'session_manager.php';
+    //include 'products_service.php';
     //include 'forms.php';
     //include 'tables.php';
 
     session_start();
     require_once "./controllers/page_controller.php";
+    require_once "crud.php";
+    require_once "crud_factory.php";
+    require_once "model_factory.php";
 
-    $controller = new PageController();
+    $crud = new Crud();
+    $crudFactory = new CrudFactory($crud);
+    $modelFactory = new ModelFactory($crudFactory);
+    $controller = new PageController($modelFactory);
     $controller->handleRequest();
+
+
+
+
+
+
+
 
     //$page = getRequestedPage();
     //$data = processRequest($page);
