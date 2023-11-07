@@ -17,6 +17,9 @@ class ModelFactory {
             case "user":
                 $this->lastModel = new UserModel($this->lastModel, $modelCrud);
                 break;
+            case "shop":
+                $this->lastModel = new ShopModel($this->lastModel, $modelCrud);
+                break;
        }
 
        return $this->lastModel;

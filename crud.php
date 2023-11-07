@@ -57,17 +57,23 @@
             }
         }
 
-        public function readMultipleRows($sql, $values) {
+        public function readMultipleRows($sql, $values = "") {
             try {
                 $stmt = $this->pdo->prepare($sql);
-                $stmt = $this->bind($stmt, $values);
+
+                //Indien $values leeg is wordt een gehele tabel opgehaald
+                if (!empty($values)){
+                    $stmt = $this->bind($stmt, $values);
+                }
 
                 $stmt->setFetchMode(PDO::FETCH_OBJ);
 
                 $stmt->execute();
-
+                
+                $i = 0;
                 while ($row = $stmt->fetch()) {
-                    $result[$row->row_id] = $row;
+                    $result[$i] = $row;
+                    $i++;
                 }
 
                 return $result;

@@ -12,6 +12,13 @@ class ShopModel extends Validate {
     public $products = array();
     public $rows = array();
 
+    private ShopCrud $shopCrud;
+
+    public function __construct($pageModel, $shopCrud) {
+        parent::__construct($pageModel);
+        $this->shopCrud = $shopCrud;
+    }
+
     public function getCartLines() {    
         $this->genericError = "";
         $this->cart = $this->sessionManager->getShoppingCart();
@@ -75,7 +82,7 @@ class ShopModel extends Validate {
         $this->sessionManager->createShoppingCart(); 
 
         try {
-            $this->product = getWebshopProduct($this->productId);
+            $this->product = $this->shopCrud->readProduct($this->productId);
         }
         catch(Exception $e) {
             $this->genericError = "Helaas kunnen wij dit product op dit moment niet laten zien. Probeer het later opnieuw.";
@@ -88,7 +95,7 @@ class ShopModel extends Validate {
         $this->sessionManager->createShoppingCart();
 
         try {
-            $this->products = getAllProducts();
+            $this->products = $this->shopCrud->readAllProducts();
         }
         catch(Exception $e) {
             $this->genericError = "Helaas kunnen wij de producten op dit moment niet laten zien. Probeer het later opnieuw.";

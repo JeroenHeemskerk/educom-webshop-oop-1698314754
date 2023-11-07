@@ -55,22 +55,22 @@ class PageController {
                 }
                 break;
             case "webshop":
-                $this->model = new ShopModel($this->model);
+                $this->model = $this->modelFactory->createModel("shop");
                 $this->model->getWebshopProducts();
                 $this->model->handleActions();
                 break;
             case "details":
-                $this->model = new ShopModel($this->model);
+                $this->model = $this->modelFactory->createModel("shop");
                 $this->model->getWebshopProductDetails();
                 $this->model->handleActions();
                 break;
             case "cart":
-                $this->model = new ShopModel($this->model);
+                $this->model = $this->modelFactory->createModel("shop");
                 $this->model->getCartLines();
                 $this->model->handleActions();
                 break;
             case "orders":
-                $this->model = new ShopModel($this->model);
+                $this->model = $this->modelFactory->createModel("shop");
                 $this->model->getRowsByOrderId();
                 break;
         }

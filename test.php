@@ -1,15 +1,16 @@
 <?php   
-    include "db_repository.php";
+    include "crud.php";
 
     //getOrdersFromDatabase();
-    $CRUD = new CRUD();
+    $crud = new Crud();
 
-    
+    /*
     $sql = "INSERT INTO users (name, email_address, password)
     VALUES (:name, :email, :password)";
     $values = array("name" => "Joost", "email" => "Joost@t.t", "password" =>"s");
     $result = $CRUD->createRow($sql, $values);
     print_r($result);
+    */
     
     /*
     $sql = "SELECT * FROM order_row WHERE (order_id = :orderId)";
@@ -34,14 +35,21 @@
             WHERE (orders.user_id = :userId) AND (order_row.order_id = :orderId)
             ORDER BY row_id";
     $value = array("userId" => 1,"orderId" => 46);
-    $result = $CRUD->readMultipleRows($sql, $value);
+    $result = $crud->readMultipleRows($sql, $value);
     print_r($result);
     */
+
+    
+    $sql = "SELECT * FROM products";
+    $crud->readMultipleRows($sql);
+    $result = $crud->readMultipleRows($sql);
+    print_r($result);
+    
     
     /*
     $sql = "UPDATE users SET email_address = :email WHERE user_id = :userId";
     $value = array("email" => "sjakie@sjakie.sjakie", "userId" => "22");
-    $CRUD->updateRow($sql, $value);
+    $crud->updateRow($sql, $value);
     */
     
     function connectToDatabase() {        

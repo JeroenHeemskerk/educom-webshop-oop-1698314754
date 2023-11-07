@@ -1,6 +1,7 @@
 <?php
 
 require_once "user_crud.php";
+require_once "shop_crud.php";
 
 class CrudFactory {
     private Crud $crud;
@@ -13,6 +14,9 @@ class CrudFactory {
         switch ($name){
             case "user":
                 return new UserCrud($this->crud);
+                break;
+            case "shop":
+                return new ShopCrud($this->crud);
                 break;
         }
     }
