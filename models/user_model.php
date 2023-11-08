@@ -1,5 +1,5 @@
 <?php
-
+require_once "./util.php";
 require_once "./validate.php";
 require_once "./session_manager.php";
 
@@ -42,11 +42,11 @@ class UserModel extends Validate {
         //Indien user niet gevonden is geeft de functie null terug
         if (empty($this->user)) {
             $this->user = NULL;
-        }
-
-        //Indien een user is gevonden op basis van het opgegeven emailadres wordt het wachtwoord nagekeken
-        if ($this->password != $this->user->password) {
-            $this->user = NULL;
+        } else {
+            //Indien een user is gevonden op basis van het opgegeven emailadres wordt het wachtwoord nagekeken
+            if ($this->password != $this->user->password) {
+                $this->user = NULL;
+            }
         }
     }
 
@@ -62,12 +62,12 @@ class UserModel extends Validate {
         if ($this->isPost) {
             
             //De input vanuit het formulier wordt hier in variabelen gezet en vervolgens opgeschoond door middel van de testInput functie
-            $this->salutation = $this->testInput(getPostVar("salutation"));
-            $this->name = $this->testInput(getPostVar("name"));
-            $this->email = $this->testInput(getPostVar("email"));
-            $this->phonenumber = $this->testInput(getPostVar("phonenumber"));
-            $this->message = $this->testInput(getPostVar("message"));
-			$this->contactmode = $this->testInput(getPostVar("contactmode"));
+            $this->salutation = $this->testInput(Util::getPostVar("salutation"));
+            $this->name = $this->testInput(Util::getPostVar("name"));
+            $this->email = $this->testInput(Util::getPostVar("email"));
+            $this->phonenumber = $this->testInput(Util::getPostVar("phonenumber"));
+            $this->message = $this->testInput(Util::getPostVar("message"));
+			$this->contactmode = $this->testInput(Util::getPostVar("contactmode"));
 			
 			if (empty($this->salutation)) {				
                 $this->errSalutation = "Aanhef moet ingevuld zijn";                
@@ -116,14 +116,12 @@ class UserModel extends Validate {
     }
 
     public function validateLogin() {
-
-        require_once "./file_repository.php";
     
         if ($this->isPost){
         
             //Eerst worden ongewenste karakters verwijderd
-            $this->email = $this->testInput(getPostVar("email"));
-            $this->password = $this->testInput(getPostVar("password"));
+            $this->email = $this->testInput(Util::getPostVar("email"));
+            $this->password = $this->testInput(Util::getPostVar("password"));
         
             //Vervolgens wordt gekeken of correcte input gegeven is
             $this->errEmail = $this->checkEmail($this->email);
@@ -153,15 +151,13 @@ class UserModel extends Validate {
 
     public function validateRegister() {
 
-        require_once "./file_repository.php";
-
         if ($this->isPost){
         
             //Eerst worden ongewenste karakters verwijderd
-            $this->name = $this->testInput(getPostVar("name"));
-            $this->email = $this->testInput(getPostVar("email"));
-            $this->password = $this->testInput(getPostVar("password"));
-            $this->passwordTwo = $this->testInput(getPostVar("passwordTwo"));
+            $this->name = $this->testInput(Util::getPostVar("name"));
+            $this->email = $this->testInput(Util::getPostVar("email"));
+            $this->password = $this->testInput(Util::getPostVar("password"));
+            $this->passwordTwo = $this->testInput(Util::getPostVar("passwordTwo"));
         
             //Vervolgens wordt gekeken of correcte input gegeven is
             $this->errName = $this->checkName($this->name);

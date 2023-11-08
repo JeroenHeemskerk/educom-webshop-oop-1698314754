@@ -1,5 +1,4 @@
 <?php
-
 require_once "./util.php";
 require_once "./session_manager.php";
 
@@ -138,8 +137,8 @@ class ShopModel extends Validate {
         if ($this->isPost){
 
             //Eerst worden ongewenste karakters verwijderd
-            $this->productId = $this->testInput(getPostVar("productId"));
-            $this->quantity = $this->testInput(getPostVar("quantity"));
+            $this->productId = $this->testInput(Util::getPostVar("productId"));
+            $this->quantity = $this->testInput(Util::getPostVar("quantity"));
 
             //Vervolgens wordt gekeken of correcte input gegeven is
             $this->errProductId = $this->checkProductId($this->productId);
