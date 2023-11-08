@@ -4,14 +4,14 @@ require_once "product_doc.php";
 
 abstract Class TablesDoc extends ProductDoc {
 
-    public function dataCell($value = "", $page = "", $productId = "", $colspan = 1) {
+    protected function dataCell($value = "", $page = "", $id = "", $urlIdSpecification = "", $colspan = 1) {
 
         echo '<td colspan="' . $colspan . '">';
 
         if (!empty($page)) {
             echo '<a class="productLink" href="index.php?page=' . $page;
-            if (!empty($productId)) {
-                echo '&productId=' . $productId;
+            if (!empty($id)) {
+                echo '&' . $urlIdSpecification . '=' . $id;
             }
         echo '"><div class="pagetext">';
         }
@@ -24,23 +24,23 @@ abstract Class TablesDoc extends ProductDoc {
         echo '</td>';
     }
     
-    public function headerCell($value) {
+    protected function headerCell($value) {
         echo '<th>' . $value . '</th>';
     }
     
-    public function rowStart() {
+    protected function rowStart() {
         echo '<tr>';
     }
     
-    public function rowEnd() {
+    protected function rowEnd() {
         echo '</tr>';
     }
     
-    public function tableStart() {
+    protected function tableStart() {
         echo '<table class="center">';
     }
     
-    public function tableEnd() {
+    protected function tableEnd() {
         echo '</table>';
     }
 }

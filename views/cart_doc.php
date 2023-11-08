@@ -20,7 +20,7 @@ class CartDoc extends TablesDoc {
         } 
     }
 
-    function showTable() {
+    private function showTable() {
 
         $this->tableStart();
 
@@ -35,9 +35,9 @@ class CartDoc extends TablesDoc {
         
         foreach ($this->model->cartLines as $productId => $value){
             $this->rowStart();
-                $this->dataCell('<img class="tablePicture" src="Images/' . $value['productPictureLocation'] . '" alt="' . $value['productPictureLocation'] . '">', "details", $value['productId']);
-                $this->dataCell($value['name'], "details", $value['productId']);
-                $this->dataCell($value['description'], "details", $value['productId']);
+                $this->dataCell('<img class="tablePicture" src="Images/' . $value['productPictureLocation'] . '" alt="' . $value['productPictureLocation'] . '">', "details", $value['productId'], 'productId');
+                $this->dataCell($value['name'], "details", $value['productId'], 'productId');
+                $this->dataCell($value['description'], "details", $value['productId'], 'productId');
                 $this->dataCell('€' . $value['price']);
                 $this->dataCell($value['amount']);
                 $this->dataCell('€'. $value['subTotal']);
@@ -45,7 +45,7 @@ class CartDoc extends TablesDoc {
         }
     
         $this->rowStart(); 
-            $this->dataCell('', '', '', 4);
+            $this->dataCell('', '', '', '', 4);
             $this->dataCell('Totaal:');  
             $this->dataCell('€' . $this->model->total);
         $this->rowEnd();

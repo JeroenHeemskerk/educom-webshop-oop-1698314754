@@ -7,7 +7,6 @@ class ShopCrud {
     }
 
     public function writeOrder($cartLines) {
-
         $sql = "INSERT INTO orders (user_id)
         VALUES (:userId)";
         $userId = array("userId" => $_SESSION['userId']);
@@ -42,10 +41,46 @@ class ShopCrud {
     }
 
     public function readOrdersAndSum() {
-        
+        $sql = "SELECT order_row.order_id, SUM(order_row.amount * products.price) AS total
+            FROM order_row
+            INNER JOIN products
+                ON order_row.product_id = products.product_id
+            INNER JOIN orders 
+                ON order_row.order_id = orders.order_id
+            WHERE orders.user_id = :userId
+            GROUP BY order_row.order_id";
+        $values = array("userId" => $_SESSION['userId']);
+
+        return $this->crud->readMultipleRows($sql, $values);
+    }
+
+    public function readOrderAndSum($orderId) {
+        $sql = "SELECT order_row.order_id, SUM(order_row.amount * products.price) AS total
+        FROM order_row
+        INNER JOIN products
+            ON order_row.product_id = products.product_id
+        INNER JOIN orders 
+            ON order_row.order_id = orders.order_id
+        WHERE orders.user_id = :userId AND order_row.order_id = :orderId
+        GROUP BY order_row.order_id";
+        $values = array("userId" => $_SESSION['userId'], "orderId" => $orderId);
+
+        return $this->crud->readOneRow($sql, $values);
     }
 
     public function readRowsByOrderId($orderId) {
+        $sql = "SELECT order_row.order_id, order_row.row_id, order_row.product_id,
+            order_row.amount, products.name, products.price, products.product_picture_location, 
+            price * amount AS total
+            FROM order_row
+            INNER JOIN products
+                ON order_row.product_id = products.product_id
+            INNER JOIN orders 
+                ON order_row.order_id = orders.order_id
+            WHERE (orders.user_id = :userId AND order_row.order_id = :orderId)
+            ORDER BY row_id";
+        $values = array("userId" => $_SESSION['userId'], "orderId" => $orderId);
 
+        return $this->crud->readMultipleRows($sql, $values);
     }
 }

@@ -17,8 +17,6 @@ class WebshopDoc extends ProductDoc {
     }
     
     private function showWebshopProducts() {
-        //$amountOfProducts = count($this->model->products);
-
         echo '<span>' . $this->model->errProductId . '</span>';
         echo '<span>' . $this->model->errQuantity . '</span>';
 

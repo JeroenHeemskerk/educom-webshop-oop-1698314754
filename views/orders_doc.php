@@ -11,10 +11,12 @@ class OrdersDoc extends TablesDoc {
 
     //Overridden method of BasicDoc
     protected function showContent() {
-        if (!is_numeric($this->model->orderId)){
+        if (!is_numeric($this->model->orderId) && $this->model->orders != null) {
             $this->showOrdersAndTotals();
-        } else {
+        } else if (is_numeric($this->model->orderId) && $this->model->order != null) {
             $this->showOrderAndRows();
+        } else {
+            echo '<h2>Er zijn geen eerdere bestellingen om weer te geven</h2>';
         }
     }
 
@@ -39,20 +41,19 @@ class OrdersDoc extends TablesDoc {
         foreach($this->model->rows as $value){
             $this->rowStart();
                 $this->dataCell($i);
-                $this->dataCell('<img class="tablePicture" src="Images/' . $value['product_picture_location'] . '" alt="' . $value['product_picture_location'] . '">');
-                $this->dataCell($value['product_id']);
-                $this->dataCell($value['name']);
-                $this->dataCell($value['amount']);
-                $this->dataCell('€' . $value['price']);
-                $this->dataCell('€' . $value['total']);
+                $this->dataCell('<img class="tablePicture" src="Images/' . $value->product_picture_location . '" alt="' . $value->product_picture_location . '">');
+                $this->dataCell($value->product_id);
+                $this->dataCell($value->name);
+                $this->dataCell($value->amount);
+                $this->dataCell('€' . $value->price);
+                $this->dataCell('€' . $value->total);
             $this->rowEnd();
-
             $i++;
         }
 
         $this->rowStart();
-            $this->dataCell("", "", "", 6);
-            $this->dataCell('€' . $this->model->orders[$this->model->orderId]['total']);
+            $this->dataCell("", "", "", "", 6);
+            $this->dataCell('€' . $this->model->order->total);
         $this->tableEnd();
     }
 
@@ -67,10 +68,10 @@ class OrdersDoc extends TablesDoc {
             $this->headerCell('Totaal');
         $this->rowEnd();
         
-        foreach($this->model->orders as $value){
+        foreach($this->model->orders as $order){
             $this->rowStart();
-                $this->dataCell($value['order_id'], "orders", $value['order_id']);
-                $this->dataCell('€' . $value['total'], "orders", $value['order_id']);
+                $this->dataCell($order->order_id, "orders", $order->order_id, 'orderId');
+                $this->dataCell('€' . $order->total, "orders", $order->order_id, 'orderId');
             $this->rowEnd();
         }
 

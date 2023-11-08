@@ -71,7 +71,12 @@ class PageController {
                 break;
             case "orders":
                 $this->model = $this->modelFactory->createModel("shop");
-                $this->model->getRowsByOrderId();
+                if (is_numeric(Util::getUrlVar('orderId'))){
+                    $this->model->getRowsByOrderId();
+                    $this->model->getOrderAndSum();
+                } else {
+                    $this->model->getOrdersAndSum();
+                }
                 break;
         }
     }

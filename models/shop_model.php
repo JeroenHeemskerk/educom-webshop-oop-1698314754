@@ -4,9 +4,10 @@ require_once "./util.php";
 require_once "./session_manager.php";
 
 class ShopModel extends Validate {
-    public $product = "", $total = "", $action = "", $productId = "", $quantity = "", $orderId = "";
+    public $product, $total, $action, $productId, $quantity, $orderId;
     public $errProductId = "", $errQuantity = ""; 
     public $cartLines = array();
+    public $order = array();
     public $orders = array();
     public $products = array();
     public $rows = array();
@@ -19,7 +20,6 @@ class ShopModel extends Validate {
     }
 
     public function getCartLines() {    
-        $this->genericError = "";
         $cart = $this->sessionManager->getShoppingCart();
         $this->total = 0;
         try {
@@ -47,42 +47,48 @@ class ShopModel extends Validate {
         }        
     }
 
-    public function getOrdersAndSum() {
+    public function getOrderAndSum() {
 
         try {
-            $this->orders = getOrdersAndSumFromDatabase();
+            $this->order = $this->shopCrud->readOrderAndSum($this->orderId);
         }
         catch(Exception $e) {
             $this->genericError = "Helaas zijn uw orders op dit moment niet beschikbaar. Probeer het later opnieuw.";
             logError($e->getMessage()); //Schrijf $e naar log functie
         }
+    }
 
-        //return array('orders' => $orders, 'genericError' => $genericError);
+    public function getOrdersAndSum() {
+        try {
+            $this->orders = $this->shopCrud->readOrdersAndSum();
+        }
+        catch(Exception $e) {
+            $this->genericError = "Helaas zijn uw orders op dit moment niet beschikbaar. Probeer het later opnieuw.";
+            logError($e->getMessage()); //Schrijf $e naar log functie
+        }
     }
 
     public function getRowsByOrderId() {
-        $this->genericError = "";
 
-        if (is_numeric(getVar('id'))) {
-        $this->orderId = $this->testInput(getVar('id'));
+        $this->orderId = $this->testInput(Util::getUrlVar('orderId'));
 
         try {
-            $this->rows = getRowsByOrderIdFromDatabase($this->orderId);
+            $this->rows = $this->shopCrud->readRowsByOrderId($this->orderId);
         }
         catch(Exception $e) {
             $this->genericError = "Helaas zijn uw orders op dit moment niet beschikbaar. Probeer het later opnieuw.";
             logError($e->getMessage()); //Schrijf $e naar log functie
-        }
-        $this->getOrdersAndSum();
-
-        } else {
-            $this->getOrdersAndSum();
         }
     }
 
     public function getWebshopProductDetails() {
-        $this->genericError = "";
-        $this->productId = getVar('productId');
+
+        if ($this->isPost) {
+            $this->productId = Util::getPostVar('productId');
+        } else {
+            $this->productId = Util::getUrlVar('productId');
+        }
+
         $this->sessionManager->createShoppingCart(); 
 
         try {
@@ -95,7 +101,6 @@ class ShopModel extends Validate {
     }
 
     public function getWebshopProducts() {    
-        $this->genericError = "";
         $this->sessionManager->createShoppingCart();
 
         try {
@@ -109,7 +114,7 @@ class ShopModel extends Validate {
 
     public function handleActions() {
         //handleActions zorgt voor de afhandeling van bijvoorbeeld het toevoegen van een product aan de cart
-        $this->action = getVar('userAction');
+        $this->action = Util::getPostVar('userAction');
 
         switch ($this->action) {
             case "addToCart":
@@ -156,7 +161,6 @@ class ShopModel extends Validate {
     }
     
     public function createOrder() {
-        $this->genericError = "";
         $this->valid = False;
 
         try {
@@ -171,5 +175,4 @@ class ShopModel extends Validate {
         }
     }
 }
-
 ?>

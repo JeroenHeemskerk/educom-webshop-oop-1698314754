@@ -27,7 +27,7 @@ class PageModel {
 
         require_once "./util.php";
 
-        $this->isPost = (($_SERVER['REQUEST_METHOD']) == 'POST');
+        $this->isPost = ($_SERVER['REQUEST_METHOD'] == 'POST');
         
         //Hier worden static functies uit de Util class gebruikt om page te setten
         if ($this->isPost) {
@@ -37,9 +37,9 @@ class PageModel {
         }
     }
 
-    public function setPage($newPage) {
+    public function setPage($page) {
         //Was eerst protected, maar ik moest hem in page_controller aanroepen
-        $this->page = $newPage;
+        $this->page = $page;
     }
 
     public function createMenu() {

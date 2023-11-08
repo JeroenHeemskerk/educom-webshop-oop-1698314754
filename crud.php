@@ -78,6 +78,7 @@
 
                 $stmt->execute();
                 
+                $result = null;
                 $i = 0;
                 while ($row = $stmt->fetch()) {
                     $result[$i] = $row;
