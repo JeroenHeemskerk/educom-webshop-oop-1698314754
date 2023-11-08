@@ -6,7 +6,6 @@ require_once "./session_manager.php";
 class ShopModel extends Validate {
     public $product = "", $total = "", $action = "", $productId = "", $quantity = "", $orderId = "";
     public $errProductId = "", $errQuantity = ""; 
-    public $cart = array();
     public $cartLines = array();
     public $orders = array();
     public $products = array();
@@ -21,20 +20,22 @@ class ShopModel extends Validate {
 
     public function getCartLines() {    
         $this->genericError = "";
-        $this->cart = $this->sessionManager->getShoppingCart();
+        $cart = $this->sessionManager->getShoppingCart();
         $this->total = 0;
         try {
             $this->products = $this->shopCrud->readAllProducts(); // getSpecificProducts(array_keys($cart))
-            foreach ($this->cart as $productId => $amount) {
+            foreach ($this->products as $key => $value) {
 
                 //Als productId niet gematcht wordt met een product wordt dit productId overgeslagen
-                if (!array_key_exists($productId, $this->products)){
+                if (!array_key_exists($value->product_id, $cart)){
                     continue;
                 }
-                $this->product = $this->products[$productId];
+                //De array van objecten $this->products begint bij 1 waardoor deze met 1 verminderd moet worden
+                $this->product = $this->products[$key];
+                $amount = $cart[$value->product_id];
                 $subTotal = $this->product->price * $amount;
                 $this->total += $subTotal;
-                $this->cartLines[$productId] = array('name' => $this->product->name, 'description' => $this->product->description, 'price' => $this->product->price, 'product_picture_location' => $this->product->product_picture_location, 'amount' => $amount, 'subTotal' => $subTotal);
+                $this->cartLines[$key] = array('name' => $this->product->name, 'description' => $this->product->description, 'price' => $this->product->price, 'product_picture_location' => $this->product->product_picture_location, 'amount' => $amount, 'subTotal' => $subTotal);
             }
         }
         catch(Exception $e) {
