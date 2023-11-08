@@ -10,15 +10,16 @@ class SessionManager {
         return isset($_SESSION['user']);
     }
     
-    public function loginUser($name, $email) {        
+    public function loginUser($userId, $name, $email) {  
+        $_SESSION['userId'] = $userId;      
         $_SESSION['user'] = $name;
         //Email wordt ook geset zodat dit gebruik kan worden om een order weg te schrijven in de database
         $_SESSION['email'] = $email;
     }
     
-    public function logoutUser() {        
-        unset($_SESSION['user']);
-        unset($_SESSION['cart']);
+    public function logoutUser() {  
+        session_unset();
+        session_destroy();
     }
     
     public function createShoppingCart() {

@@ -23,19 +23,22 @@ class ShopModel extends Validate {
         $cart = $this->sessionManager->getShoppingCart();
         $this->total = 0;
         try {
-            $this->products = $this->shopCrud->readAllProducts(); // getSpecificProducts(array_keys($cart))
+            $this->products = $this->shopCrud->readAllProducts(); //getSpecificProducts(array_keys($cart))
             foreach ($this->products as $key => $value) {
+                //Dit kan efficienter met een getSpecificProducts
 
                 //Als productId niet gematcht wordt met een product wordt dit productId overgeslagen
                 if (!array_key_exists($value->product_id, $cart)){
                     continue;
-                }
-                //De array van objecten $this->products begint bij 1 waardoor deze met 1 verminderd moet worden
+                }                
                 $this->product = $this->products[$key];
                 $amount = $cart[$value->product_id];
                 $subTotal = $this->product->price * $amount;
                 $this->total += $subTotal;
-                $this->cartLines[$key] = array('name' => $this->product->name, 'description' => $this->product->description, 'price' => $this->product->price, 'product_picture_location' => $this->product->product_picture_location, 'amount' => $amount, 'subTotal' => $subTotal);
+                $this->cartLines[$key] = array('productId' => $this->product->product_id, 'name' => $this->product->name,
+                'description' => $this->product->description, 'price' => $this->product->price,
+                'productPictureLocation' => $this->product->product_picture_location, 'amount' => $amount,
+                'subTotal' => $subTotal);
             }
         }
         catch(Exception $e) {
@@ -116,7 +119,7 @@ class ShopModel extends Validate {
                 }
                 break;
             case "completeOrder":
-                $this->writeOrder($this->cartLines);
+                $this->createOrder($this->cartLines);
                 if ($this->valid) {
                     $this->sessionManager->emptyShoppingCart();
                     unset($this->cartLines);
@@ -152,12 +155,12 @@ class ShopModel extends Validate {
         }
     }
     
-    public function writeOrder() {
+    public function createOrder() {
         $this->genericError = "";
         $this->valid = False;
 
         try {
-            writeOrderToDatabase($this->cartLines);
+            $this->shopCrud->writeOrder($this->cartLines);
         } catch (Exception $e) {
             $this->genericError = "Door een technisch probleem is het op dit moment helaas niet mogelijk om iets aan te schaffen. Probeer het op een later moment nogmaals.<br>";
             logError($e->getMessage()); //Schrijf $e naar log functie (deze doet niks op dit moment want is conform opdracht niet geïmplementeerd)

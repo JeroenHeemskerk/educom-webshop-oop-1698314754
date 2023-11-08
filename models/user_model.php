@@ -11,6 +11,7 @@ class UserModel extends Validate {
     , $errPasswordTwo = "", $errPhonenumber = "", $errProductId = "", $errQuantity = "", $errSalutation = "";
 
     private $user;
+    private $userId;
 
     private UserCrud $userCrud;
 
@@ -20,7 +21,7 @@ class UserModel extends Validate {
     }
 
     public function doLoginUser() {
-        $this->sessionManager->loginUser($this->name, $this->email);
+        $this->sessionManager->loginUser($this->userId, $this->name, $this->email);
     }
 
     public function doLogoutUser() {
@@ -136,6 +137,7 @@ class UserModel extends Validate {
                     
                     if (!empty($this->user)) {
                         $this->name = $this->user->name;
+                        $this->userId = $this->user->user_id;
                         $this->valid = True;
                     } else {
                         $this->errEmail = "Opgegeven emailadres is niet gekoppeld aan een gebruiker of incorrect wachtwoord";

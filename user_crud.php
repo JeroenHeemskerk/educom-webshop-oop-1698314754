@@ -16,7 +16,7 @@ class UserCrud {
     }
 
     public function readUserByEmail($email) {
-        $sql = "SELECT name, email_address, password FROM users WHERE email_address = :email";
+        $sql = "SELECT * FROM users WHERE email_address = :email";
         $email = array("email" => $email);
 
         //$email moet een associatieve array zijn: "email" => "voorbeeld@v.v"

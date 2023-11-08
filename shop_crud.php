@@ -6,14 +6,22 @@ class ShopCrud {
         $this->crud = $crud;
     }
 
-    public function createOrder() {
-        $userId = getUserIdByEmail();
+    public function writeOrder($cartLines) {
 
         $sql = "INSERT INTO orders (user_id)
         VALUES (:userId)";
-        $userId = array("userId" => $userId);
+        $userId = array("userId" => $_SESSION['userId']);
 
-        $this->crud->createRow($sql, $userId);
+        $orderId = $this->crud->createRow($sql, $userId);
+
+        
+        $sql = "INSERT INTO order_row (order_id, product_id, amount)
+        VALUES (:orderId, :productId, :amount)";        
+        foreach ($cartLines as $key => $value) {
+            $values[$key] = array("orderId" => $orderId , "productId" => $value['productId'], "amount" => $value['amount']);
+        }
+
+        $this->crud->createRow($sql, $values, True);        
     }
 
     public function doesProductExist($productId) {

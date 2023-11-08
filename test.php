@@ -7,10 +7,18 @@
     /*
     $sql = "INSERT INTO users (name, email_address, password)
     VALUES (:name, :email, :password)";
-    $values = array("name" => "Joost", "email" => "Joost@t.t", "password" =>"s");
-    $result = $CRUD->createRow($sql, $values);
+    $values = array("name" => "Jaap", "email" => "jaap@t.t", "password" =>"s");
+    $result = $crud->createRow($sql, $values);
     print_r($result);
     */
+
+    $sql = "INSERT INTO orders (user_id)
+    VALUES (:userId)";
+    $values = array("userId" => 1);
+
+    $orderId = $crud->createRow($sql, $values);
+
+    echo $orderId;
     
     /*
     $sql = "SELECT * FROM order_row WHERE (order_id = :orderId)";
@@ -39,12 +47,15 @@
     print_r($result);
     */
 
-    
-    $sql = "SELECT * FROM products";
-    $crud->readMultipleRows($sql);
-    $result = $crud->readMultipleRows($sql);
+    /*
+    $email = "nickkoole@hotmail.com";
+    $sql = "SELECT * FROM users WHERE (email_address = :email)";
+    $email = array("email" => $email);
+    $result = $crud->readOneRow($sql, $email);
     print_r($result);
-    
+    echo "<br>";
+    echo $result->user_id;
+    */
     
     /*
     $sql = "UPDATE users SET email_address = :email WHERE user_id = :userId";

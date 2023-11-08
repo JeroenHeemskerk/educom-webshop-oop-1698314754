@@ -17,14 +17,22 @@
             return $stmt;
         }
 
-        public function createRow($sql, $values){
+        public function createRow($sql, $values, $multipleRows = False){
             try {     
                 $stmt = $this->pdo->prepare($sql);
-                $stmt = $this->bind($stmt, $values);                
-                $stmt->execute();
 
-                $result = $this->pdo->lastInsertId();
-                return $result;
+                if ($multipleRows)  {
+                    //Bind wordt meerdere keren aangeroepen indien meerdere rijen naar de database geschreven moeten worden
+                    foreach ($values as $key => $valuesToBeBound) {
+                        $stmt = $this->bind($stmt, $valuesToBeBound);                
+                        $stmt->execute();
+                    }
+                } else {
+                    $stmt = $this->bind($stmt, $values);                
+                    $stmt->execute();
+                    $result = $this->pdo->lastInsertId();
+                    return $result;
+                }
             } catch (PDOException $e) {
                 echo 'Error' . $e->getMessage();
             }

@@ -24,15 +24,15 @@ class WebshopDoc extends ProductDoc {
 
         //Geeft per product het product_id, name, description, price en product_picture_location weer
         foreach ($this->model->products as $key => $value){
-            echo '<a class="productlink" href="index.php?page=details&productId=' . $this->model->products[$key]->product_id . '"><div>' .
-            'Product id: ' . $this->model->products[$key]->product_id . '<br>' .
-            'Artikel: ' . $this->model->products[$key]->name . '<br>' .
-            'Beschrijving: ' . $this->model->products[$key]->description . '<br>' .
-            'Prijs: €' . $this->model->products[$key]->price . '<br>' .
-            '<img src="Images/' . $this->model->products[$key]->product_picture_location . '" alt="' . $this->model->products[$key]->product_picture_location . '">' .
+            echo '<a class="productlink" href="index.php?page=details&productId=' . $value->product_id . '"><div>' .
+            'Product id: ' . $value->product_id . '<br>' .
+            'Artikel: ' . $value->name . '<br>' .
+            'Beschrijving: ' . $value->description . '<br>' .
+            'Prijs: €' . $value->price . '<br>' .
+            '<img src="Images/' . $value->product_picture_location . '" alt="' . $value->product_picture_location . '">' .
             '</div></a>';
 
-            $this->showAddToCartAction($this->model->products[$key]->product_id, 'webshop', 'Voeg toe aan winkelwagen');
+            $this->showAddToCartAction($value->product_id, 'webshop', 'Voeg toe aan winkelwagen');
         }      
     }
 }
