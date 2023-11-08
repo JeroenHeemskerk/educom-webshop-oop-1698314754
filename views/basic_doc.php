@@ -42,6 +42,7 @@ class BasicDoc extends HtmlDoc {
             echo '<li><a href="index.php?page=' . $page . '">' . $label . '</a></li>';
         }
         echo '</ul><br>';
+        echo $this->model->genericError;
     }
 
     protected function showContent() {
