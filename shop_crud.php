@@ -33,6 +33,15 @@ class ShopCrud {
         return $this->crud->readMultipleRows($sql);
     }
 
+    public function readSpecificProducts($cartIds) {
+        $sql = "SELECT * FROM products WHERE product_id = :productId";
+        foreach($cartIds as $key => $value) {
+            $productIds[$key] = array("productId" => $value);
+        }
+
+        return $this->crud->readMultipleRows($sql, $productIds, True);
+    }
+
     public function readProduct($productId) {
         $sql = "SELECT * FROM products WHERE product_id = :productId";
         $productId = array("productId" => $productId);

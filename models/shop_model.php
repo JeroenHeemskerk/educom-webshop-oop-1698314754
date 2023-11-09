@@ -21,28 +21,29 @@ class ShopModel extends Validate {
     public function getCartLines() {    
         $cart = $this->sessionManager->getShoppingCart();
         $this->total = 0;
-        try {
-            $this->products = $this->shopCrud->readAllProducts(); //getSpecificProducts(array_keys($cart))
-            foreach ($this->products as $key => $value) {
-                //Dit kan efficienter met een getSpecificProducts
 
-                //Als productId niet gematcht wordt met een product wordt dit productId overgeslagen
-                if (!array_key_exists($value->product_id, $cart)){
-                    continue;
-                }                
-                $this->product = $this->products[$key];
-                $amount = $cart[$value->product_id];
-                $subTotal = $this->product->price * $amount;
-                $this->total += $subTotal;
-                $this->cartLines[$key] = array('productId' => $this->product->product_id, 'name' => $this->product->name,
-                'description' => $this->product->description, 'price' => $this->product->price,
-                'productPictureLocation' => $this->product->product_picture_location, 'amount' => $amount,
-                'subTotal' => $subTotal);
+        if (!empty($cart)) {
+            try {
+                $this->products = $this->shopCrud->readSpecificProducts(array_keys($cart));
+                foreach ($this->products as $key => $value) {
+                    //Als productId niet gematcht wordt met een product wordt dit productId overgeslagen
+                    if (!array_key_exists($value->product_id, $cart)){
+                        continue;
+                    }                
+                    $this->product = $this->products[$key];
+                    $amount = $cart[$value->product_id];
+                    $subTotal = $this->product->price * $amount;
+                    $this->total += $subTotal;
+                    $this->cartLines[$key] = array('productId' => $this->product->product_id, 'name' => $this->product->name,
+                    'description' => $this->product->description, 'price' => $this->product->price,
+                    'productPictureLocation' => $this->product->product_picture_location, 'amount' => $amount,
+                    'subTotal' => $subTotal);
+                }
             }
-        }
-        catch(Exception $e) {
-            $this->genericError = "Helaas kunnen wij de producten op dit moment niet laten zien. Probeer het later opnieuw.";
-            logError($e->getMessage()); //Schrijf $e naar log functie
+            catch(Exception $e) {
+                $this->genericError = "Helaas kunnen wij de producten op dit moment niet laten zien. Probeer het later opnieuw.";
+                logError($e->getMessage()); //Schrijf $e naar log functie
+            }
         }        
     }
 
