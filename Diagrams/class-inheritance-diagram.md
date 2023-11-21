@@ -276,10 +276,10 @@ classDiagram
     class RatingCrud{
         -crud
         +__construct()
-        +getAverageStarsByProductId()
-        +getAverageStarsForAllProducts()
-        +updateStarsByProductIdForUserId()
-        +writeStarsByProductIdForUserId()
+        +getAverageRatingByProductId()
+        +getAverageRatingForAllProducts()
+        +updateRatingByProductIdForUserId()
+        +writeRatingByProductIdForUserId()
     }
     class AjaxDoc{
         -returnJSON()
@@ -287,10 +287,10 @@ classDiagram
     class AjaxModel{
         -action
         +JSON
-        -doGetAverageStarsByProductId()
-        -doGetAverageStarsForAllProducts()
-        -doUpdateStarsByProductIdForUserId()
-        -doWriteStarsByProductIdForUserId()
+        -doGetAverageRatingByProductId()
+        -doGetAverageRatingForAllProducts()
+        -doUpdateRatingByProductIdForUserId()
+        -doWriteRatingByProductIdForUserId()
     }
 
 ```
