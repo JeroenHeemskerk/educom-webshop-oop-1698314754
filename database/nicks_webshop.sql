@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Gegenereerd op: 22 nov 2023 om 12:59
+-- Gegenereerd op: 22 nov 2023 om 16:56
 -- Serverversie: 10.4.28-MariaDB
 -- PHP-versie: 8.2.4
 
@@ -93,6 +93,7 @@ INSERT INTO `orders` (`order_id`, `user_id`) VALUES
 (83, 1),
 (86, 1),
 (88, 1),
+(89, 1),
 (53, 16),
 (54, 18),
 (84, 30),
@@ -162,7 +163,8 @@ INSERT INTO `order_row` (`row_id`, `order_id`, `product_id`, `amount`) VALUES
 (63, 87, 3, 2),
 (64, 87, 5, 5),
 (65, 88, 1, 1),
-(66, 88, 2, 2);
+(66, 88, 2, 2),
+(67, 89, 1, 3);
 
 -- --------------------------------------------------------
 
@@ -206,7 +208,12 @@ CREATE TABLE `ratings` (
 --
 
 INSERT INTO `ratings` (`product_id`, `user_id`, `rating`) VALUES
-(1, 1, '4');
+(1, 1, '5'),
+(1, 16, '5'),
+(2, 1, '2'),
+(3, 1, '3'),
+(4, 1, '4'),
+(5, 1, '5');
 
 -- --------------------------------------------------------
 
@@ -289,13 +296,13 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT voor een tabel `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `order_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=89;
+  MODIFY `order_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=90;
 
 --
 -- AUTO_INCREMENT voor een tabel `order_row`
 --
 ALTER TABLE `order_row`
-  MODIFY `row_id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=67;
+  MODIFY `row_id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=68;
 
 --
 -- AUTO_INCREMENT voor een tabel `products`
