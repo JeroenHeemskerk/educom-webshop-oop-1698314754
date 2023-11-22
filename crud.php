@@ -66,6 +66,9 @@
         }
 
         public function readMultipleRows($sql, $values = [], $multipleSearches = False) {
+            //result start met null voor het geval dat er niks gevonden kan worden
+            $result = null;
+            
             try {
                 $stmt = $this->pdo->prepare($sql);
 
