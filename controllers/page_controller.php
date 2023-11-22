@@ -6,7 +6,7 @@ require_once "./models/shop_model.php";
 
 class PageController {
 
-    private $model;
+    protected $model;
     private ModelFactory $modelFactory;
 
     public function __construct($modelFactory) {
@@ -17,7 +17,11 @@ class PageController {
     public function handleRequest() {
         $this->getRequest();
         $this->processRequest();
-        $this->showResponse();
+
+        //Indien sprake van ajax-request hoeft pagina niet getoond te worden
+        if ($this->model->page != "ajax") {
+            $this->showResponse();
+        }
     }
 
     //from client
@@ -77,6 +81,12 @@ class PageController {
                 } else {
                     $this->model->getOrdersAndSum();
                 }
+                break;
+            case "ajax":
+                $this->model = $this->modelFactory->createModel("rating");
+                require_once "/ajax_controller.php";
+                $ajaxController = new AjaxController($this->model);
+                $ajaxController->handleAction();
                 break;
         }
     }

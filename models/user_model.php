@@ -5,10 +5,10 @@ require_once "./session_manager.php";
 
 class UserModel extends Validate {
     public $contactmode, $email, $message, $name, $password, $passwordTwo,
-     $phonenumber, $productId, $salutation;
+    $phonenumber, $productId, $salutation;
 
-    public $errContactmode = "", $errEmail = "", $errMessage = "", $errName = "", $errPassword = ""
-    , $errPasswordTwo = "", $errPhonenumber = "", $errProductId = "", $errSalutation = "";
+    public $errContactmode = "", $errEmail = "", $errMessage = "", $errName = "", $errPassword = "", 
+    $errPasswordTwo = "", $errPhonenumber = "", $errProductId = "", $errSalutation = "";
 
     private $user;
     private $userId;

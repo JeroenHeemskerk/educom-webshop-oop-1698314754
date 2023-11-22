@@ -3,6 +3,11 @@
 require_once "forms_doc.php";
 
 abstract class ProductDoc extends FormsDoc {
+
+    protected function showHeadContent() {
+        parent::showHeadContent();
+        echo '<script src="ratings.js"></script>';
+    }
     
     protected function showAddToCartAction($productId, $page, $buttonText) {
         if ($this->model->sessionManager->isUserLoggedIn()) {

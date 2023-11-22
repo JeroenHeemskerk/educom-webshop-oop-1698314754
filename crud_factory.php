@@ -18,6 +18,9 @@ class CrudFactory {
             case "shop":
                 return new ShopCrud($this->crud);
                 break;
+            case "ajax":
+                return new RatingCrud($this->crud);
+                break;
         }
     }
 }
