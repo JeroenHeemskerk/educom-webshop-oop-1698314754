@@ -5,6 +5,7 @@ class PageModel {
     protected $isPost = False;
     public $menu;
     public $genericError = "";
+    protected $errProductId = "";
     public $sessionManager;
 
     public $valid = False;

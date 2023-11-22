@@ -50,6 +50,12 @@ class Validate extends PageModel{
             return "Er kan niet meer dan 100 van hetzelfde product tegelijkertijd aangeschaft worden";
         }
     }
+
+    protected function checkRating($rating) {
+        if (!($rating == 1 OR $rating == 2 OR $rating == 3 OR $rating == 4 OR $rating == 5)) {
+            return "Geen correcte rating opgegegeven";
+        }
+    }
     
     protected function checkRegisterPassword($password, $passwordTwo) {
 		

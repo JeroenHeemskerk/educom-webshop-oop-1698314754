@@ -4,7 +4,7 @@ require_once "./session_manager.php";
 
 class ShopModel extends Validate {
     public $product, $total, $action, $productId, $quantity, $orderId;
-    public $errProductId = "", $errQuantity = ""; 
+    public $errQuantity = ""; 
     public $cartLines = array();
     public $order = array();
     public $orders = array();

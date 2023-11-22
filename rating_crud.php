@@ -1,5 +1,5 @@
 <?php
-class RatingCrud {
+class RatingCrud extends ShopCrud{
     private Crud $crud;
 
     public function __construct($crud) {

@@ -4,7 +4,7 @@ require_once "html_doc.php";
 
 class BasicDoc extends HtmlDoc {
 
-    public $model;
+    protected $model;
 
     function __construct($model) {
         $this->model = $model;

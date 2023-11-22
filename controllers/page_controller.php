@@ -6,7 +6,7 @@ require_once "./models/shop_model.php";
 
 class PageController {
 
-    protected $model;
+    private $model;
     private ModelFactory $modelFactory;
 
     public function __construct($modelFactory) {
@@ -84,7 +84,7 @@ class PageController {
                 break;
             case "ajax":
                 $this->model = $this->modelFactory->createModel("rating");
-                require_once "/ajax_controller.php";
+                require_once "ajax_controller.php";
                 $ajaxController = new AjaxController($this->model);
                 $ajaxController->handleAction();
                 break;
