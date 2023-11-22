@@ -7,7 +7,7 @@ class RatingCrud {
     }
 
     public function getRatingByProductId($productId) {
-        $sql = "SELECT AVG(R.rating)
+        $sql = "SELECT AVG(R.rating) AS rating
                 FROM ratings AS R
                 INNER JOIN products AS P ON P.product_id = R.product_id
                 WHERE R.product_id = :productId";
@@ -17,26 +17,26 @@ class RatingCrud {
     }
 
     public function getRatingForAllProducts() {
-        $sql = "SELECT DISTINCT R.product_id, AVG(R.rating)
+        $sql = "SELECT DISTINCT R.product_id AS productId, AVG(R.rating) AS rating
                 FROM ratings AS R
                 GROUP BY R.product_id";
 
         return $this->crud->readMultipleRows($sql);
     }
 
-    public function updateRatingByProductIdForUserId($productId, $userId, $rating) {
+    public function updateRatingByProductIdForUserId($userId, $productId, $rating) {
         $sql = "UPDATE ratings 
                 SET rating = :rating
                 WHERE product_id = :productId AND user_id = :userId";
-        $values = array("rating" => $rating, "productId" => $productId, "userId" => $userId);
+        $values = array("userId" => $userId, "productId" => $productId, "rating" => $rating);
 
         $this->crud->updateRow($sql, $values);
     }
 
-    public function writeRatingByproductIdForUserId($productId, $userId, $rating) {
+    public function writeRatingByproductIdForUserId($userId, $productId, $rating) {
         $sql = "INSERT INTO ratings (product_id, user_id, rating)
                 VALUES (:productId, :userId, :rating)";
-        $values = array("productId" => $productId, "userId" => $userId, "rating" => $rating);
+        $values = array("userId" => $userId, "productId" => $productId, "rating" => $rating);
 
         $this->crud->createRow($sql, $values);
     }

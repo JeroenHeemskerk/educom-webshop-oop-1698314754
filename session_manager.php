@@ -5,6 +5,10 @@ class SessionManager {
     public function getLoggedInUsername() {
         return $_SESSION['user'];
     }
+
+    public function getLoggedInUserId() {
+        return $_SESSION['userId'];
+    }
     
     public function isUserLoggedIn() {
         return isset($_SESSION['user']);

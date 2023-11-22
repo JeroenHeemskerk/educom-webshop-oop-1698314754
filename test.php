@@ -12,14 +12,18 @@
     print_r($result);
     */
 
-    $sql = "SELECT DISTINCT R.product_id, AVG(R.rating)
+        
+        $sql = "SELECT DISTINCT R.product_id AS productId, AVG(R.rating) AS rating
                 FROM ratings AS R
                 GROUP BY R.product_id";
 
         $result = $crud->readMultipleRows($sql);
         print_r($result);
+        $result = json_encode($result);
+        print_r($result);
+        
 
-        $sql = "SELECT AVG(R.rating)
+        $sql = "SELECT AVG(R.rating) AS rating
         FROM ratings AS R
         INNER JOIN products AS P ON P.product_id = R.product_id
         WHERE R.product_id = :productId";
@@ -27,13 +31,17 @@
 
         $result2 = $crud->readOneRow($sql, $values);
         print_r($result2);
+        $result2 = json_encode($result2);
+        print_r($result2);
 
+        /*
         $sql = "INSERT INTO ratings (product_id, user_id, rating)
                 VALUES (:productId, :userId, :rating)";
         $values = array("productId" => 1, "userId" => 16, "rating" => 5);
 
         $result3 = $crud->createRow($sql, $values);
         print_r($result3);
+        */
 
     /*
     $sql = "INSERT INTO orders (user_id)
