@@ -1,8 +1,14 @@
 <?php
+class AjaxDoc {
+    private AjaxModel $model;
 
-class AjaxDoc extends BasicDoc {
+    public function __constructor($model) {
+        $this->model = $model;
+    }
 
     public function response() {
-        echo $this->model->json;
+        $json = json_encode($this->model->data);
+        echo $json;
     }
 }
+?>

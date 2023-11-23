@@ -4,6 +4,12 @@ require_once "product_doc.php";
 
 class WebshopDoc extends ProductDoc {
 
+    //Overridden method van BasicDoc
+    protected function showHeadContent() {
+        parent::showHeadContent();
+        echo '<script src="ratings.js"></script>';
+    }
+
     //Overridden method of BasicDoc
     protected function showHeader() {
         echo '<h1>Webshop</h1>';

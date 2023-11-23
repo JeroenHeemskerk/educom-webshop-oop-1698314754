@@ -10,7 +10,7 @@ class BasicDoc extends HtmlDoc {
         $this->model = $model;
     }
 
-    //Overridden method of HtmlDoc
+    //Overridden method van HtmlDoc
     protected function showHeadContent() {
         $this->showTitle();
         $this->showCssLinks();

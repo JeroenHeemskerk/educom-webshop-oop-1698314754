@@ -5,19 +5,17 @@ class AjaxModel extends Validate {
 
     public $action;
     public $errRating;
-    public $json;
+    public $data;
 
     private RatingCrud $ratingCrud;
 
     public function doGetAverageRatingByProductId() {
         $this->productId = Util::getUrlVar("productId");
-        $data = $this->ratingCrud->getRatingByProductId($this->productId);
-        $this->json = json_encode($data);
+        $this->data = $this->ratingCrud->getRatingByProductId($this->productId);
     }
 
     public  function doGetAverageRatingForAllProducts() {
-        $data = $this->ratingCrud->getRatingForAllProducts();
-        $this->json = json_encode($data);
+        $this->data = $this->ratingCrud->getRatingForAllProducts();
     }
 
     public function doUpdateRatingByProductIdForUserId() {

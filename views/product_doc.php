@@ -4,6 +4,7 @@ require_once "forms_doc.php";
 
 abstract class ProductDoc extends FormsDoc {
 
+    //Overridden method van BasicDoc
     protected function showHeadContent() {
         parent::showHeadContent();
         echo '<script src="ratings.js"></script>';
