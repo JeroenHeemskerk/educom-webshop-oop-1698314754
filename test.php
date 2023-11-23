@@ -3,6 +3,7 @@
 
     //getOrdersFromDatabase();
     $crud = new Crud();
+    phpinfo();
 
     /*
     $sql = "INSERT INTO users (name, email_address, password)

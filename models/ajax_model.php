@@ -1,4 +1,7 @@
 <?php
+require_once "./util.php";
+require_once "./session_manager.php";
+
 class AjaxModel extends Validate {
     private $productId;
     private $rating;
@@ -8,6 +11,11 @@ class AjaxModel extends Validate {
     public $data;
 
     private RatingCrud $ratingCrud;
+
+    public function __construct($pageModel, $ratingCrud) {
+        parent::__construct($pageModel);
+        $this->ratingCrud = $ratingCrud;
+    }
 
     public function doGetAverageRatingByProductId() {
         $this->productId = Util::getUrlVar("productId");

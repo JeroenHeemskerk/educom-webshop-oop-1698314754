@@ -1,5 +1,5 @@
 <?php
-class RatingCrud extends ShopCrud{
+class RatingCrud {
     private Crud $crud;
 
     public function __construct($crud) {
@@ -39,6 +39,19 @@ class RatingCrud extends ShopCrud{
         $values = array("userId" => $userId, "productId" => $productId, "rating" => $rating);
 
         $this->crud->createRow($sql, $values);
+    }
+
+    //De volgende functies staan ook in de ShopCrud, maar kreeg een foutmelding nu deze nog geen crud heeft
+    //bij een ajax request
+    public function doesProductExist($productId) {
+        return !empty($this->readProduct($productId));
+    }
+
+    public function readProduct($productId) {
+        $sql = "SELECT * FROM products WHERE product_id = :productId";
+        $productId = array("productId" => $productId);
+
+        return $this->crud->readOneRow($sql, $productId);
     }
 }
 ?>

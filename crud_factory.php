@@ -2,6 +2,7 @@
 
 require_once "user_crud.php";
 require_once "shop_crud.php";
+require_once "rating_crud.php";
 
 class CrudFactory {
     private Crud $crud;
@@ -18,7 +19,7 @@ class CrudFactory {
             case "shop":
                 return new ShopCrud($this->crud);
                 break;
-            case "ajax":
+            case "rating":
                 return new RatingCrud($this->crud);
                 break;
         }

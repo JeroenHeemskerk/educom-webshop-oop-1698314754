@@ -15,11 +15,11 @@ class DetailsDoc extends ProductDoc {
 
         //Sterren worden hier aangemaakt voor het rating systeem
         echo '<div class="starrating">Rating: ';                       
-        echo '<span class="star">*</span>';
-        echo '<span class="star">*</span>';
-        echo '<span class="star">*</span>';
-        echo '<span class="star">*</span>';
-        echo '<span class="star">*</span>';
+        echo '<span class="star" data-value="1">*</span>';
+        echo '<span class="star" data-value="2">*</span>';
+        echo '<span class="star" data-value="3">*</span>';
+        echo '<span class="star" data-value="4">*</span>';
+        echo '<span class="star" data-value="5">*</span>';
         echo '</div>';
 
         echo '<br>';

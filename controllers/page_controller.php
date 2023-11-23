@@ -3,6 +3,7 @@
 require_once "./models/page_model.php";
 require_once "./models/user_model.php";
 require_once "./models/shop_model.php";
+require_once "./models/ajax_model.php";
 
 class PageController {
 
@@ -83,8 +84,8 @@ class PageController {
                 }
                 break;
             case "ajax":
-                $this->model = $this->modelFactory->createModel("rating");
                 require_once "ajax_controller.php";
+                $this->model = $this->modelFactory->createModel("ajax");
                 $ajaxController = new AjaxController($this->model);
                 $ajaxController->handleAction();
                 break;

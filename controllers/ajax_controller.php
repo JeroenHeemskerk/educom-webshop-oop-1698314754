@@ -12,36 +12,33 @@ class AjaxController {
     public function handleAction() {
         $this->model->setAction();
 
-        require_once "./views/ajax_doc.php";
-        $view = new AjaxDoc($this->model);
-
         switch ($this->model->action) {
-            case "averageratingbyproduct":
-                $this->model->validateProductId();
-                if ($this->model->valid){
+            case "averageRatingByProduct":
+                //$this->model->validateProductId();
+                //if ($this->model->valid){
                     $this->model->doGetAverageRatingByProductId();
-                }
-                $view->response();
+                //}
                 break;
-            case "averageratings":
+            case "averageRatings":
                 $this->model->doGetAverageRatingForAllProducts();
-                $view->response();
                 break;
-            case "updaterating":
+            case "updateRating":
                 $this->model->validateProductIdAndRating();
                 if ($this->model->valid){
                     $this->model->doUpdateRatingByProductIdForUserId();
-                }
-                $view->response();
+                }                
                 break;
-            case "newrating":
+            case "newRating":
                 $this->model->validateProductIdAndRating();
                 if ($this->model->valid){
                 $this->model->doWriteRatingByProductIdForUserId();
                 }
-                $view->response();
                 break;
         }
+
+        require_once "./views/ajax_doc.php";
+        $view = new AjaxDoc($this->model->data);
+        $view->response();
     }
 }
 ?>
