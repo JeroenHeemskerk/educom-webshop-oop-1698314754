@@ -1,14 +1,13 @@
-$(document).ready(function() {
+$(document).ready(function(){
 
-    showRatings();
+hallo();
 
-    function showRatings() {
+function hallo() {
+    alert("Hij doet het")
+}
 
-    }
-
-    function showRating() {
-
-    }
-
-
+$(".star").click( function() {
+    $(this).addClass("red")
 })
+
+});

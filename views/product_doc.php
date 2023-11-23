@@ -7,7 +7,8 @@ abstract class ProductDoc extends FormsDoc {
     //Overridden method van BasicDoc
     protected function showHeadContent() {
         parent::showHeadContent();
-        echo '<script src="ratings.js"></script>';
+        echo '<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>';
+        echo '<script src="./ratings.js"></script>';
     }
     
     protected function showAddToCartAction($productId, $page, $buttonText) {

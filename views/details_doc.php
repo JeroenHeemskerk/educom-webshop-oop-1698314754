@@ -13,6 +13,17 @@ class DetailsDoc extends ProductDoc {
     protected function showContent() {
         echo '<h2>' . $this->model->product->name . '</h2>';
 
+        //Sterren worden hier aangemaakt voor het rating systeem
+        echo '<div class="starrating">Rating: ';                       
+        echo '<span class="star">*</span>';
+        echo '<span class="star">*</span>';
+        echo '<span class="star">*</span>';
+        echo '<span class="star">*</span>';
+        echo '<span class="star">*</span>';
+        echo '</div>';
+
+        echo '<br>';
+
         echo '<img src="Images/' . $this->model->product->product_picture_location . '" class="detailPicture" alt="' . $this->model->product->product_picture_location . '"><br>' .
         'Artikel: ' . $this->model->product->name . '<br>' .
         'Beschrijving: ' . $this->model->product->description . '<br>' .
