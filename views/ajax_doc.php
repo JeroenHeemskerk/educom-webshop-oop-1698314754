@@ -1,13 +1,13 @@
 <?php
 class AjaxDoc {
-    private $data;
+    private $model;
 
-    public function __constructor($data) {
-        $this->data = $data;
+    public function __construct($model) {
+        $this->model = $model;
     }
 
     public function response() {
-        $json = json_encode($this->data);
+        $json = json_encode($this->model->data);
         echo $json;
     }
 }

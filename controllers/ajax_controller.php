@@ -37,7 +37,7 @@ class AjaxController {
         }
 
         require_once "./views/ajax_doc.php";
-        $view = new AjaxDoc($this->model->data);
+        $view = new AjaxDoc($this->model);
         $view->response();
     }
 }
