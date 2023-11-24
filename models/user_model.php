@@ -11,7 +11,6 @@ class UserModel extends Validate {
     $errPasswordTwo = "", $errPhonenumber = "", $errProductId = "", $errSalutation = "";
 
     private $user;
-    private $userId;
 
     private UserCrud $userCrud;
 

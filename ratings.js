@@ -1,6 +1,7 @@
 $(document).ready(function(){
     const starGroup = $(".starrating");
     var productId = starGroup.data("product-id");
+    var userId = starGroup.data("user-id");
     var url = "http://localhost/educom-webshop-oop-1698314754/index.php?page=ajax&action=averageRatingByProduct&productId=" + productId;
     
     $.ajax({
@@ -22,18 +23,39 @@ $(document).ready(function(){
         }
     })
 
-    $(".star").click( function() {
-        const value = $(this).attr('data-value');
-        console.log('Value: ${ value }');
+    //Enkel wanneer een user is ingelogd is het mogelijk om een rating te geven
+    if ($.trim(userId) !== "") {
+        $(".star").click( function() {
+                const value = $(this).attr('data-value');
+                console.log('Value: ${ value }');
 
-        $(".star").removeClass('red');
+                $(".star").removeClass('red');
 
-        //$('.star') returnt een array van de sterren
-        $('.star').each( (index, elem) => {
-            const itemValue = $(elem).attr('data-value');
-            if (itemValue <= value)  {
-                $(elem).addClass('red');
+                //$('.star') returnt een array van de sterren
+                $('.star').each( (index, elem) => {
+                    const itemValue = $(elem).attr('data-value');
+                    if (itemValue <= value)  {
+                        $(elem).addClass('red');
+                    }
+                })
+        })
+    }
+
+    function storeRating(value) {
+        $.ajax({
+            url: "http://localhost/educom-webshop-oop-1698314754/index.php",
+            method: "POST",
+            data: {
+                page: "ajax",
+                action: "storeRating",
+                rating: value
+            },
+            succes: function(response) {
+                console.log("Success:", response);
+            },
+            error: function(xhr, status, error) {
+                console.error('Error:', status, error);
             }
         })
-    })
+    }
 });

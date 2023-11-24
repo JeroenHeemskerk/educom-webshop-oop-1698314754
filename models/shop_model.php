@@ -89,7 +89,11 @@ class ShopModel extends Validate {
             $this->productId = Util::getUrlVar('productId');
         }
 
-        $this->sessionManager->createShoppingCart(); 
+        $this->sessionManager->createShoppingCart();
+        //UserId is nodig voor het doorgeven van een rating en wordt geset indien een user is ingelogd
+        if ($this->sessionManager->isUserLoggedIn()) {
+            $this->userId = $this->sessionManager->getLoggedInUserId();
+        }
 
         try {
             $this->product = $this->shopCrud->readProduct($this->productId);
@@ -102,6 +106,10 @@ class ShopModel extends Validate {
 
     public function getWebshopProducts() {    
         $this->sessionManager->createShoppingCart();
+        //UserId is nodig voor het doorgeven van een rating en wordt geset indien een user is ingelogd
+        if ($this->sessionManager->isUserLoggedIn()) {
+            $this->userId = $this->sessionManager->getLoggedInUserId();
+        }
 
         try {
             $this->products = $this->shopCrud->readAllProducts();
