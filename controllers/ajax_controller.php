@@ -14,19 +14,19 @@ class AjaxController {
 
         switch ($this->model->action) {
             case "averageRatingByProduct":
-                //$this->model->validateProductId();
-                //if ($this->model->valid){
+                $this->model->validateProductId();
+                if ($this->model->valid){
                     $this->model->doGetAverageRatingByProductId();
-                //}
+                }
                 break;
             case "averageRatings":
                 $this->model->doGetAverageRatingForAllProducts();
                 break;
             case "setRating":
-                //$this->model->validateProductIdAndRating();
-                if ($this->model->isRatingForProductByUserSet()) {
+                $this->model->validateProductIdAndRating();
+                if ($this->model->valid && $this->model->isRatingForProductByUserSet()) {
                     $this->model->doUpdateRatingByProductIdForUserId();
-                } else {
+                } else if ($this->model->valid) {
                     $this->model->doWriteRatingByProductIdForUserId();
                 }               
                 break;

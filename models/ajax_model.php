@@ -23,26 +23,56 @@ class AjaxModel extends Validate {
 
     public function doGetAverageRatingByProductId() {
         $this->productId = Util::getUrlVar("productId");
-        $this->data = $this->ratingCrud->getRatingByProductId($this->productId);
+        try {
+            $this->data = $this->ratingCrud->getRatingByProductId($this->productId);
+        }
+        catch(Exception $e) {
+            $this->genericError = "Rating voor dit product is op dit moment niet beschikbaar.";
+            logError($e->getMessage()); //Schrijf $e naar log functie
+        }
     }
 
     public function doGetAverageRatingForAllProducts() {
-        $this->data = $this->ratingCrud->getRatingForAllProducts();
+        try {
+            $this->data = $this->ratingCrud->getRatingForAllProducts();
+        }
+        catch(Exception $e) {
+            $this->genericError = "Ratings voor producten in de webshop zijn op dit moment niet beschikbaar.";
+            logError($e->getMessage()); //Schrijf $e naar log functie
+        }
     }
 
     public function doUpdateRatingByProductIdForUserId() {
         $this->rating = Util::getPostVar("rating");
-        $this->ratingCrud->updateRatingByProductIdForUserId($this->userId, $this->productId, $this->rating);
+        try {
+            $this->ratingCrud->updateRatingByProductIdForUserId($this->userId, $this->productId, $this->rating);
+        }
+        catch(Exception $e) {
+            $this->genericError = "Rating kan op dit moment niet geupdate worden.";
+            logError($e->getMessage()); //Schrijf $e naar log functie
+        }
     }
 
     public function doWriteRatingByProductIdForUserId() {
         $this->rating = Util::getPostVar("rating");
-        $this->ratingCrud->writeRatingByproductIdForUserId($this->userId, $this->productId, $this->rating);
+        try {
+            $this->ratingCrud->writeRatingByproductIdForUserId($this->userId, $this->productId, $this->rating);
+        }
+        catch(Exception $e) {
+            $this->genericError = "Rating kan op dit moment niet opgegeven worden.";
+            logError($e->getMessage()); //Schrijf $e naar log functie
+        }
     }
 
     public function isRatingForProductByUserSet() {
         $this->productId = Util::getPostVar("productId");
-        $result = $this->ratingCrud->getRatingByProductIdForUserId($this->productId, $this->userId);
+        try {
+            $result = $this->ratingCrud->getRatingByProductIdForUserId($this->productId, $this->userId);
+        }
+        catch(Exception $e) {
+            $this->genericError = "Rating kan op dit moment niet opgehaald worden.";
+            logError($e->getMessage()); //Schrijf $e naar log functie
+        }
         if (!empty($result)) {
             return True;
         } else {
@@ -90,7 +120,6 @@ class AjaxModel extends Validate {
         $this->errProductId = $this->checkProductId($this->productId);
         $this->errRating = $this->checkRating($this->rating);
 
-        //Door deze functie RatingCrud ShopCrud laten extenden
         if ($this->errProductId == "" && $this->errRating) {
             try {
                 if ($this->ratingCrud->doesProductExist($this->productId)) {
