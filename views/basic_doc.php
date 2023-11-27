@@ -17,11 +17,11 @@ class BasicDoc extends HtmlDoc {
     }
 
     private function showTitle() {
-        echo '<title>' . $this->model->page . '</title>';
+        echo '<title>' . $this->model->page . '</title>' . PHP_EOL;
     }
 
     private function showCssLinks() {
-        echo '<link rel="stylesheet" href="./CSS/stylesheet.css">';
+        echo '<link rel="stylesheet" href="./CSS/stylesheet.css">' . PHP_EOL;
     }
 
     //Overridden method of HtmlDoc
@@ -33,24 +33,24 @@ class BasicDoc extends HtmlDoc {
     }
 
     protected function showHeader() {
-        echo '<h1>Basic</h1>';
+        echo '<h1>Basic</h1>' . PHP_EOL;
     }
 
     private function showMenu() {
-        echo '<ul class="nav">';        
+        echo '<ul class="nav">' . PHP_EOL;        
         foreach($this->model->menu as $page => $label) {
             echo '<li><a href="index.php?page=' . $page . '">' . $label . '</a></li>';
         }
-        echo '</ul><br>';
+        echo '</ul><br>' . PHP_EOL;
         echo $this->model->genericError;
     }
 
     protected function showContent() {
-        echo '<p class="pagetext">Dit is de basispagina.</p>';
+        echo '<p class="pagetext">Dit is de basispagina.</p>' . PHP_EOL;
     }
 
     private function showFooter() {
-        echo '<footer><p>&copy 2023<br>Nick Koole</p></footer>';
+        echo '<footer><p>&copy 2023<br>Nick Koole</p></footer>' . PHP_EOL;
     }
 }
 ?>

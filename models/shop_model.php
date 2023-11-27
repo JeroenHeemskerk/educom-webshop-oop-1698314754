@@ -3,7 +3,7 @@ require_once "./util.php";
 require_once "./session_manager.php";
 
 class ShopModel extends Validate {
-    public $product, $total, $action, $productId, $quantity, $orderId;
+    public $action, $amountOfProducts, $orderId, $product, $productId, $quantity, $total;
     public $errQuantity = ""; 
     public $cartLines = array();
     public $order = array();
@@ -113,6 +113,7 @@ class ShopModel extends Validate {
 
         try {
             $this->products = $this->shopCrud->readAllProducts();
+            $this->amountOfProducts = count($this->products) - 1;
         }
         catch(Exception $e) {
             $this->genericError = "Helaas kunnen wij de producten op dit moment niet laten zien. Probeer het later opnieuw.";

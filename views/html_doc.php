@@ -3,12 +3,12 @@
 class HtmlDoc {
 
     private function showHtmlStart() {
-        echo '<!DOCTYPE html>';
-        echo '<html>';
+        echo '<!DOCTYPE html>' . PHP_EOL;
+        echo '<html>' . PHP_EOL;
     }
 
     private function showHeadStart() {
-        echo '<head>';
+        echo '<head>' . PHP_EOL;
     }
 
     protected function showHeadContent() {
@@ -16,11 +16,11 @@ class HtmlDoc {
     }
 
     private function showHeadEnd() {
-        echo '</head>';
+        echo '</head>' . PHP_EOL;
     }
 
     private function showBodyStart() {
-        echo '<body class="pagetext">';
+        echo '<body class="pagetext">' . PHP_EOL;
     }
 
     protected function showBodyContent() {
@@ -28,7 +28,7 @@ class HtmlDoc {
     }
 
     private function showBodyEnd() {
-        echo '</body>';
+        echo '</body>' . PHP_EOL;
     }
 
     private function showHtmlEnd() {
