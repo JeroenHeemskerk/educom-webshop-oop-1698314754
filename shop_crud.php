@@ -12,7 +12,6 @@ class ShopCrud {
         $userId = array("userId" => $_SESSION['userId']);
 
         $orderId = $this->crud->createRow($sql, $userId);
-
         
         $sql = "INSERT INTO order_row (order_id, product_id, amount)
         VALUES (:orderId, :productId, :amount)";        
@@ -28,13 +27,18 @@ class ShopCrud {
     }
 
     public function readAllProducts() {
-        $sql = "SELECT * FROM products";
+        $sql = "SELECT product_id AS productId, name, description, price,
+            product_picture_location AS productPictureLocation
+            FROM products";
 
         return $this->crud->readMultipleRows($sql);
     }
 
     public function readSpecificProducts($cartIds) {
-        $sql = "SELECT * FROM products WHERE product_id = :productId";
+        $sql = "SELECT product_id AS productId, name, description, price,
+            product_picture_location AS productPictureLocation
+            FROM products 
+            WHERE product_id = :productId";
         foreach($cartIds as $key => $value) {
             $productIds[$key] = array("productId" => $value);
         }
@@ -43,14 +47,17 @@ class ShopCrud {
     }
 
     public function readProduct($productId) {
-        $sql = "SELECT * FROM products WHERE product_id = :productId";
+        $sql = "SELECT product_id AS productId, name, description, price,
+            product_picture_location AS productPictureLocation
+            FROM products
+            WHERE product_id = :productId";
         $productId = array("productId" => $productId);
 
         return $this->crud->readOneRow($sql, $productId);
     }
 
     public function readOrdersAndSum() {
-        $sql = "SELECT order_row.order_id, SUM(order_row.amount * products.price) AS total
+        $sql = "SELECT order_row.order_id AS orderId, SUM(order_row.amount * products.price) AS total
             FROM order_row
             INNER JOIN products
                 ON order_row.product_id = products.product_id
@@ -78,9 +85,9 @@ class ShopCrud {
     }
 
     public function readRowsByOrderId($orderId) {
-        $sql = "SELECT order_row.order_id, order_row.row_id, order_row.product_id,
-            order_row.amount, products.name, products.price, products.product_picture_location, 
-            price * amount AS total
+        $sql = "SELECT order_row.order_id, order_row.row_id, order_row.product_id AS productId,
+            order_row.amount, products.name, products.price, products.product_picture_location
+            AS productPictureLocation, price * amount AS total
             FROM order_row
             INNER JOIN products
                 ON order_row.product_id = products.product_id

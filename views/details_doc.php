@@ -14,7 +14,7 @@ class DetailsDoc extends ProductDoc {
         echo '<h2>' . $this->model->product->name . '</h2>' . PHP_EOL;
 
         //Sterren worden hier aangemaakt voor het rating systeem
-        echo '<div class="starrating" data-product-id="' . $this->model->product->product_id . PHP_EOL . 
+        echo '<div class="starrating" data-product-id="' . $this->model->product->productId . PHP_EOL . 
         '" data-user-id="' . $this->model->userId . '">Rating: ' . PHP_EOL .                    
             '<span class="star" data-value="1">*</span>' . PHP_EOL .
             '<span class="star" data-value="2">*</span>' . PHP_EOL .
@@ -25,7 +25,7 @@ class DetailsDoc extends ProductDoc {
 
         echo '<br>' . PHP_EOL;
 
-        echo '<img src="Images/' . $this->model->product->product_picture_location . '" class="detailPicture" alt="' . $this->model->product->product_picture_location . '"><br>' . PHP_EOL .
+        echo '<img src="Images/' . $this->model->product->productPictureLocation . '" class="detailPicture" alt="' . $this->model->product->productPictureLocation . '"><br>' . PHP_EOL .
         'Artikel: ' . $this->model->product->name . '<br>' . PHP_EOL .
         'Beschrijving: ' . $this->model->product->description . '<br>' . PHP_EOL .
         'Prijs: €' . $this->model->product->price . '<br>' . PHP_EOL;
@@ -33,7 +33,7 @@ class DetailsDoc extends ProductDoc {
         echo '<span>' . $this->model->errProductId . '</span><br>' . PHP_EOL .
         '<span>' . $this->model->errQuantity . '</span><br>' . PHP_EOL;
 
-        $this->showAddToCartAction($this->model->product->product_id, 'details', 'Voeg toe aan winkelwagen');
+        $this->showAddToCartAction($this->model->product->productId, 'details', 'Voeg toe aan winkelwagen');
     }
 }
 ?>

@@ -41,8 +41,8 @@ class OrdersDoc extends TablesDoc {
         foreach($this->model->rows as $value){
             $this->rowStart();
                 $this->dataCell($i);
-                $this->dataCell('<img class="tablePicture" src="Images/' . $value->product_picture_location . '" alt="' . $value->product_picture_location . '">');
-                $this->dataCell($value->product_id);
+                $this->dataCell('<img class="tablePicture" src="Images/' . $value->productPictureLocation . '" alt="' . $value->productPictureLocation . '">');
+                $this->dataCell($value->productId);
                 $this->dataCell($value->name);
                 $this->dataCell($value->amount);
                 $this->dataCell('€' . $value->price);
@@ -70,8 +70,8 @@ class OrdersDoc extends TablesDoc {
         
         foreach($this->model->orders as $order){
             $this->rowStart();
-                $this->dataCell($order->order_id, "orders", $order->order_id, 'orderId');
-                $this->dataCell('€' . $order->total, "orders", $order->order_id, 'orderId');
+                $this->dataCell($order->orderId, "orders", $order->orderId, 'orderId');
+                $this->dataCell('€' . $order->total, "orders", $order->orderId, 'orderId');
             $this->rowEnd();
         }
 

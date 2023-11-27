@@ -27,16 +27,16 @@ class ShopModel extends Validate {
                 $this->products = $this->shopCrud->readSpecificProducts(array_keys($cart));
                 foreach ($this->products as $key => $value) {
                     //Als productId niet gematcht wordt met een product wordt dit productId overgeslagen
-                    if (!array_key_exists($value->product_id, $cart)){
+                    if (!array_key_exists($value->productId, $cart)){
                         continue;
                     }                
                     $this->product = $this->products[$key];
-                    $amount = $cart[$value->product_id];
+                    $amount = $cart[$value->productId];
                     $subTotal = $this->product->price * $amount;
                     $this->total += $subTotal;
-                    $this->cartLines[$key] = array('productId' => $this->product->product_id, 'name' => $this->product->name,
+                    $this->cartLines[$key] = array('productId' => $this->product->productId, 'name' => $this->product->name,
                     'description' => $this->product->description, 'price' => $this->product->price,
-                    'productPictureLocation' => $this->product->product_picture_location, 'amount' => $amount,
+                    'productPictureLocation' => $this->product->productPictureLocation, 'amount' => $amount,
                     'subTotal' => $subTotal);
                 }
             }
