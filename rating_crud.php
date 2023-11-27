@@ -41,10 +41,17 @@ class RatingCrud {
         $this->crud->createRow($sql, $values);
     }
 
-    //De volgende functies staan ook in de ShopCrud, maar kreeg een foutmelding nu deze nog geen crud heeft
-    //bij een ajax request
     public function doesProductExist($productId) {
         return !empty($this->readProduct($productId));
+    }
+
+    public function getRatingByProductIdForUserId($productId, $userId) {
+        $sql = "SELECT user_id AS userId 
+                FROM ratings
+                WHERE user_id = :userId AND product_id = :productId";
+        $values = array("userId" => $userId, "productId" => $productId);
+
+        return $this->crud->readOneRow($sql, $values);
     }
 
     public function readProduct($productId) {

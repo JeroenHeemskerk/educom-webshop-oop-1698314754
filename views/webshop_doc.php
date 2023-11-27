@@ -12,7 +12,6 @@ class WebshopDoc extends ProductDoc {
     //Overridden method of BasicDoc
     protected function showContent() {
         echo '<h2>Ons assortiment</h2>' . PHP_EOL;
-        echo '<br>' .  PHP_EOL;
         $this->showWebshopProducts();
     }
     

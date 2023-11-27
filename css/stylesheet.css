@@ -126,12 +126,12 @@ ul {
     width: 50px;
 }
 
-.starrating {
-    font-size: 20px;
-}
-
 .star:hover {
     color: #F00;
+}
+
+.starrating {
+    font-size: 20px;
 }
 
 .red {

@@ -1,5 +1,4 @@
 <?php
-require_once "./util.php";
 require_once "./session_manager.php";
 
 class AjaxModel extends Validate {
@@ -7,14 +6,19 @@ class AjaxModel extends Validate {
     private $rating;
 
     public $action;
-    public $errRating;
     public $data;
+    public $errRating;
+    public $valid;
 
     private RatingCrud $ratingCrud;
 
     public function __construct($pageModel, $ratingCrud) {
         parent::__construct($pageModel);
         $this->ratingCrud = $ratingCrud;
+
+        if ($this->sessionManager->isUserLoggedIn()) {
+            $this->userId = $this->sessionManager->getLoggedInUserId();
+        }
     }
 
     public function doGetAverageRatingByProductId() {
@@ -22,22 +26,28 @@ class AjaxModel extends Validate {
         $this->data = $this->ratingCrud->getRatingByProductId($this->productId);
     }
 
-    public  function doGetAverageRatingForAllProducts() {
+    public function doGetAverageRatingForAllProducts() {
         $this->data = $this->ratingCrud->getRatingForAllProducts();
     }
 
     public function doUpdateRatingByProductIdForUserId() {
-        $userId = $this->sessionManager->getLoggedInUserId();
-        $this->productId = Util::getPostVar("productId");
         $this->rating = Util::getPostVar("rating");
-        $this->ratingCrud->updateRatingByProductIdForUserId($userId, $this->productId, $this->rating);
+        $this->ratingCrud->updateRatingByProductIdForUserId($this->userId, $this->productId, $this->rating);
     }
 
     public function doWriteRatingByProductIdForUserId() {
-        $userId = $this->sessionManager->getLoggedInUserId();
-        $this->productId = Util::getPostVar("productId");
         $this->rating = Util::getPostVar("rating");
-        $this->ratingCrud->writeRatingByproductIdForUserId($userId, $this->productId, $this->rating);
+        $this->ratingCrud->writeRatingByproductIdForUserId($this->userId, $this->productId, $this->rating);
+    }
+
+    public function isRatingForProductByUserSet() {
+        $this->productId = Util::getPostVar("productId");
+        $result = $this->ratingCrud->getRatingByProductIdForUserId($this->productId, $this->userId);
+        if (!empty($result)) {
+            return True;
+        } else {
+            return False;
+        }
     }
 
     public function setAction() {

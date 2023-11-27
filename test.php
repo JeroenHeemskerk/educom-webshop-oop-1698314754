@@ -3,7 +3,7 @@
 
     //getOrdersFromDatabase();
     $crud = new Crud();
-    phpinfo();
+    //phpinfo();
 
     /*
     $sql = "INSERT INTO users (name, email_address, password)
@@ -11,9 +11,22 @@
     $values = array("name" => "Jaap", "email" => "jaap@t.t", "password" =>"s");
     $result = $crud->createRow($sql, $values);
     print_r($result);
-    */
+    */  
+        $sql = "SELECT user_id AS userId 
+        FROM ratings
+        WHERE user_id = :userId AND product_id = :productId";
+        $values = array("userId" => 100, "productId" => 1);
 
-        
+        $result = $crud->readOneRow($sql, $values);
+
+        if (!empty($result)) {
+            print_r($result);
+        } else {
+            echo 'Geen waarde';
+        }
+
+
+        /*
         $sql = "SELECT DISTINCT R.product_id AS productId, AVG(R.rating) AS rating
                 FROM ratings AS R
                 GROUP BY R.product_id";
@@ -22,8 +35,9 @@
         print_r($result);
         $result = json_encode($result);
         print_r($result);
-        
+        */
 
+        /*
         $sql = "SELECT AVG(R.rating) AS rating
         FROM ratings AS R
         INNER JOIN products AS P ON P.product_id = R.product_id
@@ -34,6 +48,7 @@
         print_r($result2);
         $result2 = json_encode($result2);
         print_r($result2);
+        */
 
         /*
         $sql = "INSERT INTO ratings (product_id, user_id, rating)
