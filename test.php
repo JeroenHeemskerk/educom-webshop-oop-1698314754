@@ -12,6 +12,43 @@
     $result = $crud->createRow($sql, $values);
     print_r($result);
     */  
+
+    /*
+    $sql = "SELECT DISTINCT R.product_id AS productId, AVG(R.rating) AS rating
+    FROM ratings AS R
+    LEFT JOIN ratings AS R2 ON R.user_id = :userId
+    GROUP BY R.product_id";
+    $values = array("userId" => 1);
+
+    $result = $crud->readMultipleRows($sql, $values);
+
+    print_r($result);
+    */
+
+    $sql = "SELECT P.product_id AS product, COALESCE(A.rating, B.rating) AS rating
+            FROM products AS P
+            LEFT JOIN (
+                SELECT product_id, rating
+                FROM ratings
+                WHERE user_id = :userId
+                GROUP BY product_id
+                ) AS A ON P.product_id = A.product_id         
+            LEFT JOIN (
+                SELECT product_id, AVG(rating) AS rating
+                FROM ratings
+                WHERE user_id != :userId
+                GROUP BY product_id
+                ) AS B ON P.product_id = B.product_id
+            WHERE P.product_id = :productId
+            ORDER BY P.product_id";
+
+    $values = array("userId" => 1, "productId" => 5);
+
+    $result = $crud->readMultipleRows($sql, $values);
+
+    print_r($result);
+
+        /*
         $sql = "SELECT user_id AS userId 
         FROM ratings
         WHERE user_id = :userId AND product_id = :productId";
@@ -24,7 +61,7 @@
         } else {
             echo 'Geen waarde';
         }
-
+        */
 
         /*
         $sql = "SELECT DISTINCT R.product_id AS productId, AVG(R.rating) AS rating

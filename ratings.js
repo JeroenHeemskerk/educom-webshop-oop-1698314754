@@ -20,6 +20,7 @@ $(document).ready(function(){
         var productId = starGroup.data("product-id");
         var url = "index.php?request=ajax&action=averageRatingByProduct&productId=" + productId;
 
+
         $.ajax({
             url: url,
             method: "GET",

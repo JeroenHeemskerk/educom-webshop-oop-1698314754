@@ -3,7 +3,7 @@
 class PageModel {
     public $page;
     protected $isPost = False;
-    public $userId;
+    public $userId = "";
     public $menu;
     public $genericError = "";
     public $errProductId = "";

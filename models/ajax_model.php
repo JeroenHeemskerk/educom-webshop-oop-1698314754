@@ -24,7 +24,11 @@ class AjaxModel extends Validate {
     public function doGetAverageRatingByProductId() {
         $this->productId = Util::getUrlVar("productId");
         try {
-            $this->data = $this->ratingCrud->getRatingByProductId($this->productId);
+            if ($this->userId == "") {
+                $this->data = $this->ratingCrud->getRatingByProductId($this->productId);
+            } else {
+                $this->data = $this->ratingCrud->getRatingByProductIdForUserId($this->userId, $this->productId);
+            }
         }
         catch(Exception $e) {
             $this->genericError = "Rating voor dit product is op dit moment niet beschikbaar.";
@@ -34,7 +38,11 @@ class AjaxModel extends Validate {
 
     public function doGetAverageRatingForAllProducts() {
         try {
-            $this->data = $this->ratingCrud->getRatingForAllProducts();
+            if ($this->userId == "") {
+                $this->data = $this->ratingCrud->getRatingForAllProducts();
+            } else {
+                $this->data = $this->ratingCrud->getRatingForAllProductsByUserId($this->userId);
+            }
         }
         catch(Exception $e) {
             $this->genericError = "Ratings voor producten in de webshop zijn op dit moment niet beschikbaar.";
