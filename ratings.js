@@ -18,7 +18,7 @@ $(document).ready(function(){
 
     function showRating(starGroup) {
         var productId = starGroup.data("product-id");
-        var url = "https://localhost/educom-webshop-oop-1698314754/index.php?page=ajax&action=averageRatingByProduct&productId=" + productId;
+        var url = "index.php?request=ajax&action=averageRatingByProduct&productId=" + productId;
 
         $.ajax({
             url: url,
@@ -50,10 +50,10 @@ $(document).ready(function(){
 
     function storeRating(productId, rating) {
         $.ajax({
-            url: "https://localhost/educom-webshop-oop-1698314754/index.php",
+            url: "index.php",
             method: "POST",
             data: {
-                page: "ajax",
+                request: "ajax",
                 action: "setRating",
                 productId: productId,
                 rating: rating

@@ -7,6 +7,7 @@ class PageModel {
     public $menu;
     public $genericError = "";
     public $errProductId = "";
+    public $request;
     public $sessionManager;
 
     public $valid = False;
@@ -25,11 +26,16 @@ class PageModel {
         }
     }
 
-    public function getRequestedPage() {
-
-        require_once "./util.php";
-
+    public function getRequest() {
         $this->isPost = ($_SERVER['REQUEST_METHOD'] == 'POST');
+        if ($this->isPost) {
+            $this->request = Util::getPostVar("request", "page");
+        } else {
+            $this->request = Util::getUrlVar("request", "page");
+        }
+    }
+
+    public function getRequestedPage() {
         
         //Hier worden static functies uit de Util class gebruikt om page te setten
         if ($this->isPost) {

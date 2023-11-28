@@ -4,6 +4,7 @@ require_once "./models/page_model.php";
 require_once "./models/user_model.php";
 require_once "./models/shop_model.php";
 require_once "./models/ajax_model.php";
+require_once "./util.php";
 
 class PageController {
 
@@ -16,18 +17,20 @@ class PageController {
     }
 
     public function handleRequest() {
-        $this->getRequest();
-        $this->processRequest();
-
-        //Indien sprake van ajax-request hoeft pagina niet getoond te worden
-        if ($this->model->page != "ajax") {
-            $this->showResponse();
+        $this->model->getRequest();
+        switch($this->model->request) {
+            case "page":
+                $this->model->getRequestedPage();
+                $this->processRequest();
+                $this->showResponse();
+                break;
+            case "ajax":
+                require_once "ajax_controller.php";
+                $this->model = $this->modelFactory->createModel("ajax");
+                $ajaxController = new AjaxController($this->model);
+                $ajaxController->handleAction();
+                break;                
         }
-    }
-
-    //from client
-    private function getRequest() {
-        $this->model->getRequestedPage();
     }
 
     //business flow code
@@ -82,12 +85,6 @@ class PageController {
                 } else {
                     $this->model->getOrdersAndSum();
                 }
-                break;
-            case "ajax":
-                require_once "ajax_controller.php";
-                $this->model = $this->modelFactory->createModel("ajax");
-                $ajaxController = new AjaxController($this->model);
-                $ajaxController->handleAction();
                 break;
         }
     }
