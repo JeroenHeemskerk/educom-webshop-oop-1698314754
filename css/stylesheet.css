@@ -4,7 +4,7 @@ h1 {
     text-align: center;
 }
 
-h2 {
+h2, h3, h4 {
     color: black;
 }
 
@@ -119,6 +119,12 @@ ul {
     height: 50px;
 }
 
+.ratingtext {
+    color: black;
+    display: inline-block;
+    font-size: 20px;
+}
+
 .star {
     font-size: 30px;
     color: #000;
@@ -131,6 +137,7 @@ ul {
 }
 
 .starrating {
+    display: inline-block;
     font-size: 20px;
 }
 

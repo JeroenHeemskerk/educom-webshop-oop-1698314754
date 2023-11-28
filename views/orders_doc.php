@@ -16,14 +16,14 @@ class OrdersDoc extends TablesDoc {
         } else if (is_numeric($this->model->orderId) && $this->model->order != null) {
             $this->showOrderAndRows();
         } else {
-            echo '<h2>Er zijn geen eerdere bestellingen om weer te geven</h2>';
+            echo '<h3>Er zijn geen eerdere bestellingen om weer te geven</h3>';
         }
     }
 
     
     private function showOrderAndRows() {
 
-        echo '<h2>Bestelling: #' . $this->model->orderId . '</h2>';
+        echo '<h4>Bestelling: #' . $this->model->orderId . '</h4>';
 
         $this->tableStart();
 
