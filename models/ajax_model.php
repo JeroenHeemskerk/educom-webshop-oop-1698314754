@@ -27,7 +27,7 @@ class AjaxModel extends Validate {
             if ($this->userId == "") {
                 $this->data = $this->ratingCrud->getRatingByProductId($this->productId);
             } else {
-                $this->data = $this->ratingCrud->getRatingByProductIdForUserId($this->userId, $this->productId);
+                $this->data = $this->ratingCrud->getRatingByUserIdOrAverageRating($this->userId, $this->productId);
             }
         }
         catch(Exception $e) {
@@ -73,7 +73,6 @@ class AjaxModel extends Validate {
     }
 
     public function isRatingForProductByUserSet() {
-        $this->productId = Util::getPostVar("productId");
         try {
             $result = $this->ratingCrud->getRatingByProductIdForUserId($this->productId, $this->userId);
         }
@@ -121,14 +120,16 @@ class AjaxModel extends Validate {
     public function validateProductIdAndRating() {
         if ($this->isPost){
             $this->productId = $this->testInput(Util::getPostVar("productId"));
+            $this->rating = $this->testInput(Util::getPostVar("rating"));
         } else {
             $this->productId = $this->testInput(Util::getUrlVar("productId"));
+            $this->rating = $this->testInput(Util::getUrlVar("rating"));
         }
 
         $this->errProductId = $this->checkProductId($this->productId);
         $this->errRating = $this->checkRating($this->rating);
 
-        if ($this->errProductId == "" && $this->errRating) {
+        if ($this->errProductId == "" && $this->errRating == "") {
             try {
                 if ($this->ratingCrud->doesProductExist($this->productId)) {
                     $this->valid = True;

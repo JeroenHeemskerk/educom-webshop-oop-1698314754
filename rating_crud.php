@@ -25,10 +25,21 @@ class RatingCrud {
     }
 
     public function getRatingForAllProductsByUserId($userId){
-        $sql = "SELECT DISTINCT R.product_id AS productId, R.rating AS rating
-                FROM ratings AS R
-                LEFT JOIN ratings AS R2 ON R.user_id = :userId
-                GROUP BY R.product_id";
+        $sql = "SELECT P.product_id AS product, COALESCE(A.rating, B.rating) AS rating
+                FROM products AS P
+                LEFT JOIN (
+                    SELECT product_id, rating
+                    FROM ratings
+                    WHERE user_id = :userId
+                    GROUP BY product_id
+                    ) AS A ON P.product_id = A.product_id         
+                LEFT JOIN (
+                    SELECT product_id, AVG(rating) AS rating
+                    FROM ratings
+                    WHERE user_id != :userId
+                    GROUP BY product_id
+                    ) AS B ON P.product_id = B.product_id
+                ORDER BY P.product_id";
         $values = array("userId" => $userId);
 
         return $this->crud->readMultipleRows($sql, $values);
@@ -55,7 +66,16 @@ class RatingCrud {
         return !empty($this->readProduct($productId));
     }
 
-    public function getRatingByProductIdForUserId($userId, $productId) {
+    public function getRatingByProductIdForUserId($productId, $userId) {
+        $sql = "SELECT user_id AS userId
+                FROM ratings
+                WHERE user_id = :userId AND product_id = :productId";
+        $values = array("userId" => $userId, "productId" => $productId);
+
+        return $this->crud->readOneRow($sql, $values);
+    }
+
+    public function getRatingByUserIdOrAverageRating($userId, $productId) {
         $sql = "SELECT P.product_id AS product, COALESCE(A.rating, B.rating) AS rating
             FROM products AS P
             LEFT JOIN (

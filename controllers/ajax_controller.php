@@ -19,7 +19,7 @@ class AjaxController {
                     $this->model->doGetAverageRatingByProductId();
                 }
                 break;
-            case "averageRatings":
+            case "getRatings":
                 $this->model->doGetAverageRatingForAllProducts();
                 break;
             case "setRating":
