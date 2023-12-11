@@ -24,8 +24,8 @@ class RatingCrud {
         return $this->crud->readMultipleRows($sql);
     }
 
-    public function getRatingForAllProductsByUserId($userId){
-        $sql = "SELECT P.product_id AS product, COALESCE(A.rating, B.rating) AS rating
+    public function getRatingForAllProductsByUserIdOrAverageRating($userId){
+        $sql = "SELECT P.product_id AS productId, COALESCE(A.rating, B.rating) AS rating
                 FROM products AS P
                 LEFT JOIN (
                     SELECT product_id, rating

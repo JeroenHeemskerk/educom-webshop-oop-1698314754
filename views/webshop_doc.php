@@ -22,8 +22,8 @@ class WebshopDoc extends ProductDoc {
         //Geeft per product het productId, name, description, price en productPictureLocation weer
         foreach ($this->model->products as $key => $value){
             echo '<div class="ratingtext">Rating: </div>' . PHP_EOL;
-            echo '<div class="starrating" data-product-id="' . $value->productId . PHP_EOL . 
-            '" data-user-id="' . $this->model->userId . '">' . PHP_EOL .                       
+            echo '<div class="starrating" data-product-id="' . $value->productId . '"' . PHP_EOL . 
+                'data-user-id="' . $this->model->userId . '">' . PHP_EOL .                       
                 '<span class="star" data-value="1">*</span>' . PHP_EOL .
                 '<span class="star" data-value="2">*</span>' . PHP_EOL .
                 '<span class="star" data-value="3">*</span>' . PHP_EOL .

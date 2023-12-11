@@ -15,8 +15,8 @@ class DetailsDoc extends ProductDoc {
 
         //Sterren worden hier aangemaakt voor het rating systeem
         echo '<div class="ratingtext">Rating: </div>' . PHP_EOL;
-        echo '<div class="starrating" data-product-id="' . $this->model->product->productId . PHP_EOL . 
-        '" data-user-id="' . $this->model->userId . '">' . PHP_EOL .                    
+        echo '<div class="starrating" data-product-id="' . $this->model->product->productId . '"' . PHP_EOL . 
+            'data-user-id="' . $this->model->userId . '">' . PHP_EOL .                    
             '<span class="star" data-value="1">*</span>' . PHP_EOL .
             '<span class="star" data-value="2">*</span>' . PHP_EOL .
             '<span class="star" data-value="3">*</span>' . PHP_EOL .

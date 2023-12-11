@@ -13,7 +13,7 @@ class AjaxController {
         $this->model->setAction();
 
         switch ($this->model->action) {
-            case "averageRatingByProduct":
+            case "getRatingByProductId":
                 $this->model->validateProductId();
                 if ($this->model->valid){
                     $this->model->doGetAverageRatingByProductId();

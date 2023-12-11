@@ -1,7 +1,30 @@
 $(document).ready(function(){
 
-    showRatings();
+    getRatings();
     setRating();
+
+    function getRatings() {
+        var url = "index.php?request=ajax&action=getRatings";
+        $.ajax({
+            url: url,
+            method: "GET",
+            success: function(data) {
+                var response = JSON.parse(data);
+
+                $(".starrating").each(function() {
+                    var productId = $(this).data("product-id");
+                    var productRating = response.find(product => product.productId === productId);
+
+                    if (productRating) {
+                        showRatings($(this), parseFloat(productRating.rating));
+                    }
+                })
+            },
+            error: function(xhr, status, error) {
+                console.error('Error:', status, error);
+            }
+        })
+    }
 
     function setRating() {
         //Enkel wanneer een user is ingelogd is het mogelijk om een rating te geven
@@ -11,15 +34,14 @@ $(document).ready(function(){
                 var productId = $(this).parent().data("product-id");
                 var rating = $(this).attr("data-value");
                 storeRating(productId, rating);
-                showRating($(this).parent());
+                updateRating($(this).parent());
             }
         })
     }
 
-    function showRating(starGroup) {
+    function updateRating(starGroup) {
         var productId = starGroup.data("product-id");
-        var url = "index.php?request=ajax&action=averageRatingByProduct&productId=" + productId;
-
+        var url = "index.php?request=ajax&action=getRatingByProductId&productId=" + productId;
 
         $.ajax({
             url: url,
@@ -40,14 +62,17 @@ $(document).ready(function(){
                 console.error('Error:', status, error);
             }
         })
-    }
-
-    function showRatings() {
-        $(".starrating").each(function() {
-            var starGroup = $(this);
-            showRating(starGroup);
-        })
     }    
+
+    function showRatings(starGroup, rating) {
+        starGroup.children('.star').removeClass('red');
+
+        starGroup.children('.star').each((index, elem) => {
+            if ((index + 1) <= rating) {
+                $(elem).addClass('red');
+            }
+        })
+    }
 
     function storeRating(productId, rating) {
         $.ajax({

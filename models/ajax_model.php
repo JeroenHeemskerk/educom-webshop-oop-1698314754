@@ -41,7 +41,7 @@ class AjaxModel extends Validate {
             if ($this->userId == "") {
                 $this->data = $this->ratingCrud->getRatingForAllProducts();
             } else {
-                $this->data = $this->ratingCrud->getRatingForAllProductsByUserId($this->userId);
+                $this->data = $this->ratingCrud->getRatingForAllProductsByUserIdOrAverageRating($this->userId);
             }
         }
         catch(Exception $e) {
